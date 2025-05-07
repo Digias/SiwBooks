@@ -2,6 +2,7 @@ package it.uniroma3.siw.model;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import it.uniroma3.siw.validation.ValidPublicationYear;
 import jakarta.persistence.*;
@@ -25,7 +26,9 @@ public class Book {
 	private List<Image> illustration;
 	
 	@ManyToMany
-	private List<Author> authors;
+	private Set<Author> authors;
+	
+	//review da aggiungere list
 
 	public Long getId() {
 		return id;
@@ -59,11 +62,11 @@ public class Book {
 		this.illustration = illustration;
 	}
 
-	public List<Author> getAuthors() {
+	public Set<Author> getAuthors() {
 		return authors;
 	}
 
-	public void setAuthors(List<Author> authors) {
+	public void setAuthors(Set<Author> authors) {
 		this.authors = authors;
 	}
 

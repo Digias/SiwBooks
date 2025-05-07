@@ -12,13 +12,13 @@ public class Image {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String fileName; // Nome del file originale, utile per info
+	private String fileName; 		// Nome del file originale, utile per info
 
-    private String contentType; // Tipo MIME, es. "image/png", "image/jpeg"
+    private String contentType; 	// Tipo MIME, es. "image/png", "image/jpeg"
 
     @Lob
     @Column(nullable = false)
-    private byte[] data; // Contenuto dell'immagine
+    private byte[] data; 		// Contenuto dell'immagine
 	
 	public String getFileName() {
 		return fileName;
