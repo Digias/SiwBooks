@@ -1,6 +1,7 @@
 package it.uniroma3.siw.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import it.uniroma3.siw.validation.ValidPublicationYear;
 import jakarta.persistence.*;
@@ -25,5 +26,71 @@ public class Book {
 	
 	@ManyToMany
 	private List<Author> authors;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getYearOfPublication() {
+		return yearOfPublication;
+	}
+
+	public void setYearOfPublication(int yearOfPublication) {
+		this.yearOfPublication = yearOfPublication;
+	}
+
+	public List<Image> getIllustration() {
+		return illustration;
+	}
+
+	public void setIllustration(List<Image> illustration) {
+		this.illustration = illustration;
+	}
+
+	public List<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(authors, id, illustration, title, yearOfPublication);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		return Objects.equals(authors, other.authors) && Objects.equals(id, other.id)
+				&& Objects.equals(illustration, other.illustration) && Objects.equals(title, other.title)
+				&& yearOfPublication == other.yearOfPublication;
+	}
+
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", title=" + title + ", yearOfPublication=" + yearOfPublication + ", illustration="
+				+ illustration + ", authors=" + authors + "]";
+	}
+	
 	
 }
