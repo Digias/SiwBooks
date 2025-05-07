@@ -1,11 +1,18 @@
 package it.uniroma3.siw.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
 @Entity
-public class Administrator {
+public class Administrator extends EndUser {
 
-	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private Long id;
+    // Costruttore vuoto (necessario per JPA)
+    public Administrator() {
+        super();
+    }
+
+    // Costruttore con username e password
+    public Administrator(String username, String password) {
+        super(null, username, password, Role.ADMIN);
+    }
 }
+
