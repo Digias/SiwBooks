@@ -11,6 +11,38 @@ public class Image {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	private String fileName; // Nome del file originale, utile per info
+
+    private String contentType; // Tipo MIME, es. "image/png", "image/jpeg"
+
+    @Lob
+    @Column(nullable = false)
+    private byte[] data; // Contenuto dell'immagine
+	
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public byte[] getData() {
+		return data;
+	}
+
+	public void setData(byte[] data) {
+		this.data = data;
+	}
+
 	@OneToOne
 	private Author author;
 	
