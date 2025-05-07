@@ -28,7 +28,8 @@ public class Book {
 	@ManyToMany
 	private Set<Author> authors;
 	
-	//review da aggiungere list
+	@OneToMany(mappedBy = "book")
+	private List<Review> reviews;
 
 	public Long getId() {
 		return id;
@@ -69,10 +70,18 @@ public class Book {
 	public void setAuthors(Set<Author> authors) {
 		this.authors = authors;
 	}
+	
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(authors, id, illustration, title, yearOfPublication);
+		return Objects.hash(authors, id, illustration, reviews, title, yearOfPublication);
 	}
 
 	@Override
@@ -85,14 +94,14 @@ public class Book {
 			return false;
 		Book other = (Book) obj;
 		return Objects.equals(authors, other.authors) && Objects.equals(id, other.id)
-				&& Objects.equals(illustration, other.illustration) && Objects.equals(title, other.title)
-				&& yearOfPublication == other.yearOfPublication;
+				&& Objects.equals(illustration, other.illustration) && Objects.equals(reviews, other.reviews)
+				&& Objects.equals(title, other.title) && yearOfPublication == other.yearOfPublication;
 	}
 
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", yearOfPublication=" + yearOfPublication + ", illustration="
-				+ illustration + ", authors=" + authors + "]";
+				+ illustration + ", authors=" + authors + ", reviews=" + reviews + "]";
 	}
 	
 	

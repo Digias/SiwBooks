@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @Entity
 public class RegisteredUser extends EndUser {
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user")
     private List<Review> reviews;
 
     // Costruttore vuoto (necessario per JPA)
