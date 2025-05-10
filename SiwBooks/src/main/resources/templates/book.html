@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Book</title>
+		<link rel="stylesheet" th:href="@{/main-style.css}">
+		<link rel="stylesheet" th:href="@{/book.css}">
+	</head>
+	
+	<body>
+		<!-- HEADER importato -->
+		<div th:insert="~{fragments/header :: navbar}"></div>
+
+		<!-- SECTION -->
+		<section>
+			<div th:if="${book}">
+				<h1 th:text="${book.title}"></h1>
+				<div>
+					Anno di pubblicazione: <span th:text="${book.yearOfPublication}"></span>
+				</div>
+				<div th:if="${authors != null and authors.isEmpty()}">Gli autori per questo libro non sono presenti nel sistema</div>
+				<div>Autori: 
+					<ul>
+						<li th:each="author : ${authors}">
+							<a th:href="@{'/author/' + ${author.id}}"
+								th:text="${author.name} + ' ' + ${author.surname} "></a>
+						</li>
+					</ul>
+				</div>
+			
+				
+				
+			</div>
+			<div th:unless="${book}">Non esiste</div>
+		</section>
+
+		<!-- FOOTER importato -->
+		<div th:insert="~{fragments/footer :: navbar}"></div>
+
+	</body>
+</html>

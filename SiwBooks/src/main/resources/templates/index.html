@@ -4,20 +4,22 @@
 <head>
 	<title>Home</title>
 	<link rel="stylesheet" th:href="@{/main-style.css}">
+	<link rel="stylesheet" th:href="@{/index.css}">
 </head>
 
 <body>
 	<!-- HEADER importato -->
-	<div th:insert="fragments/header :: navbar"></div>
+	<div th:insert="~{fragments/header :: navbar}"></div>
 
 	<!-- SECTION -->
 	<section>
 		<h1>Benvenuto nel sito dei libri</h1>
 		<p>Scopri autori, generi e letture consigliate.</p>
+		<a th:href="@{'/book'}">I nostri libri</a>
 	</section>
 
 	<!-- FOOTER importato -->
-	<div th:insert="fragments/footer :: navbar"></div>
+	<div th:insert="~{fragments/footer :: navbar}"></div>
 </body>
 
 </html>

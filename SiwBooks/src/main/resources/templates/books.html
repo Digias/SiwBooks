@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" th:href="@{/main-style.css}">
+		<link rel="stylesheet" th:href="@{/index.css}">
+	</head>
+	
+	<body>
+		
+		<!-- HEADER importato -->
+		<div th:insert="~{fragments/header :: navbar}"></div>
+
+		<!-- SECTION -->
+		<section>
+			<div th:if="${books.isEmpty()}">Non ci sono libri nel sistema</div>
+			<ul>
+				<li th:each="book : ${books}">
+					<a th:href="@{'/book/' + ${book.id}}"
+						th:text="${book.title} + ' (' + ${book.yearOfPublication} + ')'"></a>
+				</li>
+			</ul>
+		</section>
+
+		<!-- FOOTER importato -->
+		<div th:insert="~{fragments/footer :: navbar}"></div>
+
+	</body>
+</html>
