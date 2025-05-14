@@ -1,6 +1,8 @@
 /* main-style.css */
 
-/* HEADER - marrone cuoio */
+/*
+-----------------------------------------------SECTION-------------------------------------------------------------------------
+*/
 .headerNavbar {
 	background-color: #6B4226; 	/* Colore di sfondo marrone cuoio */
     color: white; 				/* Colore del testo bianco */
