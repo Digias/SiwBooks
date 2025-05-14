@@ -13,11 +13,6 @@ public class BookController {
 
 	@Autowired private BookService bookService;
 	
-	@GetMapping("/")
-	public String index(Model model) {
-		return"index.html";
-	}
-	
 	@GetMapping("/book")
 	public String showBooks(Model model) {
 		model.addAttribute("books", this.bookService.getAllBooks());

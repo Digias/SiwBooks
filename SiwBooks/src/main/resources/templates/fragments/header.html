@@ -5,13 +5,14 @@
 		
 	<ul class="menu">
 		<li><a class="navigationButton" th:href="@{'/'}">Home</a></li>
-		<li><a class="navigationButton" th:href="@{'/'}">Best Seller</a></li>
-		<li><a class="navigationButton" th:href="@{'/'}">Ricerca</a></li>
+		<li><a class="navigationButton" th:href="@{'/bestSeller'}">Best Seller</a></li>
+		<li><a class="navigationButton" th:href="@{'/search'}">Ricerca</a></li>
 		<li class="dropdown">
-			<a class="navigationButton" id="menu" th:href="@{'/'}">Area Personale</a>
+			<a class="navigationButton" id="menu" th:href="@{'/personalArea'}">Area Personale</a>
 			<ul class="dropdown-menu">
-				<li><a th:href="@{'/'}">Login</a></li>
-				<li><a th:href="@{'/'}">Register</a></li>
+				<li><a th:href="@{'/login'}">Login</a></li>
+				<li><a th:href="@{'/register'}">Register</a></li>
+				<li><a th:href="@{'/logout'}">Logout</a></li>
 			</ul>
 		</li>
 	</ul>
