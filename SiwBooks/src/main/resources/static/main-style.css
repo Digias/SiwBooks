@@ -10,15 +10,93 @@
 	margin: 10px;
 }
 
-/* PULSANTI HEADER */
-.headerNavbar, a{
-	color: #F5F5F5;
-	font-size: 1.4em; 				/* Imposta la dimensione del testo */
-	text-decoration: none; 			/* Rimuove la sottolineatura */
-	line-height: 5vh; 				/* Stessa altezza del contenitore */
+/* Lista dei menu nella barra di navigazione */
+.menu {
+    list-style: none;             /* Rimuove i punti elenco */
+    display: flex;                /* Dispone gli <li> in riga */
+    width: 100%;                  /* Occupa tutta la larghezza disponibile */
+    margin: 0;
+    padding: 0;
 }
 
-/* SECTION - beige carta */
+/* Ogni voce del menu */
+.menu li {
+    flex: 1;                      /* Ogni voce occupa spazio uguale */
+    text-align: center;           /* Centra il testo */
+    position: relative;           /* Permette il posizionamento assoluto dei dropdown */
+}
+
+/* Collegamenti di navigazione */
+.navigationButton {
+    display: inline-block;
+    font-size: 1.3em;
+    color: white;
+    text-decoration: none;        /* Rimuove la sottolineatura */
+    padding: 15px 0;
+    width: 100%;                  /* Si estende per tutta la larghezza della <li> */
+}
+
+/* Effetto hover sui collegamenti */
+.navigationButton:hover {
+	background-color: #56331E;  	  
+    color: #F0E6DC;             
+}
+
+/* Menu a tendina (nascosto di default) */
+.dropdown-menu {
+    display: none;                /* Inizialmente nascosto */
+    position: absolute;           /* Posizionato rispetto al contenitore .menu li */
+    top: 100%;                    /* Appena sotto la voce di menu principale */
+	left: 50%;                    /* Sposta il menu al 50% del contenitore padre */
+    transform: translateX(-50%);  /* Lo centra orizzontalmente */
+    background-color: #6B4226;
+    min-width: 160px;
+    align-items: center;          /* Centra verticalmente (utile se visibile) */
+    flex-direction: column;       /* Le voci del dropdown in colonna */
+    z-index: 1;                   /* Si posiziona sopra altri elementi */
+	padding: 0;
+	margin: 0;
+}
+
+/* Stile dei link all'interno del dropdown */
+.dropdown-menu ul {
+	list-style: none;  		  /* Disabilita i bullet */
+    margin: 0;       		  /* Azzeriamo eventuali margin predefiniti */
+    padding: 0;      		  /* Azzeriamo eventuali padding predefiniti */
+	width: 100%;
+}
+
+.dropdown-menu li {
+	list-style: none;  		  /* Disabilita i bullet */
+    margin: 0;       		  /* Azzeriamo eventuali margin predefiniti */
+    padding: 0;      		  /* Azzeriamo eventuali padding predefiniti */
+	width: 100%;
+}
+
+.dropdown-menu li a {
+	display: flex;            	/* flex container */
+    justify-content: center;  	/* centra orizzontalmente */
+    align-items: center;      	/* centra verticalmente */
+    width: 100%;              	/* occupa tutta la larghezza */
+    padding: 10px 0;          	/* padding top/bottom, niente left/right */
+    box-sizing: border-box;   	/* per sicurezza */
+    color: white;
+    text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+    color: #F0E6DC;           
+    background-color: #56331E;   
+}
+
+/* Mostra il dropdown al passaggio del mouse */
+.dropdown:hover .dropdown-menu {
+    display: flex;
+}
+
+/*
+-----------------------------------------------SECTION-------------------------------------------------------------------------
+*/
 section {
     background-color: #E4DCCB;
     color: #2C2C2C;
@@ -27,7 +105,9 @@ section {
 	margin: 10px;
 }
 
-/* FOOTER - marrone molto scuro */
+/*
+-----------------------------------------------FOOTER-------------------------------------------------------------------------
+*/
 .footer {
     background-color: #2E1F13;
     color: white;
