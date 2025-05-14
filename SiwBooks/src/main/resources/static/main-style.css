@@ -109,10 +109,13 @@ section {
 -----------------------------------------------FOOTER-------------------------------------------------------------------------
 */
 .footer {
-    background-color: #2E1F13;
-    color: white;
-    text-align: center;
+	display: flex;
+	justify-content: center;  /* centra orizzontalmente */
+	align-items: center;      /* centra verticalmente */
+	background-color: #2E1F13;
+	color: white;
+	text-align: center;
 	height: 7vh;
-    padding: 1em;
+	padding: 1em;
 	margin: 10px;
 }
