@@ -12,7 +12,7 @@
 			<ul class="dropdown-menu">
 				<li sec:authorize="isAnonymous()"><a th:href="@{'/login'}">Login</a></li>
 				<li sec:authorize="isAnonymous()"><a th:href="@{'/register'}">Register</a></li>
-				<li sec:authorize="hasAnyRole('ADMIN','REGISTERED')" ><a th:href="@{'/logout'}">Logout</a></li>
+				<li sec:authorize="hasAnyAuthority('ADMIN','REGISTERED')" ><a th:href="@{'/logout'}">Logout</a></li>
 			</ul>
 		</li>
 	</ul>
