@@ -32,7 +32,7 @@ public class AuthenticationController {
 	public String showRegisterForm (Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("credentials", new Credentials());
-		return "formRegisterUser";
+		return "formRegisterUser.html";
 	}
 	
 	@GetMapping(value = "/login") 
@@ -67,21 +67,26 @@ public class AuthenticationController {
         return "index.html";
     }
 
-	@PostMapping(value = { "/register" })
+    @PostMapping(value = { "/register" })
     public String registerUser(@Valid @ModelAttribute("user") User user,
-                 BindingResult userBindingResult, @Valid
-                 @ModelAttribute("credentials") Credentials credentials,
+                 BindingResult userBindingResult,
+                 @Valid @ModelAttribute("credentials") Credentials credentials,
                  BindingResult credentialsBindingResult,
                  Model model) {
 
-		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
-        if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
+        if (!credentials.getPassword().equals(credentials.getConfirmPassword())) {
+            credentialsBindingResult.rejectValue("confirmPassword", "error.credentials", "Le password non coincidono");
+        }
+
+        if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.saveUser(user);
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);
             model.addAttribute("user", user);
             return "registrationSuccessful";
         }
-        return "registerUser";
+
+        return "formRegisterUser.html";
     }
+
 }

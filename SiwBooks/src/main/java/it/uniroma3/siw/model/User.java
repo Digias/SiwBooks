@@ -34,20 +34,28 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
+	public String getName() {
 		return name;
 	}
 
-	public void setUsername(String username) {
-		this.name = username;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getPassword() {
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getEmail() {
 		return email;
 	}
 
-	public void setPassword(String password) {
-		this.email = password;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public List<Review> getReviews() {
