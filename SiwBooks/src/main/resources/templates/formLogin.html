@@ -1,9 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Login</title>
+    <title>Login Utente</title>
+    <link rel="stylesheet" th:href="@{/css/main-style.css}">
+    <link rel="stylesheet" th:href="@{/css/formLogin.css}">
 </head>
+
 <body>
-    <h1>Form di login</h1>
+    <!-- HEADER importato -->
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <!-- SECTION -->
+    <section>
+        <div class="boxForm">
+            <h1>Login</h1>
+            <form th:action="@{/login}" method="POST" class="formLoginUser">
+                <div>
+                    <label for="username">Username</label>
+                    <input id="username" name="username" type="text" required />
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" required />
+                </div>
+                <div class="error" th:if="${param.error}">
+                    Username o password errati
+                </div>
+                <div>
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+            <p>Non hai un account? <a th:href="@{/register}">Registrati</a></p>
+        </div>
+    </section>
+
+    <!-- FOOTER importato -->
+    <div th:insert="~{fragments/footer :: footer}"></div>
 </body>
+
 </html>
