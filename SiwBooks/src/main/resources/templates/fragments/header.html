@@ -10,9 +10,9 @@
 		<li class="dropdown">
 			<a class="navigationButton" id="menu" th:href="@{'/personalArea'}">Area Personale</a>
 			<ul class="dropdown-menu">
-				<li><a th:href="@{'/login'}">Login</a></li>
-				<li><a th:href="@{'/register'}">Register</a></li>
-				<li><a th:href="@{'/logout'}">Logout</a></li>
+				<li sec:authorize="isAnonymous()"><a th:href="@{'/login'}">Login</a></li>
+				<li sec:authorize="isAnonymous()"><a th:href="@{'/register'}">Register</a></li>
+				<li sec:authorize="hasAnyRole('ADMIN','REGISTERED')" ><a th:href="@{'/logout'}">Logout</a></li>
 			</ul>
 		</li>
 	</ul>
