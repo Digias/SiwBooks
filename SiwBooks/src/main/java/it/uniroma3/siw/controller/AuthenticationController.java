@@ -74,10 +74,6 @@ public class AuthenticationController {
                  BindingResult credentialsBindingResult,
                  Model model) {
 
-        if (!credentials.getPassword().equals(credentials.getConfirmPassword())) {
-            credentialsBindingResult.rejectValue("confirmPassword", "error.credentials", "Le password non coincidono");
-        }
-
         if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.saveUser(user);
             credentials.setUser(user);
