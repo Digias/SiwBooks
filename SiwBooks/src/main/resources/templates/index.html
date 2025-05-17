@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<title>Home</title>
-	<link rel="stylesheet" th:href="@{/main-style.css}">
-	<link rel="stylesheet" th:href="@{/index.css}">
+	<link rel="stylesheet" th:href="@{/css/main-style.css}">
+	<link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 
 <body>
@@ -16,6 +17,12 @@
 		<h1>Benvenuto nel sito dei libri</h1>
 		<p>Scopri autori, generi e letture consigliate.</p>
 		<a th:href="@{'/book'}">I nostri libri</a>
+		<div sec:authorize="hasRole('ADMIN')">
+		      Questo contenuto è riservato agli ADMIN.
+	    </div>
+		<div sec:authorize="hasAnyRole('ADMIN','REGISTERED')">
+		 	 Questo contenuto è visibile sia agli ADMIN che agli utenti REGISTERED.
+		</div>
 	</section>
 
 	<!-- FOOTER importato -->
