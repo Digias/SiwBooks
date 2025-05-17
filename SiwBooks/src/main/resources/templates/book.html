@@ -1,38 +1,45 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Book</title>
-		<link rel="stylesheet" th:href="@{/css/main-style.css}">
-		<link rel="stylesheet" th:href="@{/css/book.css}">
-	</head>
-	
-	<body>
-		<!-- HEADER importato -->
-		<div th:insert="~{fragments/header :: header}"></div>
 
-		<!-- SECTION -->
-		<section>
-			<div th:if="${book}">
-				<h1 th:text="${book.title}"></h1>
-				<div>
-					Anno di pubblicazione: <span th:text="${book.yearOfPublication}"></span>
-				</div>
-				<div th:if="${authors != null and authors.isEmpty()}">Gli autori per questo libro non sono presenti nel sistema</div>
-				<div>Autori: 
-					<ul>
-						<li th:each="author : ${authors}">
-							<a th:href="@{'/author/' + ${author.id}}"
-								th:text="${author.name} + ' ' + ${author.surname} "></a>
-						</li>
-					</ul>
-				</div>
-				
+<head>
+	<title>Book</title>
+	<link rel="stylesheet" th:href="@{/css/main-style.css}">
+	<link rel="stylesheet" th:href="@{/css/book.css}">
+</head>
+
+<body>
+	<!-- HEADER importato -->
+	<div th:insert="~{fragments/header :: header}"></div>
+
+	<!-- SECTION -->
+	<section>
+		<div th:if="${book}">
+			<h1 th:text="${book.title}"></h1>
+			<div>
+				Anno di pubblicazione: <span th:text="${book.yearOfPublication}"></span>
 			</div>
-			<div th:unless="${book}">Non esiste</div>
-		</section>
+			<div th:if="${authors != null and authors.isEmpty()}">Gli autori per questo libro non sono presenti nel
+				sistema</div>
+			<div>Autori:
+				<ul>
+					<li th:each="author : ${authors}">
+						<a th:href="@{'/author/' + ${author.id}}"
+							th:text="${author.name} + ' ' + ${author.surname} "></a>
+					</li>
+				</ul>
+			</div>
 
-		<!-- FOOTER importato -->
-		<div th:insert="~{fragments/footer :: footer}"></div>
+		</div>
+		<div th:unless="${book}">Non esiste</div>
 
-	</body>
+		<div sec:authorize="hasAnyRole('ADMIN','REGISTERED')">
+			<!--FORM REVIEW-->
+		</div>
+	</section>
+
+	<!-- FOOTER importato -->
+	<div th:insert="~{fragments/footer :: footer}"></div>
+
+</body>
+
 </html>
