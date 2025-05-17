@@ -25,7 +25,7 @@ public class Review {
 	private Book book;
 	
 	@ManyToOne
-	private RegisteredUser user;
+	private User user;
 
 	public Long getId() {
 		return id;
@@ -67,11 +67,11 @@ public class Review {
 		this.book = book;
 	}
 
-	public RegisteredUser getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(RegisteredUser user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

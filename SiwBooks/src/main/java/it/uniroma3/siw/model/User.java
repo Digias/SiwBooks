@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.*;
@@ -7,32 +8,23 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User {
+public class User {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 	@NotBlank
-    private String username;
+    private String name;
+	
+	@NotBlank
+    private String surname;
 
     @NotBlank
-    private String password;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
-	
-	// Costruttore vuoto
-    public User() {
-    }
-
-    // Costruttore completo
-    public User(Long id, String username, String password, Role role) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.role = role;
-    }
+    private String email;
+    
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews;
 
 	public Long getId() {
 		return id;
@@ -43,32 +35,32 @@ public abstract class User {
 	}
 
 	public String getUsername() {
-		return username;
+		return name;
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.name = username;
 	}
 
 	public String getPassword() {
-		return password;
+		return email;
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.email = password;
 	}
 
-	public Role getRole() {
-		return role;
+	public List<Review> getReviews() {
+		return reviews;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, password, role, username);
+		return Objects.hash(id, email, reviews, name);
 	}
 
 	@Override
@@ -80,16 +72,14 @@ public abstract class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(id, other.id) && Objects.equals(password, other.password) && role == other.role
-				&& Objects.equals(username, other.username);
+		return Objects.equals(id, other.id) && Objects.equals(email, other.email)
+				&& Objects.equals(reviews, other.reviews) && Objects.equals(name, other.name);
 	}
 
 	@Override
 	public String toString() {
-		return "EndUser [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + "]";
+		return "User [id=" + id + ", username=" + name + ", password=" + email + ", reviews=" + reviews + "]";
 	}
-    
-    
-
+	
 }
 
