@@ -10,6 +10,7 @@
     height: 5vh; 					/* Altezza fissa del header */
 	align-items: center;
 	margin: 10px;
+	border-radius: 10px;
 }
 
 /* Lista dei menu nella barra di navigazione */
@@ -105,6 +106,7 @@ section {
     padding: 2em;
     min-height: 100vh;
 	margin: 10px;
+	border-radius: 10px;
 }
 
 /*
@@ -120,4 +122,5 @@ section {
 	height: 7vh;
 	padding: 1em;
 	margin: 10px;
+	border-radius: 10px;
 }
