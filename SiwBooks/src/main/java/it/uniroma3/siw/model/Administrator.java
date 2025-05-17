@@ -3,7 +3,7 @@ package it.uniroma3.siw.model;
 import jakarta.persistence.Entity;
 
 @Entity
-public class Administrator extends EndUser {
+public class Administrator extends User {
 
     // Costruttore vuoto (necessario per JPA)
     public Administrator() {

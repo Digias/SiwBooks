@@ -6,7 +6,7 @@ import java.util.Objects;
 import jakarta.persistence.*;
 
 @Entity
-public class RegisteredUser extends EndUser {
+public class RegisteredUser extends User {
 
 	@OneToMany(mappedBy = "user")
     private List<Review> reviews;

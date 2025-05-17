@@ -5,9 +5,9 @@ import java.util.Objects;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
-@Entity
+@Entity(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class EndUser {
+public abstract class User {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,11 @@ public abstract class EndUser {
     private Role role;
 	
 	// Costruttore vuoto
-    public EndUser() {
+    public User() {
     }
 
     // Costruttore completo
-    public EndUser(Long id, String username, String password, Role role) {
+    public User(Long id, String username, String password, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -79,7 +79,7 @@ public abstract class EndUser {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EndUser other = (EndUser) obj;
+		User other = (User) obj;
 		return Objects.equals(id, other.id) && Objects.equals(password, other.password) && role == other.role
 				&& Objects.equals(username, other.username);
 	}
