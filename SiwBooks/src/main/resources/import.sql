@@ -22,6 +22,9 @@ INSERT INTO book (title, year_of_publication) VALUES ('Fahrenheit 451', 1953);
 INSERT INTO book (title, year_of_publication) VALUES ('Il grande Gatsby', 1925);
 INSERT INTO book (title, year_of_publication) VALUES ('Moby Dick', 1851);
 INSERT INTO book (title, year_of_publication) VALUES ('Guerra e pace', 1869);
+INSERT INTO book (title, year_of_publication) VALUES ('Il giardino segreto', 1911);
+INSERT INTO book (title, year_of_publication) VALUES ('Le avventure di Sherlock Holmes', 1892);
+
 
 --=======================================================================================================
 -- =========================== Authors
@@ -46,6 +49,14 @@ INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VA
 INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VALUES ('Herman', 'Melville', '1819-08-01', '1891-09-28', 'Statunitense');
 INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VALUES ('Lev', 'Tolstoj', '1828-09-09', '1910-11-20', 'Russa');
 INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VALUES ('Lewis', 'Carroll', '1832-01-27', '1898-01-14', 'Britannica');
+INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VALUES ('Frances', 'Hodgson Burnett', '1849-11-24', '1924-10-29', 'Britannica');
+INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VALUES ('Elizabeth', 'Goudge', '1900-04-24', '1984-09-06', 'Britannica');
+INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VALUES ('Mark', 'Twain', '1835-11-30', '1910-04-21', 'Statunitense');
+INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VALUES ('Carlos', 'Ruiz Zafón', '1964-09-25', '2020-06-19', 'Spagnolo');
+INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VALUES ('Isabel', 'Allende', '1942-08-02', NULL, 'Cilena');
+INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VALUES ('John', 'Stephens', '1971-01-01', NULL, 'Statunitense');
+INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VALUES ('Mario', 'Vargas Llosa', '1936-03-28', NULL, 'Peruviana');
+
 
 --=======================================================================================================
 -- =========================== Book - Author
@@ -56,8 +67,6 @@ INSERT INTO book_authors (authors_id, books_id) VALUES (2, 2);  -- Good Omens: G
 INSERT INTO book_authors (authors_id, books_id) VALUES (3, 3);  -- Guida galattica per autostoppisti: Gabriel García Márquez
 INSERT INTO book_authors (authors_id, books_id) VALUES (4, 4);  -- Il libro della giungla: Giuseppe Tomasi di Lampedusa
 INSERT INTO book_authors (authors_id, books_id) VALUES (5, 5);  -- Il Talismano: Jane Austen
-
--- Collegamenti libro con coautori
 INSERT INTO book_authors (authors_id, books_id) VALUES (6, 6);  -- Il libro delle meraviglie per ragazzi e ragazze: Fëdor Dostoevskij
 INSERT INTO book_authors (authors_id, books_id) VALUES (7, 7);  -- Delitto e castigo: Italo Calvino
 INSERT INTO book_authors (authors_id, books_id) VALUES (8, 8);  -- Il barone rampante: Italo Svevo
@@ -78,3 +87,24 @@ INSERT INTO book_authors (authors_id, books_id) VALUES (11, 17); -- Harry Potter
 INSERT INTO book_authors (authors_id, books_id) VALUES (11, 18); -- Harry Potter e il prigioniero di Azkaban
 INSERT INTO book_authors (authors_id, books_id) VALUES (11, 19); -- Harry Potter e il calice di fuoco
 INSERT INTO book_authors (authors_id, books_id) VALUES (11, 20); -- Harry Potter e l'ordine della fenice
+
+
+-- 1. "Il giardino segreto" (Frances Hodgson Burnett & Elizabeth Goudge)
+INSERT INTO book_authors (authors_id, books_id) VALUES (17, 21);  -- Frances Hodgson Burnett
+INSERT INTO book_authors (authors_id, books_id) VALUES (18, 21);  -- Elizabeth Goudge
+
+-- 2. "Le avventure di Sherlock Holmes" (Arthur Conan Doyle & Mark Twain)
+INSERT INTO book_authors (authors_id, books_id) VALUES (19, 22);  -- Arthur Conan Doyle
+INSERT INTO book_authors (authors_id, books_id) VALUES (20, 22);  -- Mark Twain
+
+--=======================================================================================================
+-- =========================== User
+--=======================================================================================================
+INSERT INTO users(name, surname, email) VALUES('Francesco', 'Di Gianvincenzo', 'fra.digianvincenzo@stud.uniroma3.it');
+INSERT INTO users(name, surname, email) VALUES('Admin', 'Admin', 'admin@gmail');
+
+--=======================================================================================================
+-- =========================== Credentials
+--=======================================================================================================
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'digia', 1);
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$7P5cx4thx8/wWnGKfMyTOOSC3.g/gfzgF5SJ8PsXPb/jH17M..ixu', 'ADMIN','admin', 2);
