@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+
 import it.uniroma3.siw.validation.ValidPublicationYear;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 public class Book {
 
