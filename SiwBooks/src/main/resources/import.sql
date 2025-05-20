@@ -106,5 +106,5 @@ INSERT INTO users(name, surname, email) VALUES('Admin', 'Admin', 'admin@gmail');
 --=======================================================================================================
 -- =========================== Credentials
 --=======================================================================================================
-INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'digia', 1);
-INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$7P5cx4thx8/wWnGKfMyTOOSC3.g/gfzgF5SJ8PsXPb/jH17M..ixu', 'ADMIN','admin', 2);
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'digia', 1); --password: password
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$7P5cx4thx8/wWnGKfMyTOOSC3.g/gfzgF5SJ8PsXPb/jH17M..ixu', 'ADMIN','admin', 2); --password: admin
