@@ -1,4 +1,10 @@
-/* Contenitore centrale identico al registro */
+/* 
+========================================================================================================================
+													FORM REGISTER AND LOGIN
+========================================================================================================================
+ */
+
+/* Contenitore centrale identico per entrambi */
 .boxForm {
     display: flex;
     flex-direction: column;
@@ -18,8 +24,9 @@ section h1 {
     color: #333333;
 }
 
-/* Form di login */
-.formLoginUser {
+/* Form (login e registrazione condividono ora la stessa classe) */
+.formLoginUser,
+.formRegisterUser {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -27,19 +34,18 @@ section h1 {
 }
 
 /* Ogni campo */
-.formLoginUser div {
+.formLoginUser div,
+.formRegisterUser div {
     display: flex;
     flex-direction: column;
 }
 
-/* Label uniforme */
 label {
     font-weight: bold;
     color: #444;
     margin-bottom: 5px;
 }
 
-/* Input */
 input[type="text"],
 input[type="password"] {
     padding: 10px;
@@ -55,11 +61,11 @@ input[type="password"]:focus {
     outline: none;
 }
 
-/* Messaggio di errore */
+/* Messaggio di errore uniforme */
 .error {
     color: red;
     font-size: 14px;
-    text-align: center;
+    margin-top: 5px;
 }
 
 /* Bottone di submit */
@@ -79,7 +85,7 @@ button[type="submit"]:hover {
     background-color: #005fa3;
 }
 
-/* Paragrafo link registrazione */
+/* Paragrafo link registrazione/login */
 section p {
     margin-top: 15px;
     font-size: 14px;
