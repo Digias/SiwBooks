@@ -8,21 +8,21 @@
 }
 
 .book-list li {
-    background-color: #4A5A6A; /* blu grigio */
+    background-color: #F5C9AD;  /* pesca pastello più scuro */
     border-radius: 10px;
     transition: background-color 0.3s ease;
-    box-shadow: 0 4px 6px rgba(74, 90, 106, 0.3);
+    box-shadow: 0 4px 6px rgba(245, 201, 173, 0.5);
 }
 
 .book-list li:hover {
-    background-color: #627D98; /* azzurro polvere */
-    box-shadow: 0 6px 10px rgba(98, 125, 152, 0.5);
+    background-color: #E3AD7E;  /* pesca più intenso scuro */
+    box-shadow: 0 6px 10px rgba(227, 173, 126, 0.7);
 }
 
 .book-list li a {
     display: flex;
     align-items: center;
-    color: #E8E8E8; /* grigio chiaro */
+    color: #5B3E2B; /* marrone caldo più scuro */
     text-decoration: none;
     padding: 12px 20px;
     font-size: 1.1em;
@@ -33,20 +33,20 @@
 .book-list li a i {
     margin-right: 12px;
     font-size: 1.3em;
-    color: #B0C4D4; /* azzurro pastello */
+    color: #8C6649; /* marrone chiaro più scuro */
 }
 
 .book-list li a .year {
     margin-left: auto;
     font-weight: 400;
-    color: #A3A3A3; /* grigio medio */
+    color: #9F8469;
     font-style: italic;
 }
 
 .no-books {
     font-size: 1.2em;
     font-weight: 600;
-    color: #4A5A6A; /* blu grigio */
+    color: #8C6649;
     padding: 20px;
     text-align: center;
 }
