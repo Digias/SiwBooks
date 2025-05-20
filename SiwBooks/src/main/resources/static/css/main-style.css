@@ -40,6 +40,8 @@
     padding: 15px 0;
     width: 100%;                  /* Si estende per tutta la larghezza della <li> */
 	border-radius: 10px;
+	margin-right: 8px;     		  /* Spazio tra icona e testo */
+    vertical-align: middle;
 }
 
 /* Effetto hover sui collegamenti */
@@ -94,6 +96,13 @@
 	border-radius: 10px;
 
 }
+
+/*icon*/
+.dropdown-menu li a i {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
 
 .dropdown-menu li a:hover {
     color: #F0E6DC;           
