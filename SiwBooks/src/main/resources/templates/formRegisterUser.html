@@ -3,6 +3,7 @@
 
 <head>
 	<title>Registrazione Utente</title>
+	<link rel="icon" href="image/library.ico" type="image/x-icon">
 	<link rel="stylesheet" th:href="@{/css/main-style.css}">
 	<link rel="stylesheet" th:href="@{/css/formLoginRegister.css}">
 </head>
@@ -16,7 +17,7 @@
 		<div class="boxForm">
 			<h1>Registrazione Nuovo Utente</h1>
 
-			<form action="/register" method="POST" class="formLoginUser">
+			<form th:action="@{/register}" method="POST" class="formLoginUser">
 				<div>
 					<label for="name">Nome</label>
 					<input id="name" type="text" placeholder="name" required th:field="${user.name}" />

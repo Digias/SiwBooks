@@ -63,31 +63,50 @@ public class AuthenticationController {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 		if (credentials.getRole().equals(Role.ADMIN)) {
-			return "admin/indexAdmin.html";
+			return "index.html";
 		}
 		return "index.html";
 	}
+	
+	@GetMapping("/personalArea")
+	public String personalArea(Model model) {
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+	    if (authentication == null || !authentication.isAuthenticated() || authentication instanceof AnonymousAuthenticationToken) {
+	        return "login";
+	    }
+
+	    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+	    model.addAttribute("user", userDetails);
+
+	    return "personalArea.html";
+	}
+
 
 	@PostMapping(value = { "/register" })
 		public String registerUser(@Valid @ModelAttribute("user") User user,
-				BindingResult userBindingResult,
-				@Valid @ModelAttribute("credentials") Credentials credentials,
-				@RequestParam("confirmPassword") String confirmPassword,
-				BindingResult credentialsBindingResult,
-				Model model) {
+                BindingResult userBindingResult,
+                @Valid @ModelAttribute("credentials") Credentials credentials,
+                @RequestParam("confirmPassword") String confirmPassword,
+                BindingResult credentialsBindingResult,
+                Model model) {
+		
 		if(!credentials.getPassword().equals(confirmPassword)) {
 			credentialsBindingResult.rejectValue("password", "error.credentials", "Le password non coincidono");
 		}
 
 		if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
-			userService.saveUser(user);
-			credentials.setUser(user);
-			credentialsService.saveCredentials(credentials);
-			model.addAttribute("user", user);
-			return "registrationSuccessful";
+		    userService.saveUser(user);
+		    credentials.setUser(user);
+		    credentialsService.saveCredentials(credentials);
+		    model.addAttribute("user", user);
+		    return "formLogin";
 		}
 
+		model.addAttribute("user", user);
+		model.addAttribute("credentials", credentials);
 		return "formRegisterUser.html";
+
 	}
 
 }
