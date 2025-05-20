@@ -15,14 +15,8 @@
 
 	<!-- SECTION -->
 	<section>
-		<h1>Benvenuto nel sito dei libri</h1>
-		<p>Scopri autori, generi e letture consigliate.</p>
-		<a th:href="@{'/book'}">I nostri libri</a>
-		<div sec:authorize="hasAuthority('ADMIN')">
-		      Questo contenuto è riservato agli ADMIN.
-	    </div>
-		<div sec:authorize="hasAnyAuthority('ADMIN','REGISTERED')">
-		 	 Questo contenuto è visibile sia agli ADMIN che agli utenti REGISTERED.
+		<div>
+			<h1></h1>
 		</div>
 	</section>
 
