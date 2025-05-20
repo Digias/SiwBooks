@@ -77,8 +77,9 @@ public class AuthenticationController {
 	    }
 
 	    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	    model.addAttribute("user", userDetails);
-	    model.addAttribute("credentials", credentialsService.getCredentials(userDetails.getUsername()));
+	    Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
+	    model.addAttribute("credentials", credentials);
+	    model.addAttribute("user", credentials.getUser());
 
 	    return "personalArea.html";
 	}

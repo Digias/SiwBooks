@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<title>Home</title>
@@ -18,8 +17,14 @@
 	<section>
 		<div>
 			<h1 th:text="${credentials.username}"></h1>
+
+			<p>Nome: <span th:text="${user.name}"></span></p>
+			<p>Cognome: <span th:text="${user.surname}"></span></p>
+			<p>Email: <span th:text="${user.email}"></span></p>
+
 		</div>
 	</section>
+
 
 	<!-- FOOTER importato -->
 	<div th:insert="~{fragments/footer :: footer}"></div>
