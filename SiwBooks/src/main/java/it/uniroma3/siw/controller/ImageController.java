@@ -13,7 +13,7 @@ public class ImageController {
 
 	@Autowired private ImageService imageService;
 
-	@GetMapping("/images/{id}")
+	@GetMapping("/image/{id}")
 	public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
 	    Image image = imageService.findById(id);
 	    return ResponseEntity.ok()
