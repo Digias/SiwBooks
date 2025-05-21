@@ -1,0 +1,124 @@
+.author-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: #F5C9AD;
+    border-radius: 16px;
+    box-shadow: 0 6px 12px rgba(245, 201, 173, 0.5);
+    overflow: hidden;
+    font-family: sans-serif;
+    color: #5B3E2B;
+}
+
+.left-column {
+    flex: 1;
+    background-color: #E3AD7E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.author-photo {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+}
+
+.right-column {
+    flex: 2;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+.author-details h1 {
+    font-size: 2.6em;
+    margin-bottom: 10px;
+}
+
+.author-details p {
+    font-size: 1.2em;
+    margin: 6px 0;
+}
+
+h2 {
+    font-size: 2em;
+    margin-top: 20px;
+    color: #5B3E2B;
+}
+
+.book-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.book-list li {
+    background-color: #F5C9AD;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(245, 201, 173, 0.5);
+}
+
+.book-list li:hover {
+    background-color: #E3AD7E;
+    box-shadow: 0 6px 10px rgba(227, 173, 126, 0.7);
+}
+
+.book-list li a {
+    display: flex;
+    align-items: center;
+    color: #5B3E2B;
+    text-decoration: none;
+    padding: 16px 24px;
+    font-size: 1.3em;
+    font-weight: 600;
+    border-radius: 12px;
+}
+
+.book-list li a i {
+    margin-right: 16px;
+    font-size: 1.5em;
+    color: #8C6649;
+}
+
+.back-button {
+    align-self: flex-end;
+    background-color: #E3AD7E;
+    color: #5B3E2B;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-top: auto;
+    transition: background-color 0.3s ease;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-button i {
+    font-size: 1.2em;
+}
+
+.back-button:hover {
+    background-color: #D2966E;
+}
+
+.no-author {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.4em;
+    font-weight: 600;
+    color: #8C6649;
+}
