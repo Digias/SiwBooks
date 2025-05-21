@@ -24,17 +24,17 @@ public class Author {
 	@NotBlank
 	private String surname;
 	
-	@NotBlank
+	@NotNull
 	@PastOrPresent
 	private Date dateOfBirth;
 	
 	@Past
 	private Date dateOfDeath;
 	
-	@NotNull
+	@NotBlank
 	private String nationality;
 	
-	@OneToOne(mappedBy = "author")
+	@OneToOne
 	private Image photo;
 	
 	@ManyToMany(mappedBy = "authors")

@@ -13,12 +13,4 @@ public class ImageController {
 
 	@Autowired private ImageService imageService;
 
-	@GetMapping("/image/{id}")
-	public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
-	    Image image = imageService.findById(id);
-	    return ResponseEntity.ok()
-	        .contentType(MediaType.parseMediaType(image.getContentType()))
-	        .body(image.getData());
-	}
-
 }
