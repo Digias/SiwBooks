@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-	<title>Home</title>
+	<title>Search</title>
 	<link rel="icon" href="images/library.ico" type="image/x-icon">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 	<link rel="stylesheet" th:href="@{/css/main-style.css}">
@@ -18,36 +18,62 @@
 		<div>
 			<h1><i class="fas fa-search"></i> Ricerca</h1>
 
-			<form action="/registered/search" method="GET">
+			<form action="/registered/search" method="GET" class="search-form">
+			  
+			  <!-- Campo di testo principale -->
+			  <input type="text" name="query" placeholder="Cerca autori o libri" class="search-input" />
 
-				<input type="text" name="query" placeholder="Cerca autori, libri o recensioni...">
-				<button type="submit">Cerca</button>
+			  <!-- Bottone di ricerca -->
+			  <button type="submit" class="search-button">
+			    <i class="fas fa-search"></i> Cerca
+			  </button>
 
-				<!-- Checkbox per scegliere dove cercare -->
-				<div>
-					<label>
-						<input type="checkbox" name="searchInAuthors">
-						Autori
-					</label>
+			  <!-- Gruppo checkbox per scegliere dove cercare -->
+			  <div class="checkbox-group">
+			    <label>
+			      <input type="checkbox" name="searchInAuthors" />
+			      Autori
+			    </label>
 
-					<label style="margin-left: 20px;">
-						<input type="checkbox" name="searchInBooks">
-						Libri
-					</label>
+			    <label>
+			      <input type="checkbox" name="searchInBooks" />
+			      Libri
+			    </label>
+			  </div>
+
+			  <!-- Filtro stelle (rating) -->
+			  <div class="rating-filter">
+			    <label>Filtra per valutazione:</label>
+				<div class="stars">
+					
+					<input type="radio" id="star5" name="rating" value="5" />
+					<label for="star5" title="5 stelle"><i class="fa-solid fa-star"></i></label>
+
+					<input type="radio" id="star4" name="rating" value="4" />
+					<label for="star4" title="4 stelle"><i class="fa-solid fa-star"></i></label>
+
+					<input type="radio" id="star3" name="rating" value="3" />
+					<label for="star3" title="3 stelle"><i class="fa-solid fa-star"></i></label>
+
+					<input type="radio" id="star2" name="rating" value="2" />
+					<label for="star2" title="2 stelle"><i class="fa-solid fa-star"></i></label>
+
+					<input type="radio" id="star1" name="rating" value="1" />
+					<label for="star1" title="1 stella"><i class="fa-solid fa-star"></i></label>
+					
 				</div>
-
-				<br>
+			  </div>
 			</form>
 		</div>
 
 		<hr>
-		
+
 		<!-- Risultati -->
-		<div>
+		<div class="results-container">
 			<!-- Colonna Autori -->
-			<div th:if="${authors != null}">
-				<h2>Autori</h2>
-				<ul>
+			<div class="column" th:if="${authors != null}">
+				<h2><i class="fa-solid fa-user-pen"></i> Autori</h2>
+				<ul class="author-list">
 					<li th:each="author : ${authors}">
 						<span th:text="${author.name} + ' ' + ${author.surname}">Nome Cognome</span>
 						<span th:text="' - ' + ${author.nationality}">Nazionalità</span>
@@ -56,12 +82,12 @@
 			</div>
 
 			<!-- Colonna Libri -->
-			<div th:if="${books != null}">
-				<h2>Libri</h2>
-				<ul>
+			<div class="column" th:if="${books != null}">
+				<h2><i class="fa-solid fa-book"></i> Libri</h2>
+				<ul class="book-list">
 					<li th:each="book : ${books}">
 						<span th:text="${book.title}">Titolo</span>
-						<span th:text="' - ' + ${book.yearOfPublication}">Anno</span>
+						<span class="year" th:text="' - ' + ${book.yearOfPublication}">Anno</span>
 					</li>
 				</ul>
 			</div>

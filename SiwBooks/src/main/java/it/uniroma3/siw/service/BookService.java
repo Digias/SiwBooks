@@ -35,4 +35,9 @@ public class BookService {
 	public List<Book> findByTitleContainingIgnoreCase(String query) {
 	    return bookRepository.findByTitleContainingIgnoreCase(query);
 	}
+	
+	public List<Book> findByTitleContainingIgnoreCaseAndMinRating(String query, int minRating) {
+	    return this.bookRepository.findByTitleContainingIgnoreCaseAndMinRating(query, minRating);
+	}
+
 }

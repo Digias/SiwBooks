@@ -1,0 +1,196 @@
+/* ===========================
+   CONTENITORE RISULTATI
+   =========================== */
+.results-container {
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* ===========================
+   COLONNE AUTORI E LIBRI
+   =========================== */
+.column {
+    flex: 1 1 45%;
+    background-color: #FDF3ED; /* fondo molto chiaro */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(245, 201, 173, 0.3);
+}
+
+.column h2 {
+    color: #5B3E2B;
+    margin-bottom: 16px;
+    font-size: 1.4em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ===========================
+   LISTE AUTORI E LIBRI
+   =========================== */
+.author-list,
+.book-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.author-list li,
+.book-list li {
+    background-color: #F5C9AD;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-weight: 500;
+    color: #5B3E2B;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.author-list li:hover,
+.book-list li:hover {
+    background-color: #E3AD7E;
+    box-shadow: 0 6px 10px rgba(227, 173, 126, 0.7);
+}
+
+.book-list .year,
+.author-list span:last-child {
+    color: #9F8469;
+    font-style: italic;
+    font-weight: 400;
+}
+
+/* ===========================
+   FORM DI RICERCA (aggiornato per miglior layout)
+   =========================== */
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 30px;
+    background-color: #FDF3ED;
+    padding: 16px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(245, 201, 173, 0.4);
+    justify-content: flex-start;
+}
+
+.search-input {
+    flex: 1 1 320px;
+    padding: 10px 14px;
+    font-size: 1.1em;
+    border: 2px solid #E3AD7E;
+    border-radius: 10px;
+    color: #5B3E2B;
+    transition: border-color 0.3s ease;
+    min-width: 220px;
+}
+
+.search-input:focus {
+    border-color: #8C6649;
+    outline: none;
+    background-color: #fff7f0;
+}
+
+.search-button {
+    background-color: #E3AD7E;
+    border: none;
+    color: #5B3E2B;
+    padding: 10px 24px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.search-button:hover {
+    background-color: #C18952;
+}
+
+/* ===========================
+   GRUPPO CHECKBOX (migliorato layout)
+   =========================== */
+.checkbox-group {
+    display: flex;
+    gap: 20px;
+    font-weight: 600;
+    color: #8C6649;
+    align-items: center;
+    min-width: 180px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* ===========================
+   FILTRO RATING A STELLE
+   =========================== */
+.rating-filter {
+  margin-top: 8px;
+  font-weight: 600;
+  color: #8C6649;
+  min-width: 240px;
+}
+
+.rating-filter label {
+  display: block;
+  margin-bottom: 6px;
+  padding-left: 15px; /* indentazione migliore */
+  font-weight: 600;
+  color: #8C6649;
+}
+
+.stars {
+  display: flex;
+  gap: 8px;
+  flex-direction: row-reverse;
+  margin-left: 8px; /* spostamento stelle per indentazione */
+}
+
+.stars input[type="radio"] {
+  display: none; /* nascondi radio veri */
+}
+
+.stars label {
+  cursor: pointer;
+  color: #d8c3a5; /* colore stella non selezionata */
+  font-size: 1.4em;
+  transition: color 0.3s ease;
+}
+
+/* Colora la stella selezionata e tutte quelle prima (a sinistra) */
+.stars input[type="radio"]:checked + label,
+.stars input[type="radio"]:checked ~ label {
+  color: #e3ad7e;
+}
+
+/* Colora stelle al passaggio del mouse (hover) */
+.stars label:hover,
+.stars label:hover ~ label {
+  color: #f0b77f;
+}
