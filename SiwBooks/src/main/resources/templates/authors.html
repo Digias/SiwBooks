@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Autori</title>
+    <link rel="icon" href="images/library.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/main-style.css}">
+    <link rel="stylesheet" th:href="@{/css/books.css}">
+</head>
+
+<body>
+
+    <!-- HEADER importato -->
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <!-- SECTION -->
+    <section>
+        <div>
+            <div th:if="${authors.isEmpty()}" class="no-books">Non ci sono libri nel sistema</div>
+            <ul class="book-list">
+                <li th:each="author : ${authors}">
+                    <a th:href="@{'/author/' + ${author.id}}">
+                        <i class="fa-solid fa-pen-nib"></i>
+                        <span th:text="${author.name}"></span>
+						<span th:text="${author.surname}"></span>
+						<span class="year"
+						      th:text="'(' + ${#dates.format(author.dateOfBirth, 'dd/MM/yyyy')} + ' - ' +
+						               (${author.dateOfDeath} != null ? ${#dates.format(author.dateOfDeath, 'dd/MM/yyyy')} : 'in vita') + ')'">
+						</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- FOOTER importato -->
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

@@ -19,6 +19,8 @@
 		<h1>Benvenuto nel sito dei libri</h1>
 		<p>Scopri autori, generi e letture consigliate.</p>
 		<a th:href="@{'/book'}">I nostri libri</a>
+		<a th:href="@{'/author'}">I nostri autori</a>
+		
 		<div sec:authorize="hasAuthority('ADMIN')">
 		      Questo contenuto è riservato agli ADMIN.
 	    </div>
