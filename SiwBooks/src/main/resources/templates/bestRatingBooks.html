@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="images/library.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/main-style.css}">
+    <link rel="stylesheet" th:href="@{/css/books.css}">
+</head>
+
+<body>
+
+    <!-- HEADER importato -->
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <!-- SECTION -->
+    <section>
+        <div>
+            <div th:if="${books.isEmpty()}" class="no-books">Non ci sono libri nel sistema</div>
+            <ul class="book-list">
+                <li th:each="book : ${books}">
+                    <a th:href="@{'/book/' + ${book.id}}">
+                        <i class="fa-solid fa-book"></i>
+                        <span th:text="${book.title}"></span>
+                        <span class="year" th:text="'(' + ${book.yearOfPublication} + ')'"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- FOOTER importato -->
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>
