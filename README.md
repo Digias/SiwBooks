@@ -7,6 +7,7 @@
 - ricerca libri (registrati)
 
 *todo*
-- [ ] aggiungere libri
-- [ ] aggiungere autori
+- [ ] aggiungere/modificare libri
+- [ ] aggiungere/modificare autori
 - [ ] aggiungere recensioni
+- [ ] eliminare recensioni
