@@ -1,5 +1,7 @@
 package it.uniroma3.siw.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +30,9 @@ public class BookService {
 
 	public Iterable<Book> findTop10Books() {
 		return this.bookRepository.findTop10Books();
+	}
+	
+	public List<Book> findByTitleContainingIgnoreCase(String query) {
+	    return bookRepository.findByTitleContainingIgnoreCase(query);
 	}
 }

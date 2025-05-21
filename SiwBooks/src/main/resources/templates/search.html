@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<title>Home</title>
+	<link rel="icon" href="images/library.ico" type="image/x-icon">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/main-style.css}">
+	<link rel="stylesheet" th:href="@{/css/search.css}">
+</head>
+
+<body>
+	<!-- HEADER importato -->
+	<div th:insert="~{fragments/header :: header}"></div>
+
+	<!-- SECTION -->
+	<section>
+		<div>
+			<h1><i class="fas fa-search"></i> Ricerca</h1>
+
+			<form action="/registered/search" method="GET">
+
+				<input type="text" name="query" placeholder="Cerca autori, libri o recensioni...">
+				<button type="submit">Cerca</button>
+
+				<!-- Checkbox per scegliere dove cercare -->
+				<div>
+					<label>
+						<input type="checkbox" name="searchInAuthors">
+						Autori
+					</label>
+
+					<label style="margin-left: 20px;">
+						<input type="checkbox" name="searchInBooks">
+						Libri
+					</label>
+				</div>
+
+				<br>
+			</form>
+		</div>
+
+		<hr>
+		
+		<!-- Risultati -->
+		<div>
+			<!-- Colonna Autori -->
+			<div th:if="${authors != null}">
+				<h2>Autori</h2>
+				<ul>
+					<li th:each="author : ${authors}">
+						<span th:text="${author.name} + ' ' + ${author.surname}">Nome Cognome</span>
+						<span th:text="' - ' + ${author.nationality}">Nazionalità</span>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Colonna Libri -->
+			<div th:if="${books != null}">
+				<h2>Libri</h2>
+				<ul>
+					<li th:each="book : ${books}">
+						<span th:text="${book.title}">Titolo</span>
+						<span th:text="' - ' + ${book.yearOfPublication}">Anno</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- FOOTER importato -->
+	<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>

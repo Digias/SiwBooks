@@ -1,5 +1,7 @@
 package it.uniroma3.siw.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +17,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 	@Query("SELECT b FROM Book b JOIN b.reviews r GROUP BY b ORDER BY AVG(r.rating) DESC LIMIT 10")
 	Iterable<Book> findTop10Books();
 
-
+	List<Book> findByTitleContainingIgnoreCase(String title);
 
 }
