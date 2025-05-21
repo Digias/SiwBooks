@@ -25,4 +25,8 @@ public class BookService {
 	public Iterable<Author> findAuthorsByBookId(Long bookId) {
 		return this.bookRepository.findAuthorsByBookId(bookId);
 	}
+
+	public Iterable<Book> findTop10Books() {
+		return this.bookRepository.findTop10Books();
+	}
 }
