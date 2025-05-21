@@ -57,7 +57,6 @@ INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VA
 INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VALUES ('John', 'Stephens', '1971-01-01', NULL, 'Statunitense');
 INSERT INTO author (name, surname, date_of_birth, date_of_death, nationality) VALUES ('Mario', 'Vargas Llosa', '1936-03-28', NULL, 'Peruviana');
 
-
 --=======================================================================================================
 -- =========================== Book - Author
 --=======================================================================================================
@@ -103,8 +102,68 @@ INSERT INTO book_authors (authors_id, books_id) VALUES (20, 22);  -- Mark Twain
 INSERT INTO users(name, surname, email) VALUES('Francesco', 'Di Gianvincenzo', 'fra.digianvincenzo@stud.uniroma3.it');
 INSERT INTO users(name, surname, email) VALUES('Admin', 'Admin', 'admin@gmail');
 
+INSERT INTO users(name, surname, email) VALUES('Mario', 'Rossi', 'mario.rossi@example.com');
+INSERT INTO users(name, surname, email) VALUES('Luca', 'Bianchi', 'luca.bianchi@example.com');
+INSERT INTO users(name, surname, email) VALUES('Giulia', 'Verdi', 'giulia.verdi@example.com');
+INSERT INTO users(name, surname, email) VALUES('Federico', 'Neri', 'federico.neri@example.com');
+INSERT INTO users(name, surname, email) VALUES('Alessia', 'Gallo', 'alessia.gallo@example.com');
+INSERT INTO users(name, surname, email) VALUES('Simone', 'Ferrari', 'simone.ferrari@example.com');
+INSERT INTO users(name, surname, email) VALUES('Sara', 'Moretti', 'sara.moretti@example.com');
+INSERT INTO users(name, surname, email) VALUES('Antonio', 'De Luca', 'antonio.deluca@example.com');
+INSERT INTO users(name, surname, email) VALUES('Elena', 'Romano', 'elena.romano@example.com');
+INSERT INTO users(name, surname, email) VALUES('Davide', 'Colombo', 'davide.colombo@example.com');
+
 --=======================================================================================================
 -- =========================== Credentials
 --=======================================================================================================
 INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'digia', 1); --password: password
 INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$7P5cx4thx8/wWnGKfMyTOOSC3.g/gfzgF5SJ8PsXPb/jH17M..ixu', 'ADMIN','admin', 2); --password: admin
+
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'mario', 3);
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'luca', 4);
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'giulia', 5);
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'federico', 6);
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'alessia', 7);
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'simone', 8);
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'sara', 9);
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'antonio', 10);
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'elena', 11);
+INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'davide', 12);
+
+--=======================================================================================================
+-- =========================== Review
+--=======================================================================================================
+-- BOOK ID 1
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Sorprendente inizio', 5, 'Un debutto eccezionale, da leggere tutto d’un fiato.', 1, 3);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Un po’ lento', 3, 'Interessante ma con ritmo discontinuo.', 1, 4);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Bellissimo', 4, 'Coinvolgente, scritto molto bene.', 1, 5);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Non mi ha preso', 2, 'Purtroppo non è il mio genere.', 1, 6);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Una vera scoperta', 5, 'L’autore ha uno stile magnifico.', 1, 7);
+
+-- BOOK ID 2
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Trama geniale', 5, 'Una delle trame più originali che abbia letto.', 2, 8);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Troppo complesso', 2, 'Difficile da seguire, troppi personaggi.', 2, 9);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Consigliato', 4, 'Un romanzo profondo e toccante.', 2, 10);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Banale', 1, 'Mi aspettavo di più, tutto già visto.', 2, 11);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Mi è piaciuto', 4, 'Ottima lettura da portare in vacanza.', 2, 12);
+
+-- BOOK ID 3
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Molto valido', 4, 'Mi ha tenuto incollato alle pagine.', 3, 3);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Deludente', 2, 'Buone premesse ma esecuzione scarsa.', 3, 4);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Avvincente', 5, 'Una storia che lascia il segno.', 3, 5);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Mediocre', 3, 'Non male, ma nulla di memorabile.', 3, 6);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Semplicemente bellissimo', 5, 'Un libro che rileggerò volentieri.', 3, 7);
+
+-- BOOK ID 4
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Piacevole sorpresa', 4, 'Mi ha sorpreso in positivo.', 4, 8);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Noioso', 1, 'Non sono riuscito a finirlo.', 4, 9);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Buon ritmo narrativo', 4, 'Fluido e ben scritto.', 4, 10);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Troppo prevedibile', 2, 'Tutto già visto, nessuna sorpresa.', 4, 11);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Perfetto', 5, 'Uno dei miei libri preferiti.', 4, 12);
+
+-- BOOK ID 5
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Emozionante', 5, 'Un viaggio pieno di emozioni.', 5, 3);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Poteva dare di più', 3, 'Le premesse c’erano, ma non è decollato.', 5, 4);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Una lettura leggera', 4, 'Perfetto per rilassarsi.', 5, 5);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Inconcludente', 2, 'Tante idee ma nessuna sviluppata.', 5, 6);
+INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Affascinante', 5, 'Ambientazione e personaggi molto ben costruiti.', 5, 7);
