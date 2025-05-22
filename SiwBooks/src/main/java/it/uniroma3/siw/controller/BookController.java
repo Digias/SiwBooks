@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
 import it.uniroma3.siw.service.CredentialsService;
@@ -30,8 +31,10 @@ public class BookController {
 
 	@GetMapping("/book/{bookId}")
 	public String getBook(@PathVariable("bookId") Long bookId, Model model) {
-		model.addAttribute("book", this.bookService.getBookbyId(bookId));
+		Book book = this.bookService.getBookbyId(bookId);
+		model.addAttribute("book", book);
 		model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));
+		model.addAttribute("cover", book.getCover());
 		return "book.html";
 	}
 
