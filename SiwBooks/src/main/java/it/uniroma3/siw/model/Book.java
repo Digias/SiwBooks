@@ -27,8 +27,8 @@ public class Book {
     @ValidPublicationYear
 	private int yearOfPublication;
 	
-	@OneToMany(mappedBy = "book")
-	private List<Image> illustration;
+	@OneToOne
+	private Image cover;
 	
 	@ManyToMany
 	private Set<Author> authors;
@@ -56,16 +56,16 @@ public class Book {
 		return yearOfPublication;
 	}
 
+	public Image getCover() {
+		return cover;
+	}
+
+	public void setCover(Image cover) {
+		this.cover = cover;
+	}
+
 	public void setYearOfPublication(int yearOfPublication) {
 		this.yearOfPublication = yearOfPublication;
-	}
-
-	public List<Image> getIllustration() {
-		return illustration;
-	}
-
-	public void setIllustration(List<Image> illustration) {
-		this.illustration = illustration;
 	}
 
 	public Set<Author> getAuthors() {
@@ -86,7 +86,7 @@ public class Book {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(authors, id, illustration, reviews, title, yearOfPublication);
+		return Objects.hash(authors, cover, id, reviews, title, yearOfPublication);
 	}
 
 	@Override
@@ -98,16 +98,18 @@ public class Book {
 		if (getClass() != obj.getClass())
 			return false;
 		Book other = (Book) obj;
-		return Objects.equals(authors, other.authors) && Objects.equals(id, other.id)
-				&& Objects.equals(illustration, other.illustration) && Objects.equals(reviews, other.reviews)
+		return Objects.equals(authors, other.authors) && Objects.equals(cover, other.cover)
+				&& Objects.equals(id, other.id) && Objects.equals(reviews, other.reviews)
 				&& Objects.equals(title, other.title) && yearOfPublication == other.yearOfPublication;
 	}
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", yearOfPublication=" + yearOfPublication + ", illustration="
-				+ illustration + ", authors=" + authors + ", reviews=" + reviews + "]";
+		return "Book [id=" + id + ", title=" + title + ", yearOfPublication=" + yearOfPublication + ", cover=" + cover
+				+ ", authors=" + authors + ", reviews=" + reviews + "]";
 	}
+
+	
 	
 	
 }
