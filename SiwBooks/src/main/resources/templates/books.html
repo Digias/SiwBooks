@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Libreria</title>
+    <title>Libreria</title>
     <link rel="icon" href="images/library.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/main-style.css}">
@@ -9,20 +9,25 @@
 </head>
 
 <body>
-
     <!-- HEADER importato -->
     <div th:insert="~{fragments/header :: header}"></div>
 
     <!-- SECTION -->
-    <section>
-        <div>
+    <section class="book-section">
+        <h2 class="section-title">La Nostra Collezione</h2>
+        <div class="book-container">
             <div th:if="${books.isEmpty()}" class="no-books">Non ci sono libri nel sistema</div>
             <ul class="book-list">
                 <li th:each="book : ${books}">
                     <a th:href="@{'/book/' + ${book.id}}">
-                        <i class="fa-solid fa-book"></i>
-                        <span th:text="${book.title}"></span>
-                        <span class="year" th:text="'(' + ${book.yearOfPublication} + ')'"></span>
+                        <div class="book-card">
+                            <img th:if="${book.cover}" th:src="@{'/images/' + ${book.cover.id}}" 
+                                 alt="Copertina libro" class="book-cover"/>
+                            <div class="book-details">
+                                <h3 th:text="${book.title}"></h3>
+                                <span class="year" th:text="${book.yearOfPublication}"></span>
+                            </div>
+                        </div>
                     </a>
                 </li>
             </ul>
@@ -31,6 +36,5 @@
 
     <!-- FOOTER importato -->
     <div th:insert="~{fragments/footer :: footer}"></div>
-
 </body>
 </html>

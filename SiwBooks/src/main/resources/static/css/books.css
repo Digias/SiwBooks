@@ -1,46 +1,102 @@
+/* Stili Sezione Libri */
+.book-section {
+    width: 100%;
+    min-height: calc(100vh - 150px); /* Adatta in base ad header/footer */
+    padding: 40px 0;
+    background: linear-gradient(to bottom, #FFF9F5 0%, #FFEFE6 100%);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #5B3E2B;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: #E3AD7E;
+    border-radius: 2px;
+}
+
+.book-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
 .book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    padding: 20px;
     list-style: none;
-    padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
 }
 
 .book-list li {
-    background-color: #F5C9AD;  /* pesca pastello più scuro */
+    background-color: #F5C9AD;
     border-radius: 10px;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 6px rgba(245, 201, 173, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
 }
 
 .book-list li:hover {
-    background-color: #E3AD7E;  /* pesca più intenso scuro */
-    box-shadow: 0 6px 10px rgba(227, 173, 126, 0.7);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(227, 173, 126, 0.5);
 }
 
 .book-list li a {
-    display: flex;
-    align-items: center;
-    color: #5B3E2B; /* marrone caldo più scuro */
+    display: block;
+    color: #5B3E2B;
     text-decoration: none;
-    padding: 12px 20px;
+    height: 100%;
+}
+
+.book-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.book-cover {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    background: #fff;
+}
+
+.book-details {
+    padding: 15px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.book-details h3 {
+    margin: 10px 0;
+    color: #5B3E2B;
     font-size: 1.1em;
-    font-weight: 600;
-    border-radius: 10px;
+    line-height: 1.2;
+    min-height: 3em;
 }
 
-.book-list li a i {
-    margin-right: 12px;
-    font-size: 1.3em;
-    color: #8C6649; /* marrone chiaro più scuro */
-}
-
-.book-list li a .year {
-    margin-left: auto;
-    font-weight: 400;
+.year {
     color: #9F8469;
+    font-size: 0.9em;
     font-style: italic;
+    margin-top: 8px;
 }
 
 .no-books {
@@ -49,4 +105,51 @@
     color: #8C6649;
     padding: 20px;
     text-align: center;
+    grid-column: 1 / -1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+    
+    .book-section {
+        min-height: calc(100vh - 120px);
+        padding: 30px 0;
+    }
+    
+    .book-list {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .book-cover {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.75rem;
+        padding-bottom: 10px;
+    }
+    
+    .section-title::after {
+        width: 80px;
+        height: 2px;
+    }
+    
+    .book-list {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .book-cover {
+        height: 200px;
+    }
+    
+    .book-details h3 {
+        font-size: 1em;
+    }
 }
