@@ -1,7 +1,7 @@
 /* Stili Sezione Libri */
 .book-section {
     width: 100%;
-    min-height: calc(100vh - 150px); /* Adatta in base ad header/footer */
+    min-height: calc(100vh - 150px);
     padding: 40px 0;
     background: linear-gradient(to bottom, #FFF9F5 0%, #FFEFE6 100%);
 }
@@ -13,6 +13,16 @@
     margin-bottom: 40px;
     position: relative;
     padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.section-title i {
+    font-size: 1.8rem; /* Dimensione aumentata */
+    color: #E3AD7E;
+    margin-bottom: 5px; /* Allineamento verticale corretto */
 }
 
 .section-title::after {
@@ -115,6 +125,10 @@
         margin-bottom: 30px;
     }
     
+    .section-title i {
+        font-size: 1.5rem;
+    }
+    
     .book-section {
         min-height: calc(100vh - 120px);
         padding: 30px 0;
@@ -134,6 +148,11 @@
     .section-title {
         font-size: 1.75rem;
         padding-bottom: 10px;
+        gap: 10px;
+    }
+    
+    .section-title i {
+        font-size: 1.2rem;
     }
     
     .section-title::after {
@@ -151,5 +170,19 @@
     
     .book-details h3 {
         font-size: 1em;
+    }
+}
+
+@media (max-width: 360px) {
+    .book-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .book-cover {
+        height: 250px;
+    }
+    
+    .section-title {
+        flex-wrap: wrap;
     }
 }
