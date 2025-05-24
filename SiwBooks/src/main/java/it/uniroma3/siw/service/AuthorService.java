@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Author;
+import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.repository.AuthorRepository;
 import jakarta.transaction.Transactional;
 
@@ -26,7 +27,7 @@ public class AuthorService {
 		return this.authorRepository.findById(id).orElse(null);
 	}
 
-	public Object findBooksByAuthorId(Long authorId) {
+	public Iterable<Book> findBooksByAuthorId(Long authorId) {
 		return this.authorRepository.findBooksByAuthorId(authorId);
 	}
 	

@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import it.uniroma3.siw.model.Author;
+import it.uniroma3.siw.model.Book;
 
 public interface AuthorRepository extends CrudRepository<Author, Long> {
 
@@ -19,5 +20,5 @@ public interface AuthorRepository extends CrudRepository<Author, Long> {
     List<Author> findAllByOrderBySurnameAscNameAsc();
 
     @Query("SELECT b FROM Author a JOIN a.books b WHERE a.id = :authorId")
-	Object findBooksByAuthorId(@Param("authorId") Long authorId);
+    Iterable<Book> findBooksByAuthorId(@Param("authorId") Long authorId);
 }
