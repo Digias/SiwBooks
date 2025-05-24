@@ -12,4 +12,7 @@ public interface AuthorRepository extends CrudRepository<Author, Long> {
 	Optional<Author> findByName(String authorName);
 
 	List<Author> findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(String name, String surname);
+	
+	// Ordina per cognome (ASC) e poi nome (ASC)
+    List<Author> findAllByOrderBySurnameAscNameAsc();
 }

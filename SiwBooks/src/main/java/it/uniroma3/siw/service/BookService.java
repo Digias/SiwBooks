@@ -17,7 +17,8 @@ public class BookService {
 	@Autowired private BookRepository bookRepository;
 
 	public Iterable<Book> getAllBooks() {
-		return this.bookRepository.findAll();
+		//return this.bookRepository.findAll();
+		return this.bookRepository.findAllByOrderByTitleAsc();
 	}
 	
 	public Book getBookbyId(Long id) {

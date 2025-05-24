@@ -25,4 +25,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 			"AND (COALESCE(AVG(r.rating), 0) >= :minRating)")
 	List<Book> findByTitleContainingIgnoreCaseAndMinRating(@Param("query") String query, @Param("minRating") int minRating);
 
+	// Ordina per titolo (ASC)
+	List<Book> findAllByOrderByTitleAsc();
 }
