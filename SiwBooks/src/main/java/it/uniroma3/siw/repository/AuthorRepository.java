@@ -3,7 +3,9 @@ package it.uniroma3.siw.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import it.uniroma3.siw.model.Author;
 
@@ -15,4 +17,7 @@ public interface AuthorRepository extends CrudRepository<Author, Long> {
 	
 	// Ordina per cognome (ASC) e poi nome (ASC)
     List<Author> findAllByOrderBySurnameAscNameAsc();
+
+    @Query("SELECT b FROM Author a JOIN a.books b WHERE a.id = :authorId")
+	Object findBooksByAuthorId(@Param("authorId") Long authorId);
 }

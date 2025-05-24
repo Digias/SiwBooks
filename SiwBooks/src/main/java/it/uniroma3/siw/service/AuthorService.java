@@ -19,12 +19,15 @@ public class AuthorService {
 	}
 
 	public Object findByNameOrSurnameContainingIgnoreCase(String query) {
-		// TODO Auto-generated method stub
 		return this.authorRepository.findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(query, query);
 	}
 
 	public Author getAuthorById(Long id) {
 		return this.authorRepository.findById(id).orElse(null);
+	}
+
+	public Object findBooksByAuthorId(Long authorId) {
+		return this.authorRepository.findBooksByAuthorId(authorId);
 	}
 	
 	
