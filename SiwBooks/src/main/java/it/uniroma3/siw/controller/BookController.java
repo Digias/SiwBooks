@@ -15,6 +15,7 @@ import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.utils.SecurityUtils;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class BookController {
@@ -31,12 +32,17 @@ public class BookController {
 	}
 
 	@GetMapping("/book/{bookId}")
-	public String getBook(@PathVariable("bookId") Long bookId, Model model) {
+	public String getBook(@PathVariable("bookId") Long bookId, Model model, HttpServletRequest request) {
 		Book book = this.bookService.getBookbyId(bookId);
+		
 		model.addAttribute("book", book);
 		model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));
 		model.addAttribute("cover", book.getCover());
 		model.addAttribute("review", new Review());
+		
+		//URL della pagina precedente
+	    String referer = request.getHeader("Referer");
+	    model.addAttribute("backUrl", referer != null ? referer : "/book"); // fallback se referer è null
 		return "book.html";
 	}
 
