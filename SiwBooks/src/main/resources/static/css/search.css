@@ -42,8 +42,8 @@
     gap: 12px;
 }
 
-.author-list li,
-.book-list li {
+.author-list li a,
+.book-list li a {
     background-color: #F5C9AD;
     border-radius: 10px;
     padding: 12px 16px;
@@ -53,10 +53,11 @@
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+	text-decoration: none;
 }
 
-.author-list li:hover,
-.book-list li:hover {
+.author-list li a:hover,
+.book-list li a:hover {
     background-color: #E3AD7E;
     box-shadow: 0 6px 10px rgba(227, 173, 126, 0.7);
 }
