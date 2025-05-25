@@ -57,7 +57,7 @@
     border-radius: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
-    padding-bottom: 60px; /* Spazio per il bottone */
+    padding-bottom: 60px;
 }
 
 .book-list li:hover {
@@ -95,7 +95,6 @@
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    z-index: 2;
 }
 
 .book-details h3 {
@@ -122,14 +121,16 @@
     grid-column: 1 / -1;
 }
 
-/* Stili Bottone Modifica - Corretti */
+/* Stili Bottone Modifica */
 .admin-controls {
     position: absolute;
     bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
-    width: calc(100% - 30px);
+    width: auto;
     text-align: center;
+    overflow: hidden; 
+    border-radius: 20px; 
 }
 
 .edit-btn {
@@ -139,23 +140,134 @@
     gap: 8px;
     background-color: #6B4226;
     color: #fff !important;
-    padding: 8px 20px;
+    padding: 8px 25px;
     border-radius: 20px;
     text-decoration: none !important;
     font-weight: 600;
     transition: all 0.3s ease;
     border: 2px solid #7B5236;
-    box-shadow: 0 4px 15px rgba(107, 66, 38, 0.3);
-    width: 100%;
+    box-shadow: 0 4px 12px rgba(107, 66, 38, 0.25);
+    width: auto;
     max-width: 140px;
     font-size: 0.9em;
+    margin: 0 auto;
+	overflow: hidden;
 }
 
 .edit-btn:hover {
     background-color: #7B5236;
     color: #FFEFE6 !important;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(107, 66, 38, 0.4);
+    box-shadow: 0 6px 16px rgba(107, 66, 38, 0.35);
 }
 
-/* Resto del CSS rimane invariato */
+.edit-btn:active {
+    box-shadow: 0 3px 10px rgba(107, 66, 38, 0.3);
+}
+
+.edit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        rgba(255,255,255,0.1) 0%, 
+        rgba(255,255,255,0.05) 50%, 
+        rgba(0,0,0,0.05) 100%);
+    z-index: 1;
+}
+
+.edit-btn i {
+    font-size: 1em;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.edit-btn:hover i {
+    transform: rotate(-15deg) scale(1.1);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+    
+    .section-title i {
+        font-size: 1.5rem;
+    }
+    
+    .book-section {
+        min-height: calc(100vh - 120px);
+        padding: 30px 0;
+    }
+    
+    .book-list {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .book-cover {
+        height: 250px;
+    }
+
+    .edit-btn {
+        padding: 6px 16px;
+        font-size: 0.85em;
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.75rem;
+        padding-bottom: 10px;
+        gap: 10px;
+    }
+    
+    .section-title i {
+        font-size: 1.2rem;
+    }
+    
+    .section-title::after {
+        width: 80px;
+        height: 2px;
+    }
+    
+    .book-list {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .book-cover {
+        height: 200px;
+    }
+    
+    .book-details h3 {
+        font-size: 0.95em;
+    }
+    
+    .edit-btn {
+        padding: 5px 12px;
+        font-size: 0.8em;
+        max-width: 110px;
+    }
+}
+
+@media (max-width: 360px) {
+    .book-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .book-cover {
+        height: 250px;
+    }
+    
+    .section-title {
+        flex-wrap: wrap;
+    }
+}
