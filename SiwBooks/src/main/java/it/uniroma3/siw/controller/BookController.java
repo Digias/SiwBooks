@@ -73,15 +73,16 @@ public class BookController {
 	    if (!securityUtils.hasRegisteredOrAdminAccess(credentialsService))
 	        return "index.html";
 
-	    if (query == null || query.trim().isEmpty()) {
+	    if (query == null || query.trim().isEmpty() && rating == null) {
 	        model.addAttribute("authors", this.authorService.getAllAuthors());
 	        model.addAttribute("books", this.bookService.getAllBooks());
 	        return "search.html";
 	    }
-
+	    
 	    boolean inAuthors = (searchInAuthors != null);
 	    boolean inBooks = (searchInBooks != null);
-
+	    boolean byRating = (rating != null);
+	    
 	    // Se nessuna checkbox selezionata, cerca in entrambi
 	    if (!inAuthors && !inBooks) {
 	        inAuthors = true;
@@ -89,13 +90,20 @@ public class BookController {
 	    }
 
 	    if (inAuthors)
-	        model.addAttribute("authors", authorService.findByNameOrSurnameContainingIgnoreCase(query));
+	        model.addAttribute("authors", authorService.findByNameOrSurname(query));
 	    else
 	        model.addAttribute("authors", List.of());
 
 	    if (inBooks) {
-	        int minRating = (rating != null) ? rating : 0;
-	        model.addAttribute("books", bookService.findByTitleContainingIgnoreCaseAndMinRating(query, minRating));
+	    	List<Book> books = this.bookService.findBooksByTitle(query);
+/*
+	    	if(byRating) {
+	    		List<Book> ratingBook = this.bookService.findBooksByRating(rating.intValue());
+	    		//System.out.println("===================================================================================================\nRatingBooks: " + ratingBook);
+	    		books.retainAll(ratingBook);
+	    	}
+*/
+	    	model.addAttribute("books", books);
 	    } else {
 	        model.addAttribute("books", List.of());
 	    }

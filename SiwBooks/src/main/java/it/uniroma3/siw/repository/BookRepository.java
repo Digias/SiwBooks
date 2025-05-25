@@ -18,12 +18,25 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 	Iterable<Book> findTop10Books();
 
 	List<Book> findByTitleContainingIgnoreCase(String title);
+	
+	@Query("SELECT b FROM Book b JOIN b.reviews r GROUP BY b HAVING ROUND(AVG(r.rating)) = :exactRating")
+	List<Book> findBooksByRoundedRating(@Param("exactRating") int exactRating);
 
+
+/*
 	@Query("SELECT b FROM Book b LEFT JOIN b.reviews r " +
 			"GROUP BY b " +
 			"HAVING (:query IS NULL OR LOWER(b.title) LIKE LOWER(CONCAT('%', :query, '%'))) " +
 			"AND (COALESCE(AVG(r.rating), 0) >= :minRating)")
 	List<Book> findByTitleContainingIgnoreCaseAndMinRating(@Param("query") String query, @Param("minRating") int minRating);
+
+	@Query("SELECT b FROM Book b LEFT JOIN b.reviews r " +
+			"GROUP BY b " +
+			"HAVING (COALESCE(:query, '') = '' OR LOWER(b.title) LIKE LOWER(CONCAT('%', :query, '%'))) " +
+			"AND (COALESCE(AVG(r.rating), 0) = :exactRating)")
+	List<Book> findByTitleAndExactAverageRating(@Param("query") String query, @Param("exactRating") int exactRating);
+*/
+
 
 	// Ordina per titolo (ASC)
 	List<Book> findAllByOrderByTitleAsc();

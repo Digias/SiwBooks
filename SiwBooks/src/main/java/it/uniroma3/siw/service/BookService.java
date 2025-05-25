@@ -33,12 +33,21 @@ public class BookService {
 		return this.bookRepository.findTop10Books();
 	}
 	
-	public List<Book> findByTitleContainingIgnoreCase(String query) {
+	public List<Book> findBooksByTitle(String query) {
 	    return bookRepository.findByTitleContainingIgnoreCase(query);
 	}
 	
+	public List<Book> findBooksByRating(int exactRating) {
+	    return this.bookRepository.findBooksByRoundedRating(exactRating);
+	}
+	
+/*
 	public List<Book> findByTitleContainingIgnoreCaseAndMinRating(String query, int minRating) {
 	    return this.bookRepository.findByTitleContainingIgnoreCaseAndMinRating(query, minRating);
 	}
-
+	
+	public List<Book> findByTitleAndRating(String query, int rating) {
+	    return this.bookRepository.findByTitleAndExactAverageRating(query, rating);
+	}
+*/
 }
