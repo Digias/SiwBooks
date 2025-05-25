@@ -19,7 +19,7 @@ public class AuthorService {
 		return this.authorRepository.findAllByOrderBySurnameAscNameAsc();
 	}
 
-	public Object findByNameOrSurnameContainingIgnoreCase(String query) {
+	public Object findByNameOrSurname(String query) {
 		return this.authorRepository.findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(query, query);
 	}
 
