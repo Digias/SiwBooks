@@ -38,10 +38,10 @@ public class BookController {
 		model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));
 		model.addAttribute("cover", book.getCover());
 		model.addAttribute("review", new Review());
-		
+
 		//URL della pagina precedente
-	    String referer = request.getHeader("Referer");
-	    model.addAttribute("backUrl", referer != null ? referer : "/book"); // fallback se referer è null
+		String referer = request.getHeader("Referer");
+		model.addAttribute("backUrl", referer != null ? referer : "/book"); // fallback se referer è null
 		return "book.html";
 	}
 
@@ -61,51 +61,78 @@ public class BookController {
 
 	@GetMapping("/registered/search")
 	public String showSearch(@RequestParam(name = "query", required = false) String query,
-	                         @RequestParam(name = "searchInAuthors", required = false) String searchInAuthors,
-	                         @RequestParam(name = "searchInBooks", required = false) String searchInBooks,
-	                         @RequestParam(name = "rating", required = false) Integer rating,
-	                         Model model) {
+			@RequestParam(name = "searchInAuthors", required = false) String searchInAuthors,
+			@RequestParam(name = "searchInBooks", required = false) String searchInBooks,
+			@RequestParam(name = "rating", required = false) Integer rating,
+			Model model) {
 
-	    if (!securityUtils.isAuthenticated())
-	        return "login";
+		if (!securityUtils.isAuthenticated())
+			return "login";
 
-	    if (!securityUtils.hasRegisteredOrAdminAccess(credentialsService))
-	        return "index.html";
+		if (!securityUtils.hasRegisteredOrAdminAccess(credentialsService))
+			return "index.html";
 
-	    if (query == null || query.trim().isEmpty() && rating == null) {
-	        model.addAttribute("authors", this.authorService.getAllAuthors());
-	        model.addAttribute("books", this.bookService.getAllBooks());
-	        return "search.html";
-	    }
-	    
-	    boolean inAuthors = (searchInAuthors != null);
-	    boolean inBooks = (searchInBooks != null);
-	    boolean byRating = (rating != null);
-	    
-	    // Se nessuna checkbox selezionata, cerca in entrambi
-	    if (!inAuthors && !inBooks) {
-	        inAuthors = true;
-	        inBooks = true;
-	    }
+		if (query == null || query.trim().isEmpty() && rating == null) {
+			model.addAttribute("authors", this.authorService.getAllAuthors());
+			model.addAttribute("books", this.bookService.getAllBooks());
+			return "search.html";
+		}
 
-	    if (inAuthors)
-	        model.addAttribute("authors", authorService.findByNameOrSurname(query));
-	    else
-	        model.addAttribute("authors", List.of());
+		boolean inAuthors = (searchInAuthors != null);
+		boolean inBooks = (searchInBooks != null);
+		boolean byRating = (rating != null);
 
-	    if (inBooks) {
-	    	List<Book> books = this.bookService.findBooksByTitle(query);
-	    	if(byRating) {
-	    		List<Book> ratingBook = this.bookService.findBooksByRating(rating.intValue());
-	    		books.retainAll(ratingBook);
-	    	}
+		// Se nessuna checkbox selezionata, cerca in entrambi
+		if (!inAuthors && !inBooks) {
+			inAuthors = true;
+			inBooks = true;
+		}
 
-	    	model.addAttribute("books", books);
-	    } else {
-	        model.addAttribute("books", List.of());
-	    }
+		if (inAuthors)
+			model.addAttribute("authors", authorService.findByNameOrSurname(query));
+		else
+			model.addAttribute("authors", List.of());
 
-	    return "search.html";
+		if (inBooks) {
+			List<Book> books = this.bookService.findBooksByTitle(query);
+			if(byRating) {
+				List<Book> ratingBook = this.bookService.findBooksByRating(rating.intValue());
+				books.retainAll(ratingBook);
+			}
+
+			model.addAttribute("books", books);
+		} else {
+			model.addAttribute("books", List.of());
+		}
+
+		return "search.html";
+	}
+
+	@GetMapping("/admin/book")
+	public String showBooksAdmin(Model model) {
+		//controllo se è autenticato e se ha i permessi admin
+		if(!this.securityUtils.isAuthenticated() && !this.securityUtils.isAdmin(credentialsService))
+			return "login";
+		model.addAttribute("books", this.bookService.getAllBooks());
+		return "admin/booksAdmin.html";
+	}
+
+	@GetMapping("/admin/book/{bookId}")
+	public String getBookAdmin(@PathVariable("bookId") Long bookId, Model model, HttpServletRequest request) {
+		//controllo se è autenticato e se ha i permessi admin
+		if(!this.securityUtils.isAuthenticated() && !this.securityUtils.isAdmin(credentialsService))
+			return "login";
+		
+		Book book = this.bookService.getBookbyId(bookId);
+		model.addAttribute("book", book);
+		model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));
+		model.addAttribute("cover", book.getCover());
+		model.addAttribute("review", new Review());
+
+		//URL della pagina precedente
+		String referer = request.getHeader("Referer");
+		model.addAttribute("backUrl", referer != null ? referer : "/book"); // fallback se referer è null
+		return "admin/bookAdmin.html";
 	}
 
 }

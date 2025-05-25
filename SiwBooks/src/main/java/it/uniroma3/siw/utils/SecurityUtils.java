@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Role;
 import it.uniroma3.siw.service.CredentialsService;
 
 @Component
@@ -33,7 +34,12 @@ public class SecurityUtils {
     public boolean hasRegisteredOrAdminAccess(CredentialsService credentialsService) {
         Credentials credentials = getCurrentCredentials(credentialsService);
         return credentials != null &&
-               (credentials.getRole().equals(it.uniroma3.siw.model.Role.REGISTERED) ||
-                credentials.getRole().equals(it.uniroma3.siw.model.Role.ADMIN));
+               (credentials.getRole().equals(Role.REGISTERED) ||
+                credentials.getRole().equals(Role.ADMIN));
+    }
+    
+    public boolean isAdmin(CredentialsService credentialsService) {
+    	Credentials credentials = getCurrentCredentials(credentialsService);
+    	return credentials != null && credentials.getRole().equals(Role.ADMIN);
     }
 }

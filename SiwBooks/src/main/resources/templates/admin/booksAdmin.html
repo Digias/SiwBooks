@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Libreria</title>
+    <link rel="icon" th:href="@{/library.ico?v=1}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/main-style.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/booksAdmin.css}">
+</head>
+
+<body>
+    <!-- HEADER importato -->
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <!-- SECTION -->
+    <section class="book-section">
+        <h2 class="section-title">
+            <i class="fa-solid fa-book-open"></i>
+            La Nostra Collezione
+        </h2>
+        <div class="book-container">
+            <div th:if="${books.isEmpty()}" class="no-books">Non ci sono libri nel sistema</div>
+            <ul class="book-list">
+                <li th:each="book : ${books}">
+                    <div class="book-card">
+                        <img th:if="${book.cover}" th:src="@{'/images/' + ${book.cover.id}}" alt="Copertina libro"
+                            class="book-cover" />
+                        <div class="book-details">
+                            <h3 th:text="${book.title}"></h3>
+                            <span class="year" th:text="${book.yearOfPublication}"></span>
+                        </div>
+                        <a th:href="@{'/admin/book/' + ${book.id}}" class="edit-btn">
+                            <i class="fa-solid fa-pencil"></i> Modifica
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- FOOTER importato -->
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>

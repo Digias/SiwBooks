@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Autore</title>
+	<link rel="icon" th:href="@{/library.ico?v=1}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/main-style.css}">
+	<link rel="stylesheet" th:href="@{/css/author.css}">
+</head>
+
+<body>
+	<!-- HEADER -->
+	<div th:insert="~{fragments/header :: header}"></div>
+
+	<section>
+		<div th:if="${author}" class="author-container">
+			<div class="left-column">
+				<img th:if="${photo}" th:src="@{'/images/' + ${photo.id}}" alt="Foto autore" class="author-photo" />
+			</div>
+			<div class="right-column">
+				<div class="author-details">
+					<h1 th:text="${author.name} + ' ' + ${author.surname}"></h1>
+					<p th:text="'Data di nascita: ' + ${#dates.format(author.dateOfBirth, 'dd MMMM yyyy')}"></p>
+					<p th:if="${author.dateOfDeath != null}"
+						th:text="'Data di morte: ' + ${#dates.format(author.dateOfDeath, 'dd MMMM yyyy')}"></p>
+					<p th:if="${author.dateOfDeath == null}">Ancora in vita</p>
+					<p th:text="'Nazionalità: ' + ${author.nationality}"></p>
+				</div>
+
+				<h2>Libri scritti</h2>
+				<ul class="book-list" th:if="${author.books}">
+					<li th:each="book : ${author.books}">
+						<a th:href="@{'/book/' + ${book.id}}">
+							<i class="fa-solid fa-book"></i>
+							<span th:text="${book.title}"></span>
+						</a>
+					</li>
+				</ul>
+
+				<!-- Bottone in basso a destra -->
+				<a th:href="${backUrl}" class="back-button">
+					<i class="fa-solid fa-arrow-left"></i> Torna agli autori
+				</a>
+			</div>
+		</div>
+
+		<div th:unless="${author}" class="no-author">
+			<p>Autore non trovato</p>
+		</div>
+	</section>
+
+	<!-- FOOTER -->
+	<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>
