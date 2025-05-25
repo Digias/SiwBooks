@@ -125,7 +125,7 @@ INSERT INTO book_authors (authors_id, books_id) VALUES (12, 31); -- Harry Potter
 
 
 --=======================================================================================================
--- =========================== User (Invariato)
+-- =========================== User
 --=======================================================================================================
 INSERT INTO users(name, surname, email) VALUES('Francesco', 'Di Gianvincenzo', 'fra.digianvincenzo@stud.uniroma3.it');
 INSERT INTO users(name, surname, email) VALUES('Admin', 'Admin', 'admin@gmail');
@@ -142,7 +142,7 @@ INSERT INTO users(name, surname, email) VALUES('Elena', 'Romano', 'elena.romano@
 INSERT INTO users(name, surname, email) VALUES('Davide', 'Colombo', 'davide.colombo@example.com');
 
 --=======================================================================================================
--- =========================== Credentials (Invariato)
+-- =========================== Credentials
 --=======================================================================================================
 INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'digia', 1); --password: password
 INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$7P5cx4thx8/wWnGKfMyTOOSC3.g/gfzgF5SJ8PsXPb/jH17M..ixu', 'ADMIN','admin', 2); --password: admin
@@ -159,7 +159,7 @@ INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSE
 INSERT INTO credentials(password, role, username, user_id) VALUES('$2a$10$XVwcSEnz6Kupbnx2U.Di9OjVK.Or0xFeZnx/sS0heSCvE3OSUrUp2', 'REGISTERED', 'davide', 12);
 
 --=======================================================================================================
--- =========================== Review (Invariato)
+-- =========================== Review
 --=======================================================================================================
 -- BOOK ID 1
 INSERT INTO review (title, rating, text, book_id, user_id) VALUES ('Sorprendente inizio', 5, 'Un debutto eccezionale, da leggere tutto d’un fiato.', 1, 3);

@@ -86,7 +86,7 @@ public class Book {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(authors, cover, id, reviews, title, yearOfPublication);
+		return Objects.hash(id, title, yearOfPublication);
 	}
 
 	@Override
@@ -98,18 +98,16 @@ public class Book {
 		if (getClass() != obj.getClass())
 			return false;
 		Book other = (Book) obj;
-		return Objects.equals(authors, other.authors) && Objects.equals(cover, other.cover)
-				&& Objects.equals(id, other.id) && Objects.equals(reviews, other.reviews)
-				&& Objects.equals(title, other.title) && yearOfPublication == other.yearOfPublication;
+		return Objects.equals(id, other.id) && Objects.equals(title, other.title)
+				&& yearOfPublication == other.yearOfPublication;
 	}
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", yearOfPublication=" + yearOfPublication + ", cover=" + cover
-				+ ", authors=" + authors + ", reviews=" + reviews + "]";
+		return "Book [id=" + id + ", title=" + title + ", yearOfPublication=" + yearOfPublication + ", authors="
+				+ authors + ", reviews=" + reviews + "]";
 	}
 
-	
 	
 	
 }

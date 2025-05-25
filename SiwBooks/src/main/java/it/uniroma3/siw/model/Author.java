@@ -106,7 +106,7 @@ public class Author {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(books, dateOfBirth, dateOfDeath, id, name, nationality, photo, surname);
+		return Objects.hash(dateOfBirth, dateOfDeath, id, name, nationality, surname);
 	}
 
 	@Override
@@ -118,18 +118,18 @@ public class Author {
 		if (getClass() != obj.getClass())
 			return false;
 		Author other = (Author) obj;
-		return Objects.equals(books, other.books) && Objects.equals(dateOfBirth, other.dateOfBirth)
-				&& Objects.equals(dateOfDeath, other.dateOfDeath) && Objects.equals(id, other.id)
-				&& Objects.equals(name, other.name) && Objects.equals(nationality, other.nationality)
-				&& Objects.equals(photo, other.photo) && Objects.equals(surname, other.surname);
+		return Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(dateOfDeath, other.dateOfDeath)
+				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
+				&& Objects.equals(nationality, other.nationality) && Objects.equals(surname, other.surname);
 	}
 
 	@Override
 	public String toString() {
 		return "Author [id=" + id + ", name=" + name + ", surname=" + surname + ", dateOfBirth=" + dateOfBirth
-				+ ", dateOfDeath=" + dateOfDeath + ", nationality=" + nationality + ", photo=" + photo + ", books="
-				+ books + "]";
+				+ ", dateOfDeath=" + dateOfDeath + ", nationality=" + nationality + ", books=" + books + "]";
 	}
+
+	
 	
 	
 	

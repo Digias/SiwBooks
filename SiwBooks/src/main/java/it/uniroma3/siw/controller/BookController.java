@@ -34,7 +34,6 @@ public class BookController {
 	@GetMapping("/book/{bookId}")
 	public String getBook(@PathVariable("bookId") Long bookId, Model model, HttpServletRequest request) {
 		Book book = this.bookService.getBookbyId(bookId);
-		
 		model.addAttribute("book", book);
 		model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));
 		model.addAttribute("cover", book.getCover());
@@ -96,13 +95,11 @@ public class BookController {
 
 	    if (inBooks) {
 	    	List<Book> books = this.bookService.findBooksByTitle(query);
-/*
 	    	if(byRating) {
 	    		List<Book> ratingBook = this.bookService.findBooksByRating(rating.intValue());
-	    		//System.out.println("===================================================================================================\nRatingBooks: " + ratingBook);
 	    		books.retainAll(ratingBook);
 	    	}
-*/
+
 	    	model.addAttribute("books", books);
 	    } else {
 	        model.addAttribute("books", List.of());
