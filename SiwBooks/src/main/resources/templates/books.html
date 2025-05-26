@@ -33,13 +33,6 @@
 								<span class="year" th:text="${book.yearOfPublication}"></span>
 							</div>
 						</a>
-
-						<!-- Link modifica separato (solo per admin) -->
-						<div sec:authorize="hasAuthority('ADMIN')" class="admin-controls">
-							<a th:href="@{'/admin/book/update/' + ${book.id}}" class="edit-btn">
-								<i class="fa-solid fa-pencil"></i> Modifica
-							</a>
-						</div>
 					</div>
 				</li>
 			</ul>

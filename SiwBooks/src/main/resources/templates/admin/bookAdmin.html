@@ -2,65 +2,69 @@
 <html>
 
 <head>
-    <title>Book</title>
+	<title>Book</title>
 	<link rel="icon" th:href="@{/library.ico?v=1}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" th:href="@{/css/main-style.css}">
-    <link rel="stylesheet" th:href="@{/css/book.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/main-style.css}">
+	<link rel="stylesheet" th:href="@{/css/book.css}">
 </head>
 
 <body>
-    <!-- HEADER importato -->
-    <div th:insert="~{fragments/header :: header}"></div>
+	<!-- HEADER importato -->
+	<div th:insert="~{fragments/header :: header}"></div>
 
-    <!-- SECTION -->
-    <section>
-        <div th:if="${book}" class="book-container">
-            <div class="left-column">
-                <img th:if="${cover}" th:src="@{'/images/' + ${cover.id}}" alt="Copertina libro" class="book-cover"/>
-            </div>
-            
-            <div class="right-column">
-                <div class="book-details">
-                    <h1 th:text="${book.title}"></h1>
-                    <div class="publication-year">
-                        <i class="fa-solid fa-calendar-days"></i>
-                        Anno di pubblicazione: 
-                        <span th:text="${book.yearOfPublication}"></span>
-                    </div>
-                    
-                    <div class="authors-section">
-                        <h2><i class="fa-solid fa-pen-nib"></i> Autori</h2>
-                        <div th:if="${authors != null and authors.isEmpty()}" class="no-authors">
-                            Gli autori per questo libro non sono presenti nel sistema
-                        </div>
-                        <ul class="author-list" th:if="${authors}">
-                            <li th:each="author : ${authors}">
-                                <a th:href="@{'/author/' + ${author.id}}">
-                                    <i class="fa-solid fa-user-pen"></i>
-                                    <span th:text="${author.name} + ' ' + ${author.surname}"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+	<!-- SECTION -->
+	<section>
+		<div th:if="${book}" class="book-container">
+			<div class="left-column">
+				<img th:if="${cover}" th:src="@{'/images/' + ${cover.id}}" alt="Copertina libro" class="book-cover" />
+			</div>
 
-                <a th:href="${backUrl}" class="back-button">
-                    <i class="fa-solid fa-arrow-left"></i> Torna ai libri
-                </a>
-            </div>
-        </div>
+			<div class="right-column">
+				<div class="book-details">
+					<h1 th:text="${book.title}"></h1>
+					<div class="publication-year">
+						<i class="fa-solid fa-calendar-days"></i>
+						Anno di pubblicazione:
+						<span th:text="${book.yearOfPublication}"></span>
+					</div>
 
-        <div th:unless="${book}" class="no-book">
-            <p>Libro non trovato</p>
-        </div>
+					<div class="authors-section">
+						<h2><i class="fa-solid fa-pen-nib"></i> Autori</h2>
+						<div th:if="${authors != null and authors.isEmpty()}" class="no-authors">
+							Gli autori per questo libro non sono presenti nel sistema
+						</div>
+						<ul class="author-list" th:if="${authors}">
+							<li th:each="author : ${authors}">
+								<a th:href="@{'/author/' + ${author.id}}">
+									<i class="fa-solid fa-user-pen"></i>
+									<span th:text="${author.name} + ' ' + ${author.surname}"></span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<a th:href="${backUrl}" class="back-button">
+					<i class="fa-solid fa-arrow-left"></i> Torna ai libri
+				</a>
+				<a th:href="${backUrl}" class="back-button">
+					<i class="fa-solid fa-pen"></i> Modifica
+				</a>
+			</div>
+		</div>
+
+		<div th:unless="${book}" class="no-book">
+			<p>Libro non trovato</p>
+		</div>
 
 		<div sec:authorize="hasAnyAuthority('ADMIN','REGISTERED')" class="reviews-section">
-		    
-		</div>
-    </section>
 
-    <!-- FOOTER importato -->
-    <div th:insert="~{fragments/footer :: footer}"></div>
+		</div>
+	</section>
+
+	<!-- FOOTER importato -->
+	<div th:insert="~{fragments/footer :: footer}"></div>
 </body>
+
 </html>

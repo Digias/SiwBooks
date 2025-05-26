@@ -117,10 +117,13 @@ public class BookController {
 		return "admin/booksAdmin.html";
 	}
 
-	@GetMapping("/admin/book/update/{bookId}")
+	@GetMapping("/admin/book/{bookId}")
 	public String getBookAdmin(@PathVariable("bookId") Long bookId, Model model, HttpServletRequest request) {
 		//controllo se è autenticato e se ha i permessi admin
-		if(!this.securityUtils.isAuthenticated() && !this.securityUtils.isAdmin(credentialsService))
+		if(!this.securityUtils.isAuthenticated())
+			return "login";
+		
+		if(!this.securityUtils.isAdmin(credentialsService))
 			return "login";
 		
 		Book book = this.bookService.getBookbyId(bookId);
@@ -132,7 +135,8 @@ public class BookController {
 		//URL della pagina precedente
 		String referer = request.getHeader("Referer");
 		model.addAttribute("backUrl", referer != null ? referer : "/book"); // fallback se referer è null
-		return "admin/bookAdmin.html";
+		return "book.html";
 	}
 
+	// /admin/author/edit/
 }

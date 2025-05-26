@@ -40,12 +40,6 @@
                                 </div>
                             </div>
                         </a>
-                        <!-- Controlli admin -->
-                        <div sec:authorize="hasAuthority('ADMIN')" class="admin-controls">
-                            <a th:href="@{'/admin/author/update/' + ${author.id}}" class="edit-btn">
-                                <i class="fa-solid fa-pencil"></i> Modifica
-                            </a>
-                        </div>
                     </div>
                 </li>
             </ul>
