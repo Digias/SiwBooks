@@ -34,7 +34,7 @@ public class Author {
 	@NotBlank
 	private String nationality;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Image photo;
 	
 	@ManyToMany(mappedBy = "authors")
