@@ -117,7 +117,7 @@ public class BookController {
 		return "admin/booksAdmin.html";
 	}
 
-	@GetMapping("/admin/book/{bookId}")
+	@GetMapping("/admin/book/update/{bookId}")
 	public String getBookAdmin(@PathVariable("bookId") Long bookId, Model model, HttpServletRequest request) {
 		//controllo se è autenticato e se ha i permessi admin
 		if(!this.securityUtils.isAuthenticated() && !this.securityUtils.isAdmin(credentialsService))

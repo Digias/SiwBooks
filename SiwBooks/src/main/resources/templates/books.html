@@ -36,7 +36,7 @@
 
 						<!-- Link modifica separato (solo per admin) -->
 						<div sec:authorize="hasAuthority('ADMIN')" class="admin-controls">
-							<a th:href="@{'/admin/book/' + ${book.id}}" class="edit-btn">
+							<a th:href="@{'/admin/book/update/' + ${book.id}}" class="edit-btn">
 								<i class="fa-solid fa-pencil"></i> Modifica
 							</a>
 						</div>
