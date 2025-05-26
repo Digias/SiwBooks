@@ -49,7 +49,7 @@
 					<i class="fa-solid fa-arrow-left"></i> Torna ai libri
 				</a>
 				<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/admin/book/edit/' + ${book.id}}" class="button">
-					<i class="fa-solid fa-pen"></i> Modifica
+					<i class="fa-solid fa-pen"></i> Modifica informazioni
 				</a>
 
 			</div>
