@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Aggiungi Libro</title>
+	<link rel="icon" th:href="@{/library.ico?v=1}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/main-style.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/formAddBook.css}">
+</head>
+
+<body>
+	<div th:insert="~{fragments/header :: header}"></div>
+
+	<section class="form-section">
+		<div class="form-container">
+			<h2 class="form-title">
+				<i class="fa-solid fa-book-medical"></i>
+				Aggiungi un nuovo libro
+			</h2>
+
+			<!-- Messaggio di errore generale -->
+			<div th:if="${errorMessage}" class="error-message"
+				style="margin-bottom: 20px; padding: 10px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px;">
+				<span th:text="${errorMessage}"></span>
+			</div>
+
+			<form th:action="@{/admin/addBook}" method="POST" enctype="multipart/form-data" th:object="${newBook}">
+				<!-- Titolo -->
+				<div class="form-group">
+					<label class="form-label">Titolo:</label>
+					<input type="text" th:field="*{title}" class="form-input" placeholder="Inserisci il titolo" />
+					<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-message"></span>
+				</div>
+
+				<!-- Anno -->
+				<div class="form-group">
+					<label class="form-label">Anno di pubblicazione:</label>
+					<input type="number" th:field="*{yearOfPublication}" class="form-input" placeholder="YYYY" />
+					<span th:if="${#fields.hasErrors('yearOfPublication')}" th:errors="*{yearOfPublication}"
+						class="error-message"></span>
+				</div>
+
+				<!-- Autori -->
+				<div class="form-group authors-group">
+					<label class="form-label">Seleziona Autori:</label>
+					<div class="authors-container">
+						<div class="author-item" th:each="author : ${authors}">
+							<input type="checkbox" name="selectedAuthors" th:value="${author.id}"
+								th:id="'author_' + ${author.id}" class="author-checkbox"
+								th:checked="${selectedAuthorIds != null and #lists.contains(selectedAuthorIds, author.id)}" />
+							<label th:for="'author_' + ${author.id}" class="author-label">
+								<span class="checkmark"></span>
+								<span th:text="${author.name + ' ' + author.surname}" class="author-name"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<!-- Copertina -->
+				<div class="form-group file-upload-group">
+					<label class="form-label">Copertina:</label>
+					<div class="custom-file-upload">
+						<input type="file" name="coverFile" id="coverFile" accept="image/*" class="file-input" />
+						<label for="coverFile" class="file-label">
+							<i class="fa-solid fa-image"></i>
+							<span class="file-text">Scegli un file</span>
+						</label>
+						<span class="file-name" id="fileName">Nessun file selezionato</span>
+					</div>
+				</div>
+
+				<!-- Submit Button -->
+				<button type="submit" class="submit-btn">
+					<i class="fa-solid fa-floppy-disk"></i>
+					Salva Libro
+				</button>
+			</form>
+		</div>
+	</section>
+
+	<div th:insert="~{fragments/footer :: footer}"></div>
+
+	<script>
+		document.getElementById('coverFile').addEventListener('change', function (e) {
+			const fileName = document.getElementById('fileName');
+			fileName.textContent = e.target.files[0] ? e.target.files[0].name : 'Nessun file selezionato';
+		});
+	</script>
+</body>
+
+</html>

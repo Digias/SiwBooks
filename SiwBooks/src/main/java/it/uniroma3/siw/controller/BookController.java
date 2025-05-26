@@ -1,21 +1,31 @@
 package it.uniroma3.siw.controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
+import org.springframework.aot.hint.BindingReflectionHintsRegistrar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
+import it.uniroma3.siw.model.Image;
 import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.utils.SecurityUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 @Controller
 public class BookController {
@@ -117,26 +127,59 @@ public class BookController {
 		return "admin/booksAdmin.html";
 	}
 
-	@GetMapping("/admin/book/{bookId}")
-	public String getBookAdmin(@PathVariable("bookId") Long bookId, Model model, HttpServletRequest request) {
-		//controllo se è autenticato e se ha i permessi admin
-		if(!this.securityUtils.isAuthenticated())
-			return "login";
-		
-		if(!this.securityUtils.isAdmin(credentialsService))
-			return "login";
-		
-		Book book = this.bookService.getBookbyId(bookId);
-		model.addAttribute("book", book);
-		model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));
-		model.addAttribute("cover", book.getCover());
-		model.addAttribute("review", new Review());
-
-		//URL della pagina precedente
-		String referer = request.getHeader("Referer");
-		model.addAttribute("backUrl", referer != null ? referer : "/book"); // fallback se referer è null
-		return "book.html";
-	}
-
 	// /admin/author/edit/
+
+	/* 
+	  		ADD BOOK
+	 */
+	
+	@GetMapping("/admin/formAddBook")
+	public String formAddBook(Model model) {
+		model.addAttribute("authors", this.authorService.getAllAuthors());
+		model.addAttribute("newBook", new Book());
+		model.addAttribute("selectedAuthorIds", null); // Inizializza a null per evitare errori
+		return "admin/formAddBook.html";
+	}
+	
+	@PostMapping("/admin/addBook")
+	public String addBook(@Valid @ModelAttribute("newBook") Book newBook,
+	                      BindingResult bindingResult,
+	                      @RequestParam("coverFile") MultipartFile coverFile,
+	                      @RequestParam(name = "selectedAuthors", required = false) Set<Long> selectedAuthorIds,
+	                      Model model) {
+
+	    if (bindingResult.hasErrors()) {
+	        model.addAttribute("authors", authorService.getAllAuthors());
+	        // Mantieni gli autori selezionati in caso di errori
+	        model.addAttribute("selectedAuthorIds", selectedAuthorIds);
+	        return "admin/formAddBook.html";
+	    }
+
+	    try {
+	        // Gestione immagine solo se presente
+	        if (!coverFile.isEmpty()) {
+	            Image coverImage = new Image();
+	            coverImage.setName(coverFile.getOriginalFilename());
+	            coverImage.setData(coverFile.getBytes());
+	            newBook.setCover(coverImage);
+	        }
+	    } catch (IOException e) {
+	        model.addAttribute("errorMessage", "Errore nel caricamento dell'immagine");
+	        model.addAttribute("authors", authorService.getAllAuthors());
+	        model.addAttribute("selectedAuthorIds", selectedAuthorIds);
+	        return "admin/formAddBook.html";
+	    }
+
+	    // Aggiunta autori
+	    if (selectedAuthorIds != null && !selectedAuthorIds.isEmpty()) {
+	        Set<Author> selectedAuthors = authorService.getAuthorsByIds(selectedAuthorIds);
+	        newBook.setAuthors(selectedAuthors);
+	        
+	        // Aggiorna bidirezionalmente gli autori
+	        selectedAuthors.forEach(author -> author.getBooks().add(newBook));
+	    }
+
+	    bookService.save(newBook);
+	    return "redirect:/book/" + newBook.getId();
+	}
 }

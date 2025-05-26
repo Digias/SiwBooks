@@ -1,5 +1,9 @@
 package it.uniroma3.siw.service;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +35,11 @@ public class AuthorService {
 		return this.authorRepository.findBooksByAuthorId(authorId);
 	}
 	
+	public Set<Author> getAuthorsByIds(Set<Long> selectedAuthorIds) {
+	    Iterable<Author> authorsIterable = authorRepository.findAllById(selectedAuthorIds);
+	    Set<Author> authorsSet = new HashSet<>();
+	    authorsIterable.forEach(authorsSet::add);
+	    return authorsSet;
+	}
 	
 }
