@@ -9,6 +9,7 @@ import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.repository.BookRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @Service
 @Transactional
@@ -39,6 +40,10 @@ public class BookService {
 	
 	public List<Book> findBooksByRating(int exactRating) {
 	    return this.bookRepository.findBooksByRoundedRating(exactRating);
+	}
+
+	public void save(@Valid Book book) {
+		this.bookRepository.save(book);
 	}
 	
 /*
