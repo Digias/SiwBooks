@@ -1,10 +1,11 @@
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.aot.hint.BindingReflectionHintsRegistrar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,17 +44,46 @@ public class BookController {
 
 	@GetMapping("/book/{bookId}")
 	public String getBook(@PathVariable("bookId") Long bookId, Model model, HttpServletRequest request) {
-		Book book = this.bookService.getBookbyId(bookId);
-		model.addAttribute("book", book);
-		model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));
-		model.addAttribute("cover", book.getCover());
-		model.addAttribute("review", new Review());
+	    Book book = this.bookService.getBookbyId(bookId);
+	    model.addAttribute("book", book);
+	    model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));
+	    model.addAttribute("cover", book.getCover());
+	    model.addAttribute("review", new Review());
 
-		//URL della pagina precedente
-		String referer = request.getHeader("Referer");
-		model.addAttribute("backUrl", referer != null ? referer : "/book"); // fallback se referer è null
-		return "book.html";
+	    // Validazione del referer
+	    String backUrl = validateReferer(request.getHeader("Referer"));
+
+	    model.addAttribute("backUrl", backUrl);
+	    return "book.html";
 	}
+
+	
+	/*
+				CONTROLLO PER REFERER
+	*/
+	
+	private String validateReferer(String referer) {
+	    if (referer != null) {
+	        try {
+	            URL url = new URL(referer);
+	            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	            connection.setRequestMethod("HEAD");
+	            connection.connect();
+
+	            int responseCode = connection.getResponseCode();
+
+	            // Se la pagina non è accessibile (non 2xx) impostiamo il fallback
+	            if (responseCode < 200 || responseCode >= 300) {
+	                return "/book";
+	            }
+	        } catch (Exception e) {
+	            return "/book"; // Se ci sono errori nella verifica, fallback a /book
+	        }
+	    }
+	    return "/book"; // Se referer è null, fallback a /book
+	}
+
+	
 
 	@GetMapping("/registered/bestRating")
 	public String showBestRating(Model model) {
