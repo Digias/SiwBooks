@@ -48,7 +48,7 @@ public class BookController {
 	    model.addAttribute("book", book);
 	    model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));
 	    model.addAttribute("cover", book.getCover());
-	    model.addAttribute("review", new Review());
+	    model.addAttribute("newReview", new Review());
 
 	    // Validazione del referer
 	    String backUrl = validateReferer(request.getHeader("Referer"));

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="newReview" class="newReviewNavbar">
+		<h2>Lascia la tua Recensione</h2>
+		
+		<form th:action="@{/registered/addReview}" method="POST" th:object="${newReview}">
+			
+			<!-- Invia solo l'ID del libro come parametro -->
+			<input type="hidden" name="bookId" th:value="${book.id}"/>
+			
+			<!-- Titolo Recensione -->
+			<div>
+				<label for="title">Titolo della Recensione:</label>
+				<input type="text" id="title" th:field="*{title}" required>
+				<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+			</div>
+
+			<!-- Descrizione -->
+			<div>
+				<label for="text">La tua Recensione:</label>
+				<textarea id="text" th:field="*{text}" rows="5" required></textarea>
+				<span th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></span>
+			</div>
+
+			<!-- Voto con Stelle -->
+			<div>
+				<label>Valutazione:</label>
+				<div>					
+					<input type="radio" th:field="*{rating}" th:value="5" id="star5" required/>
+					<label for="star5">★</label>
+
+					<input type="radio" th:field="*{rating}" th:value="4" id="star4"/>
+					<label for="star4">★</label>
+
+					<input type="radio" th:field="*{rating}" th:value="3" id="star3"/>
+					<label for="star3">★</label>
+
+					<input type="radio" th:field="*{rating}" th:value="2" id="star2"/>
+					<label for="star2">★</label>
+
+					<input type="radio" th:field="*{rating}" th:value="1" id="star1"/>
+					<label for="star1">★</label>
+				</div>
+				<span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></span>
+			</div>
+
+			<!-- Pulsante di Invio -->
+			<button type="submit">Invia Recensione</button>
+		</form>
+	</div>
+</body>
+</html>
