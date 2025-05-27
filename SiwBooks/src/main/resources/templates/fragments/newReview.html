@@ -2,52 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-	<div th:fragment="newReview" class="newReviewNavbar">
-		<h2>Lascia la tua Recensione</h2>
+	<div th:fragment="newReview" class="review-container">
+		<h2 class="form-title">
+			<i class="fa-solid fa-pen-to-square"></i>
+			Lascia la tua Recensione
+		</h2>
 		
-		<form th:action="@{/registered/addReview}" method="POST" th:object="${newReview}">
-			
-			<!-- Invia solo l'ID del libro come parametro -->
+		<form th:action="@{/registered/addReview}" method="POST" th:object="${newReview}" class="review-form">
 			<input type="hidden" name="bookId" th:value="${book.id}"/>
 			
 			<!-- Titolo Recensione -->
-			<div>
-				<label for="title">Titolo della Recensione:</label>
-				<input type="text" id="title" th:field="*{title}" required>
-				<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+			<div class="form-group">
+				<label class="form-label">Titolo della Recensione:</label>
+				<input type="text" th:field="*{title}" class="form-input" required>
+				<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-message"></span>
 			</div>
 
 			<!-- Descrizione -->
-			<div>
-				<label for="text">La tua Recensione:</label>
-				<textarea id="text" th:field="*{text}" rows="5" required></textarea>
-				<span th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></span>
+			<div class="form-group">
+				<label class="form-label">La tua Recensione:</label>
+				<textarea th:field="*{text}" rows="5" class="form-input textarea-input" required></textarea>
+				<span th:if="${#fields.hasErrors('text')}" th:errors="*{text}" class="error-message"></span>
 			</div>
 
 			<!-- Voto con Stelle -->
-			<div>
-				<label>Valutazione:</label>
-				<div>					
-					<input type="radio" th:field="*{rating}" th:value="5" id="star5" required/>
-					<label for="star5">★</label>
-
-					<input type="radio" th:field="*{rating}" th:value="4" id="star4"/>
-					<label for="star4">★</label>
-
-					<input type="radio" th:field="*{rating}" th:value="3" id="star3"/>
-					<label for="star3">★</label>
-
-					<input type="radio" th:field="*{rating}" th:value="2" id="star2"/>
-					<label for="star2">★</label>
-
-					<input type="radio" th:field="*{rating}" th:value="1" id="star1"/>
-					<label for="star1">★</label>
+			<div class="form-group rating-group">
+				<label class="form-label">Valutazione:</label>
+				<div class="stars-container">
+					<div class="star-item" th:each="star : ${#numbers.sequence(5,1,-1)}">
+						<input type="radio" th:field="*{rating}" th:value="${star}" th:id="'star' + ${star}" class="star-input"/>
+						<label th:for="'star' + ${star}" class="star-label">
+							<i class="fa-solid fa-star"></i>
+						</label>
+					</div>
 				</div>
-				<span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></span>
+				<span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}" class="error-message"></span>
 			</div>
 
 			<!-- Pulsante di Invio -->
-			<button type="submit">Invia Recensione</button>
+			<button type="submit" class="submit-btn">
+				<i class="fa-solid fa-paper-plane"></i>
+				Invia Recensione
+			</button>
 		</form>
 	</div>
 </body>
