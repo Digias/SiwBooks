@@ -22,9 +22,7 @@
 		<a th:href="@{'/author'}">I nostri autori</a>
 		
 		<div sec:authorize="hasAuthority('ADMIN')">
-		      <h1>Operazioni sui dati</h1>
-			  <a th:href="@{/admin/book}">Libri</a>
-			  <a th:href="@{/admin/author}">Autori</a>
+			Questo contenuto è visibile solo agli ADMIN.
 	    </div>
 		<div sec:authorize="hasAnyAuthority('ADMIN','REGISTERED')">
 		 	 Questo contenuto è visibile sia agli ADMIN che agli utenti REGISTERED.

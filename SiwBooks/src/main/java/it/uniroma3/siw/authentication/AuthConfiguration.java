@@ -64,7 +64,7 @@ import javax.sql.DataSource;
                 .and().formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/success", false)
+                .defaultSuccessUrl("/success", true)
                 .failureUrl("/login?error=true")
                 // LOGOUT: qui definiamo il logout
                 .and()
