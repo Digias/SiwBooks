@@ -133,16 +133,6 @@
 	color: #8C6649;
 }
 
-/* Stili per la sezione recensioni */
-.reviews-section {
-	max-width: 1200px;
-	margin: 40px auto;
-	padding: 30px;
-	background-color: #F5E6D9;
-	border-radius: 16px;
-	box-shadow: 0 4px 12px rgba(245, 201, 173, 0.3);
-}
-
 @media (max-width: 768px) {
 	.book-container {
 		flex-direction: column;

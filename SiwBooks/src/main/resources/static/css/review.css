@@ -1,0 +1,75 @@
+/* REVIEWS SECTION */
+.reviews-section {
+    display: flex;
+    gap: 1.5rem;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    max-width: 1200px;
+}
+
+.reviews-section > div {
+    flex: 1;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-height: 400px;
+}
+
+/* Contenitore scroll per ultime recensioni */
+.last-review {
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+/* Stile scrollbar */
+.last-review::-webkit-scrollbar {
+    width: 6px;
+}
+
+.last-review::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.last-review::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.last-review::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Stili testuali interni alla sezione */
+.reviews-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    color: #2c3e50;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.reviews-section .button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+/* Responsive mobile */
+@media (max-width: 768px) {
+    .reviews-section {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+
+    .reviews-section > div {
+        max-height: none;
+        width: 100%;
+    }
+
+    .last-review {
+        overflow-y: visible;
+    }
+}

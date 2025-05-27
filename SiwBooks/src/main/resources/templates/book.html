@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 	<link rel="stylesheet" th:href="@{/css/main-style.css}">
 	<link rel="stylesheet" th:href="@{/css/book.css}">
+	<link rel="stylesheet" th:href="@{/css/review.css}">
 </head>
 
 <body>
@@ -60,7 +61,8 @@
 		</div>
 
 		<div sec:authorize="hasAnyAuthority('ADMIN','REGISTERED')" class="reviews-section">
-
+			<div th:insert="~{fragments/lastReview :: lastReview}" class="last-review"></div>
+			<div th:insert="~{fragments/newReview :: newReview}"></div>
 		</div>
 	</section>
 
