@@ -1,6 +1,8 @@
 package it.uniroma3.siw.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,13 @@ public class BookService {
 
 	public void save(@Valid Book book) {
 		this.bookRepository.save(book);
+	}
+
+	public Set<Book> getBooksByIds(Set<Long> selectedBookIds) {
+		Iterable<Book> booksIterable = bookRepository.findAllById(selectedBookIds);
+		Set<Book> booksSet = new HashSet<>();
+		booksIterable.forEach(booksSet::add);
+		return booksSet;
 	}
 	
 /*

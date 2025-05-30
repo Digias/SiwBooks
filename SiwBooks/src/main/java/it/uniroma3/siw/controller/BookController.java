@@ -26,6 +26,7 @@ import it.uniroma3.siw.service.BookService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.utils.SecurityUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Controller
@@ -94,7 +95,8 @@ public class BookController {
 	/*
 				10 BEST BOOK BY RATING	
 	 */
-
+	
+	@Transactional
 	@GetMapping("/registered/bestRating")
 	public String showBestRating(Model model) {
 		if (!securityUtils.isAuthenticated()) {

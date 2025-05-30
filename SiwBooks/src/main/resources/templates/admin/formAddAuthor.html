@@ -25,6 +25,7 @@
 				<span th:text="${errorMessage}"></span>
 			</div>
 
+			<!--Form-->
 			<form th:action="@{/admin/addAuthor}" method="POST" enctype="multipart/form-data" th:object="${newAuthor}">
 				<!-- Nome -->
 				<div class="form-group">
@@ -38,6 +39,13 @@
 					<label class="form-label">Cognome:</label>
 					<input type="text" th:field="*{surname}" class="form-input" placeholder="Inserisci il cognome" />
 					<span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="error-message"></span>
+				</div>
+
+				<!-- Nazionalità -->
+				<div class="form-group">
+					<label class="form-label">Nazionalità:</label>
+					<input type="text" th:field="*{nationality}" class="form-input" placeholder="Inserisci la nazionalità" />
+					<span th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}" class="error-message"></span>
 				</div>
 
 				<!-- Data di nascita -->
@@ -74,7 +82,7 @@
 					</div>
 				</div>
 
-				<!-- Copertina -->
+				<!-- Immagine -->
 				<div class="form-group file-upload-group">
 					<label class="form-label">Foto Autore:</label>
 					<div class="custom-file-upload">

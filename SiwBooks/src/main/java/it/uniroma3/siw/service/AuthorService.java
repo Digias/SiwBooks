@@ -1,7 +1,6 @@
 package it.uniroma3.siw.service;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +10,12 @@ import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.repository.AuthorRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @Service
 @Transactional
 public class AuthorService {
-	
+
 	@Autowired private AuthorRepository authorRepository;
 
 	public Iterable<Author> getAllAuthors() {
@@ -34,12 +34,16 @@ public class AuthorService {
 	public Iterable<Book> findBooksByAuthorId(Long authorId) {
 		return this.authorRepository.findBooksByAuthorId(authorId);
 	}
-	
+
 	public Set<Author> getAuthorsByIds(Set<Long> selectedAuthorIds) {
-	    Iterable<Author> authorsIterable = authorRepository.findAllById(selectedAuthorIds);
-	    Set<Author> authorsSet = new HashSet<>();
-	    authorsIterable.forEach(authorsSet::add);
-	    return authorsSet;
+		Iterable<Author> authorsIterable = authorRepository.findAllById(selectedAuthorIds);
+		Set<Author> authorsSet = new HashSet<>();
+		authorsIterable.forEach(authorsSet::add);
+		return authorsSet;
 	}
-	
+
+	public void save(@Valid Author newAuthor) {
+		this.authorRepository.save(newAuthor);
+	}
+
 }
