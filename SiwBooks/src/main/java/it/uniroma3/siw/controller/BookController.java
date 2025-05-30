@@ -1,8 +1,6 @@
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 import java.util.Set;
 
@@ -25,7 +23,6 @@ import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.utils.SecurityUtils;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -61,25 +58,6 @@ public class BookController {
 		model.addAttribute("backUrl", from);
 
 		return "book.html";
-	}
-
-
-	/*
-				REFERER CONTROL FOR BACK BUTTON
-	 */
-
-	private String validateReferer(String referer) {
-		if (referer != null) {
-			try {
-				URL url = new URL(referer);
-				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-				connection.setRequestMethod("HEAD");
-				connection.connect();
-			} catch (Exception e) {
-				return "/book"; // Se ci sono errori nella verifica, fallback a /book
-			}
-		}
-		return "/book"; // Se referer è null, fallback a /book
 	}
 
 	/*
