@@ -36,54 +36,64 @@ public class BookController {
 	@Autowired private CredentialsService credentialsService;
 	@Autowired private SecurityUtils securityUtils;
 
+	/*
+				ALL BOOKS
+	 */
+	
 	@GetMapping("/book")
 	public String showBooks(Model model) {
 		model.addAttribute("books", this.bookService.getAllBooks());
 		return "books.html";
 	}
 
+	/*
+				SPECIFIC BOOK
+	 */
+
 	@GetMapping("/book/{bookId}")
 	public String getBook(@PathVariable("bookId") Long bookId, Model model, HttpServletRequest request) {
-	    Book book = this.bookService.getBookbyId(bookId);
-	    model.addAttribute("book", book);
-	    model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));
-	    model.addAttribute("cover", book.getCover());
-	    model.addAttribute("newReview", new Review());
+		Book book = this.bookService.getBookbyId(bookId);
+		model.addAttribute("book", book);
+		model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));
+		model.addAttribute("cover", book.getCover());
+		model.addAttribute("newReview", new Review());
 
-	    // Validazione del referer
-	    String backUrl = validateReferer(request.getHeader("Referer"));
+		// Validazione del referer
+		String backUrl = validateReferer(request.getHeader("Referer"));
+		model.addAttribute("backUrl", backUrl);
 
-	    model.addAttribute("backUrl", backUrl);
-	    return "book.html";
+		return "book.html";
 	}
 
-	
+
 	/*
-				CONTROLLO PER REFERER
-	*/
-	
+				REFERER CONTROL FOR BACK BUTTON
+	 */
+
 	private String validateReferer(String referer) {
-	    if (referer != null) {
-	        try {
-	            URL url = new URL(referer);
-	            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-	            connection.setRequestMethod("HEAD");
-	            connection.connect();
+		if (referer != null) {
+			try {
+				URL url = new URL(referer);
+				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("HEAD");
+				connection.connect();
 
-	            int responseCode = connection.getResponseCode();
+				int responseCode = connection.getResponseCode();
 
-	            // Se la pagina non è accessibile (non 2xx) impostiamo il fallback
-	            if (responseCode < 200 || responseCode >= 300) {
-	                return "/book";
-	            }
-	        } catch (Exception e) {
-	            return "/book"; // Se ci sono errori nella verifica, fallback a /book
-	        }
-	    }
-	    return "/book"; // Se referer è null, fallback a /book
+				// Se la pagina non è accessibile (non 2xx) impostiamo il fallback
+				if (responseCode < 200 || responseCode >= 300) {
+					return "/book";
+				}
+			} catch (Exception e) {
+				return "/book"; // Se ci sono errori nella verifica, fallback a /book
+			}
+		}
+		return "/book"; // Se referer è null, fallback a /book
 	}
 
-	
+	/*
+				10 BEST BOOK BY RATING	
+	 */
 
 	@GetMapping("/registered/bestRating")
 	public String showBestRating(Model model) {
@@ -98,6 +108,10 @@ public class BookController {
 
 		return "login.html";
 	}
+	
+	/*
+				SEARCH BOOK 
+	 */
 
 	@GetMapping("/registered/search")
 	public String showSearch(@RequestParam(name = "query", required = false) String query,
@@ -148,21 +162,10 @@ public class BookController {
 		return "search.html";
 	}
 
-	@GetMapping("/admin/book")
-	public String showBooksAdmin(Model model) {
-		//controllo se è autenticato e se ha i permessi admin
-		if(!this.securityUtils.isAuthenticated() && !this.securityUtils.isAdmin(credentialsService))
-			return "login";
-		model.addAttribute("books", this.bookService.getAllBooks());
-		return "admin/booksAdmin.html";
-	}
-
-	// /admin/author/edit/
-
 	/* 
 	  		ADD BOOK
 	 */
-	
+
 	@GetMapping("/admin/formAddBook")
 	public String formAddBook(Model model) {
 		model.addAttribute("authors", this.authorService.getAllAuthors());
@@ -170,46 +173,46 @@ public class BookController {
 		model.addAttribute("selectedAuthorIds", null); // Inizializza a null per evitare errori
 		return "admin/formAddBook.html";
 	}
-	
+
 	@PostMapping("/admin/addBook")
 	public String addBook(@Valid @ModelAttribute("newBook") Book newBook,
-	                      BindingResult bindingResult,
-	                      @RequestParam("coverFile") MultipartFile coverFile,
-	                      @RequestParam(name = "selectedAuthors", required = false) Set<Long> selectedAuthorIds,
-	                      Model model) {
+			BindingResult bindingResult,
+			@RequestParam("coverFile") MultipartFile coverFile,
+			@RequestParam(name = "selectedAuthors", required = false) Set<Long> selectedAuthorIds,
+			Model model) {
 
-	    if (bindingResult.hasErrors()) {
-	        model.addAttribute("authors", authorService.getAllAuthors());
-	        // Mantieni gli autori selezionati in caso di errori
-	        model.addAttribute("selectedAuthorIds", selectedAuthorIds);
-	        return "admin/formAddBook.html";
-	    }
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("authors", authorService.getAllAuthors());
+			// Mantieni gli autori selezionati in caso di errori
+			model.addAttribute("selectedAuthorIds", selectedAuthorIds);
+			return "admin/formAddBook.html";
+		}
 
-	    try {
-	        // Gestione immagine solo se presente
-	        if (!coverFile.isEmpty()) {
-	            Image coverImage = new Image();
-	            coverImage.setName(coverFile.getOriginalFilename());
-	            coverImage.setData(coverFile.getBytes());
-	            newBook.setCover(coverImage);
-	        }
-	    } catch (IOException e) {
-	        model.addAttribute("errorMessage", "Errore nel caricamento dell'immagine");
-	        model.addAttribute("authors", authorService.getAllAuthors());
-	        model.addAttribute("selectedAuthorIds", selectedAuthorIds);
-	        return "admin/formAddBook.html";
-	    }
+		try {
+			// Gestione immagine solo se presente
+			if (!coverFile.isEmpty()) {
+				Image coverImage = new Image();
+				coverImage.setName(coverFile.getOriginalFilename());
+				coverImage.setData(coverFile.getBytes());
+				newBook.setCover(coverImage);
+			}
+		} catch (IOException e) {
+			model.addAttribute("errorMessage", "Errore nel caricamento dell'immagine");
+			model.addAttribute("authors", authorService.getAllAuthors());
+			model.addAttribute("selectedAuthorIds", selectedAuthorIds);
+			return "admin/formAddBook.html";
+		}
 
-	    // Aggiunta autori
-	    if (selectedAuthorIds != null && !selectedAuthorIds.isEmpty()) {
-	        Set<Author> selectedAuthors = authorService.getAuthorsByIds(selectedAuthorIds);
-	        newBook.setAuthors(selectedAuthors);
-	        
-	        // Aggiorna bidirezionalmente gli autori
-	        selectedAuthors.forEach(author -> author.getBooks().add(newBook));
-	    }
+		// Aggiunta autori
+		if (selectedAuthorIds != null && !selectedAuthorIds.isEmpty()) {
+			Set<Author> selectedAuthors = authorService.getAuthorsByIds(selectedAuthorIds);
+			newBook.setAuthors(selectedAuthors);
 
-	    bookService.save(newBook);
-	    return "redirect:/book/" + newBook.getId();
+			// Aggiorna bidirezionalmente gli autori
+			selectedAuthors.forEach(author -> author.getBooks().add(newBook));
+		}
+
+		bookService.save(newBook);
+		return "redirect:/book/" + newBook.getId();
 	}
 }
