@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Aggiungi Libro</title>
+	<link rel="icon" th:href="@{/library.ico?v=1}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/main-style.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/formAddAuthor.css}">
+</head>
+
+<body>
+	<div th:insert="~{fragments/header :: header}"></div>
+
+	<section>
+		<div class="form-container">
+			<h2 class="form-title">
+				<i class="fa-solid fa-user-pen"></i>
+				Aggiungi un nuovo autore
+			</h2>
+
+			<!-- Messaggio di errore generale -->
+			<div th:if="${errorMessage}" class="error-message"
+				style="margin-bottom: 20px; padding: 10px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px;">
+				<span th:text="${errorMessage}"></span>
+			</div>
+
+			<form th:action="@{/admin/addAuthor}" method="POST" enctype="multipart/form-data" th:object="${newAuthor}">
+				<!-- Nome -->
+				<div class="form-group">
+					<label class="form-label">Nome:</label>
+					<input type="text" th:field="*{name}" class="form-input" placeholder="Inserisci il nome" />
+					<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></span>
+				</div>
+
+				<!-- Cognome -->
+				<div class="form-group">
+					<label class="form-label">Cognome:</label>
+					<input type="text" th:field="*{surname}" class="form-input" placeholder="Inserisci il cognome" />
+					<span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="error-message"></span>
+				</div>
+
+				<!-- Data di nascita -->
+				<div class="form-group">
+					<label class="form-label">Data di nascita:</label>
+					<input type="date" th:field="*{dateOfBirth}" class="form-input"
+						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+					<span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"
+						class="error-message"></span>
+				</div>
+
+				<!-- Data di morte -->
+				<div class="form-group">
+					<label class="form-label">Data di morte:</label>
+					<input type="date" th:field="*{dateOfDeath}" class="form-input"
+						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+					<span th:if="${#fields.hasErrors('dateOfDeath')}" th:errors="*{dateOfDeath}"
+						class="error-message"></span>
+				</div>
+
+				<!-- Libri -->
+				<div class="form-group book-group">
+					<label class="form-label">Seleziona Libri:</label>
+					<div class="books-container">
+						<div class="book-item" th:each="book : ${books}">
+							<input type="checkbox" name="selectedBooks" th:value="${book.id}"
+								th:id="'book_' + ${book.id}" class="book-checkbox"
+								th:checked="${selectedBookIds != null and #lists.contains(selectedBookIds, book.id)}" />
+							<label th:for="'book_' + ${book.id}" class="book-label">
+								<span class="checkmark"></span>
+								<span th:text="${book.title}" class="book-name"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<!-- Copertina -->
+				<div class="form-group file-upload-group">
+					<label class="form-label">Foto Autore:</label>
+					<div class="custom-file-upload">
+						<input type="file" name="photoFile" id="photoFile" accept="image/*" class="file-input" />
+						<label for="photoFile" class="file-label">
+							<i class="fa-solid fa-image"></i>
+							<span class="file-text">Scegli un file</span>
+						</label>
+						<span class="file-name" id="fileName">Nessun file selezionato</span>
+					</div>
+				</div>
+
+				<!-- Submit Button -->
+				<button type="submit" class="submit-btn">
+					<i class="fa-solid fa-floppy-disk"></i>
+					Salva Autore
+				</button>
+			</form>
+		</div>
+	</section>
+
+	<div th:insert="~{fragments/footer :: footer}"></div>
+
+	<script>
+		document.getElementById('photoFile').addEventListener('change', function (e) {
+			const fileName = document.getElementById('fileName');
+			fileName.textContent = e.target.files[0] ? e.target.files[0].name : 'Nessun file selezionato';
+		});
+	</script>
+</body>
+
+</html>
