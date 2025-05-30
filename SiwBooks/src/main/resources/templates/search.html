@@ -88,7 +88,7 @@
 				<h2><i class="fa-solid fa-book"></i> Libri</h2>
 				<ul class="book-list">
 					<li th:each="book : ${books}">
-						<a th:href="@{'/book/' + ${book.id}} ">
+						<a th:href="@{'/book/' + ${book.id}} + '?from=/registered/search'">
 							<span th:text="${book.title}">Titolo</span>
 							<span class="year" th:text="' - ' + ${book.yearOfPublication}">Anno</span>
 						</a>

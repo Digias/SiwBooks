@@ -23,7 +23,7 @@
 	            <div th:if="${books.isEmpty()}" class="no-books">Non ci sono libri nel sistema</div>
 	            <ul class="book-list">
 	                <li th:each="book : ${books}">
-	                    <a th:href="@{'/book/' + ${book.id}}">
+	                    <a th:href="@{'/book/' + ${book.id}} + '?from=/registered/bestRating'">
 	                        <div class="book-card">
 	                            <img th:if="${book.cover}" th:src="@{'/images/' + ${book.cover.id}}" 
 	                                 alt="Copertina libro" class="book-cover"/>

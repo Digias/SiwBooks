@@ -52,16 +52,13 @@ public class BookController {
 	 */
 
 	@GetMapping("/book/{bookId}")
-	public String getBook(@PathVariable("bookId") Long bookId, Model model, HttpServletRequest request) {
+	public String getBook(@PathVariable("bookId") Long bookId, @RequestParam(name = "from", defaultValue = "/book") String from,Model model) {
 		Book book = this.bookService.getBookbyId(bookId);
 		model.addAttribute("book", book);
 		model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));
 		model.addAttribute("cover", book.getCover());
 		model.addAttribute("newReview", new Review());
-
-		// Validazione del referer
-		String backUrl = validateReferer(request.getHeader("Referer"));
-		model.addAttribute("backUrl", backUrl);
+		model.addAttribute("backUrl", from);
 
 		return "book.html";
 	}
@@ -78,13 +75,6 @@ public class BookController {
 				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 				connection.setRequestMethod("HEAD");
 				connection.connect();
-
-				int responseCode = connection.getResponseCode();
-
-				// Se la pagina non è accessibile (non 2xx) impostiamo il fallback
-				if (responseCode < 200 || responseCode >= 300) {
-					return "/book";
-				}
 			} catch (Exception e) {
 				return "/book"; // Se ci sono errori nella verifica, fallback a /book
 			}
