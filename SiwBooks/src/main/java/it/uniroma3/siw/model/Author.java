@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -26,10 +27,10 @@ public class Author {
 	
 	@NotNull
 	@PastOrPresent
-	private Date dateOfBirth;
+	private LocalDate dateOfBirth;
 	
 	@Past
-	private Date dateOfDeath;
+	private LocalDate dateOfDeath;
 	
 	@NotBlank
 	private String nationality;
@@ -64,19 +65,19 @@ public class Author {
 		this.surname = surname;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Date getDateOfDeath() {
+	public LocalDate getDateOfDeath() {
 		return dateOfDeath;
 	}
 
-	public void setDateOfDeath(Date dateOfDeath) {
+	public void setDateOfDeath(LocalDate dateOfDeath) {
 		this.dateOfDeath = dateOfDeath;
 	}
 

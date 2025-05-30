@@ -42,10 +42,10 @@
 									<div class="author-firstname" th:text="${author.name}"></div>
 								</div>
 								<div class="author-dates">
-									<span th:text="${#dates.format(author.dateOfBirth, 'dd/MM/yyyy')}"></span>
+									<span th:text="${#temporals.format(author.dateOfBirth, 'dd/MM/yyyy')}"></span>
 									-
 									<span th:text="${author.dateOfDeath != null} ? 
-                                        ${#dates.format(author.dateOfDeath, 'dd/MM/yyyy')} : 
+                                        ${#temporals.format(author.dateOfDeath, 'dd/MM/yyyy')} : 
                                         'in vita'"></span>
 								</div>
 							</div>
