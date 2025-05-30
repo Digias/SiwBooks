@@ -1,6 +1,5 @@
 package it.uniroma3.siw.model;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 import jakarta.persistence.*;
@@ -43,11 +42,7 @@ public class Image {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Arrays.hashCode(data);
-		result = prime * result + Objects.hash(id, name);
-		return result;
+		return Objects.hash(id, name);
 	}
 
 	@Override
@@ -59,15 +54,12 @@ public class Image {
 		if (getClass() != obj.getClass())
 			return false;
 		Image other = (Image) obj;
-		return Arrays.equals(data, other.data) && Objects.equals(id, other.id) && Objects.equals(name, other.name);
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
 
 	@Override
 	public String toString() {
-		return "Image [id=" + id + ", name=" + name + ", data=" + Arrays.toString(data) + "]";
+		return "Image [id=" + id + ", name=" + name + "]";
 	}
 
-	
-
-	
 }
