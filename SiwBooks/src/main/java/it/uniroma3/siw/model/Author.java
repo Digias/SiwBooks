@@ -1,9 +1,8 @@
 package it.uniroma3.siw.model;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -39,7 +38,7 @@ public class Author {
 	private Image photo;
 	
 	@ManyToMany(mappedBy = "authors")
-	private List<Book> books;
+	private Set<Book> books;
 
 	public Long getId() {
 		return id;
@@ -97,11 +96,11 @@ public class Author {
 		this.photo = photo;
 	}
 
-	public List<Book> getBooks() {
+	public Set<Book> getBooks() {
 		return books;
 	}
 
-	public void setBooks(List<Book> books) {
+	public void setBooks(Set<Book> books) {
 		this.books = books;
 	}
 
