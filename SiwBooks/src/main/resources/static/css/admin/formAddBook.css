@@ -1,13 +1,8 @@
-/* Global: Box-sizing in modo da includere padding e border nel width totale */
-*, *::before, *::after {
+/* Section: Box-sizing in modo da includere padding e border nel width totale */
+section *,
+section *::before,
+section *::after {
     box-sizing: border-box;
-}
-
-/* Form Section */
-.form-section {
-    padding: 50px 20px;
-    background: linear-gradient(to bottom, #FFF9F5 0%, #FFEFE6 100%);
-    min-height: calc(100vh - 150px);
 }
 
 .form-container {
@@ -249,11 +244,7 @@
     }
 }
 
-@media (max-width: 480px) {
-    .form-section {
-        padding: 30px 15px;
-    }
-    
+@media (max-width: 480px) {    
     .form-container {
         padding: 25px;
         border-radius: 15px;
