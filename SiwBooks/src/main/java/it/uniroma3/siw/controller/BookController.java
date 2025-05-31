@@ -22,6 +22,7 @@ import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.ReviewService;
 import it.uniroma3.siw.utils.SecurityUtils;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -31,6 +32,7 @@ public class BookController {
 
 	@Autowired private BookService bookService;
 	@Autowired private AuthorService authorService;
+	@Autowired private ReviewService reviewService;
 	@Autowired private CredentialsService credentialsService;
 	@Autowired private SecurityUtils securityUtils;
 
@@ -55,6 +57,7 @@ public class BookController {
 		model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));
 		model.addAttribute("cover", book.getCover());
 		model.addAttribute("newReview", new Review());
+		model.addAttribute("lastReview", this.reviewService.getLast5Review(book));
 		model.addAttribute("backUrl", from);
 
 		return "book.html";

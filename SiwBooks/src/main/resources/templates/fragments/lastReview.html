@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html>
+
 <body>
 	<div th:fragment="lastReview" class="lastReviewNavbar">
-		<h2>Le ultime recensioni</h2>
-		
+	    <h2>Le ultime recensioni</h2>
+	    <div th:if="${lastReview.isEmpty()}" class="no-review">Non ci sono recensioni nel sistema</div>
+	    <ul class="review-list">
+	        <li th:each="review : ${lastReview}">
+	            <h3 th:text="${review.title}"></h3>
+	            <span class="review-text" th:text="${review.text}"></span>
+	            <div class="review-rating">
+	                <!-- Genera tante stelle piene quanto il rating -->
+	                <span th:each="i: ${#numbers.sequence(1,5)}">
+	                    <i th:class="${i <= review.rating} ? 'fas fa-star star filled' : 'fas fa-star star'"></i>
+	                </span>
+	            </div>
+	        </li>
+	    </ul>
 	</div>
 </body>
 

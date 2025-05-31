@@ -25,31 +25,6 @@
     max-height: 500px;
 }
 
-/* Contenitore scroll per ultime recensioni */
-.last-review {
-    overflow-y: auto;
-    padding-right: 0.5rem;
-}
-
-/* Stile scrollbar personalizzato */
-.last-review::-webkit-scrollbar {
-    width: 8px;
-}
-
-.last-review::-webkit-scrollbar-track {
-    background: #FFF9F5;
-    border-radius: 8px;
-}
-
-.last-review::-webkit-scrollbar-thumb {
-    background: #E3AD7E;
-    border-radius: 8px;
-}
-
-.last-review::-webkit-scrollbar-thumb:hover {
-    background: #5B3E2B;
-}
-
 /* Stili testuali interni alla sezione */
 .reviews-section h2 {
     color: #5B3E2B;
