@@ -1,4 +1,132 @@
+/* index.css */
 a {
-	color: black;
+	color: rgb(255, 255, 255);
 	text-decoration-line: underline;
+}
+
+h1,
+p {
+	color: rgb(255, 255, 255);
+}
+
+.hero {
+	position: relative;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 2rem;
+	overflow: hidden;
+}
+
+.hero::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-image: url('/static-img/sfondo.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	filter: blur(8px);
+	z-index: -1;
+}
+
+.hero-content {
+	position: relative;
+	z-index: 1;
+	max-width: 900px;
+	padding: 3rem;
+	border-radius: 15px;
+	backdrop-filter: blur(5px);
+}
+
+.hero h1 {
+	font-size: 4rem;
+	margin-bottom: 1.5rem;
+	text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.hero p {
+	font-size: 2rem;
+	margin-bottom: 3rem;
+	text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.btn-container {
+	display: flex;
+	gap: 3rem;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.hero-btn {
+	text-decoration: none;
+	padding: 1.5rem 3rem;
+	background-color: #6B4226;
+	border-radius: 10px;
+	transition: all 0.3s ease;
+	display: inline-flex;
+	align-items: center;
+	gap: 1rem;
+	font-size: 1.5rem;
+	font-weight: 600;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+	border: 2px solid rgba(255, 255, 255, 0.4);
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.hero-btn:hover {
+	background-color: #56331E;
+	transform: translateY(-5px);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.hero-btn i {
+	font-size: 2rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+	.hero h1 {
+		font-size: 3rem;
+	}
+
+	.hero p {
+		font-size: 1.8rem;
+	}
+
+	.btn-container {
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.hero-btn {
+		padding: 1.2rem 2rem;
+		font-size: 1.5rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.hero-content {
+		padding: 1.5rem;
+	}
+
+	.hero h1 {
+		font-size: 2.2rem;
+	}
+
+	.hero p {
+		font-size: 1.4rem;
+	}
+
+	.hero-btn {
+		padding: 1rem 1.5rem;
+		font-size: 1.2rem;
+	}
 }

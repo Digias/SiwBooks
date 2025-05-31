@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<title>Home</title>
@@ -15,17 +14,20 @@
 	<div th:insert="~{fragments/header :: header}"></div>
 
 	<!-- SECTION -->
-	<section>
-		<h1>Benvenuto nel sito dei libri</h1>
-		<p>Scopri autori, generi e letture consigliate.</p>
-		<a th:href="@{'/book'}">I nostri libri</a>
-		<a th:href="@{'/author'}">I nostri autori</a>
-		
-		<div sec:authorize="hasAuthority('ADMIN')">
-			Questo contenuto è visibile solo agli ADMIN.
-	    </div>
-		<div sec:authorize="hasAnyAuthority('ADMIN','REGISTERED')">
-		 	 Questo contenuto è visibile sia agli ADMIN che agli utenti REGISTERED.
+	<section class="hero">
+		<div class="hero-content">
+			<h1>Benvenuto nel sito dei libri</h1>
+			<p>Scopri autori, generi e letture consigliate.</p>
+			<div class="btn-container">
+				<a th:href="@{'/book'}" class="hero-btn">
+					<i class="fa-solid fa-book-open"></i>
+					La Nostra Collezione
+				</a>
+				<a th:href="@{'/author'}" class="hero-btn">
+					<i class="fa-solid fa-pen-nib"></i>
+					I Nostri Autori
+				</a>
+			</div>
 		</div>
 	</section>
 

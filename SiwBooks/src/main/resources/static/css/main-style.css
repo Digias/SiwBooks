@@ -7,10 +7,10 @@
 	background-color: #6B4226; 	/* Colore di sfondo marrone cuoio */
     color: white; 				/* Colore del testo bianco */
     padding: 1em; 					/* Spaziatura interna */
-    height: 5vh; 					/* Altezza fissa del header */
+    height: 7vh; 					/* Altezza fissa del header */
 	display: flex;
 	align-items: center;
-	min-height: 1em;
+	min-height: 2em;
 	margin: 10px;
 	border-radius: 10px;
 }
@@ -34,7 +34,7 @@
 /* Collegamenti di navigazione */
 .navigationButton {
     display: inline-block;
-    font-size: 1.3em;
+    font-size: 1.7em;
     color: white;
     text-decoration: none;        /* Rimuove la sottolineatura */
     padding: 15px 0;
@@ -118,7 +118,7 @@
 -----------------------------------------------SECTION-------------------------------------------------------------------------
 */
 section {
-    background-color: #E4DCCB;
+    /*background-color: #E4DCCB;*/
     color: #2C2C2C;
     padding: 2em;
     min-height: 100vh;
