@@ -75,7 +75,7 @@
 				<h2><i class="fa-solid fa-user-pen"></i> Autori</h2>
 				<ul class="author-list">
 					<li th:each="author : ${authors}">
-						<a th:href="@{'/author/' + ${author.id}} ">
+						<a th:href="@{'/author/' + ${author.id}} + '?from=/registered/search'">
 							<span th:text="${author.name} + ' ' + ${author.surname}">Nome Cognome</span>
 							<span th:text="' - ' + ${author.nationality}">Nazionalità</span>
 						</a>

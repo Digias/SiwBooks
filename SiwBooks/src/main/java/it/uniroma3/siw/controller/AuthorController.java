@@ -1,10 +1,6 @@
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +19,6 @@ import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.model.Image;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
-import it.uniroma3.siw.service.ImageService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -41,43 +36,14 @@ public class AuthorController {
 	}
 
 	@GetMapping("/author/{id}")
-	public String showAuthors(@PathVariable("id") Long id, Model model, HttpServletRequest request) {
+	public String showAuthors(@PathVariable("id") Long id, @RequestParam(name = "from", defaultValue = "/author") String from, Model model, HttpServletRequest request) {
 		Author author = this.authorService.getAuthorById(id);
 		model.addAttribute("author", author);
 		model.addAttribute("books", this.authorService.findBooksByAuthorId(id));
 		model.addAttribute("photo", author.getPhoto());
-
-		//URL della pagina precedente
-		// Validazione del referer
-		String backUrl = validateReferer(request.getHeader("Referer"));
-		model.addAttribute("backUrl", backUrl);
+		model.addAttribute("backUrl", from);
 
 		return "author.html";
-	}
-
-	/*
-				REFERER CONTROL FOR BACK BUTTON
-	 */
-
-	private String validateReferer(String referer) {
-		if (referer != null) {
-			try {
-				URL url = new URL(referer);
-				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-				connection.setRequestMethod("HEAD");
-				connection.connect();
-
-				int responseCode = connection.getResponseCode();
-
-				// Se la pagina non è accessibile (non 2xx) impostiamo il fallback
-				if (responseCode < 200 || responseCode >= 300) {
-					return "/author";
-				}
-			} catch (Exception e) {
-				return "/author"; // Se ci sono errori nella verifica, fallback a /book
-			}
-		}
-		return "/author"; // Se referer è null, fallback a /book
 	}
 
 	@GetMapping("/admin/formAddAuthor")

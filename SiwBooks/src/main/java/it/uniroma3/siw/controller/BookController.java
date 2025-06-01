@@ -51,7 +51,7 @@ public class BookController {
 	 */
 
 	@GetMapping("/book/{bookId}")
-	public String getBook(@PathVariable("bookId") Long bookId, @RequestParam(name = "from", defaultValue = "/book") String from,Model model) {
+	public String getBook(@PathVariable("bookId") Long bookId, @RequestParam(name = "from", defaultValue = "/book") String from, Model model) {
 		Book book = this.bookService.getBookbyId(bookId);
 		model.addAttribute("book", book);
 		model.addAttribute("authors", this.bookService.findAuthorsByBookId(bookId));

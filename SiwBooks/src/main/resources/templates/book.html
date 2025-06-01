@@ -39,8 +39,8 @@
 						</div>
 						<ul class="author-list" th:if="${authors}">
 							<li th:each="author : ${authors}">
-								<a th:href="@{'/author/' + ${author.id}}">
-									<i class="fa-solid fa-user-pen"></i>
+								<a th:href="@{'/author/' + ${author.id} + '?from=/book/' + ${book.id}}"> <i
+										class="fa-solid fa-user-pen"></i>
 									<span th:text="${author.name} + ' ' + ${author.surname}"></span>
 								</a>
 							</li>
