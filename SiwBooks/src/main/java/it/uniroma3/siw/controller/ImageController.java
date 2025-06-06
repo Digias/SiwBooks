@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import it.uniroma3.siw.model.Image;
@@ -17,6 +18,7 @@ public class ImageController {
     private ImageService imageService;
 
     @GetMapping("/{id}")
+    @Transactional(readOnly = true)
     public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
         Optional<Image> image = imageService.getImage(id);
         return image.map(img -> ResponseEntity.ok()

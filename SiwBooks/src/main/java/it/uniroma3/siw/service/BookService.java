@@ -31,6 +31,13 @@ public class BookService {
 	public Iterable<Author> findAuthorsByBookId(Long bookId) {
 		return this.bookRepository.findAuthorsByBookId(bookId);
 	}
+	
+	public Set<Author> getAuthorsByBookId(Long bookId) {
+		Iterable<Author> authorsIterable = this.bookRepository.findAuthorsByBookId(bookId);
+		Set<Author> authorsSet = new HashSet<>();
+		authorsIterable.forEach(authorsSet::add);
+		return authorsSet;
+	}
 
 	public Iterable<Book> findTop10Books() {
 		return this.bookRepository.findTop10Books();

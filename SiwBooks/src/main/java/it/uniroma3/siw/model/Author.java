@@ -34,10 +34,10 @@ public class Author {
 	@NotBlank
 	private String nationality;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Image photo;
 	
-	@ManyToMany(mappedBy = "authors")
+	@ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
 	private Set<Book> books;
 
 	public Long getId() {

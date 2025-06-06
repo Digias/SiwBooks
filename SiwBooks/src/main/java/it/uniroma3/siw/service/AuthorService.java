@@ -52,4 +52,8 @@ public class AuthorService {
 		return this.authorRepository.findAllExcludingAuthors(authors);
 	}
 
+	public void saveAll(Set<Author> authors) {
+		this.authorRepository.saveAll(authors);		
+	}
+
 }

@@ -77,7 +77,7 @@
 				<!-- Copertina -->
 				<div class="form-group file-upload-group">
 					<label class="form-label">Copertina:</label>
-					<img th:if="${book.cover}" th:src="@{'/images/' + ${book.cover.id}}" alt="Copertina libro" class="book-cover" />
+					<img th:if="${cover}" th:src="@{'/images/' + ${cover.id}}" alt="Copertina libro" class="book-cover" />
 					<div class="custom-file-upload">
 						<input type="file" name="coverFile" id="coverFile" accept="image/*" class="file-input" />
 						<label for="coverFile" class="file-label">

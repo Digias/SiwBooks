@@ -27,7 +27,7 @@ public class Book {
     @ValidPublicationYear
 	private int yearOfPublication;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Image cover;
 	
 	@ManyToMany

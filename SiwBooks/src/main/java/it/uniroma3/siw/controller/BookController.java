@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -147,6 +148,7 @@ public class BookController {
 	public String formEditBook(@PathVariable("id") Long id, Model model) {
 		Book book = this.bookService.getBookbyId(id);
 		model.addAttribute("book", book);
+		model.addAttribute("cover", book.getCover());
 
 		Iterable<Author> bookAuthors = this.bookService.findAuthorsByBookId(id);
 		model.addAttribute("bookAuthors", bookAuthors);
@@ -171,6 +173,7 @@ public class BookController {
 			Iterable<Author> bookAuthors = this.bookService.findAuthorsByBookId(id);
 			model.addAttribute("bookAuthors", bookAuthors);
 			model.addAttribute("otherAuthors", this.authorService.findAllExcludingAuthors((List<Author>) bookAuthors));
+			model.addAttribute("cover", book.getCover());
 			model.addAttribute("selectedAuthorIds", selectedAuthorIds);
 			model.addAttribute("unSelectedAuthorIds", unSelectedAuthorIds);
 			return "admin/formEditBook.html";
@@ -197,27 +200,20 @@ public class BookController {
 				existingBook.setCover(newCover);
 			}
 
-			Set<Author> updateAuthor = existingBook.getAuthors();
+			Set<Author> updateAuthor = this.bookService.getAuthorsByBookId(id);
 
 			// Gestione autori da rimuovere
-			if (unSelectedAuthorIds != null) {
+			if (unSelectedAuthorIds != null && !unSelectedAuthorIds.isEmpty()) {
 				Set<Author> authorsToRemove = this.authorService.getAuthorsByIds(unSelectedAuthorIds);
 				updateAuthor.removeAll(authorsToRemove);
-
-				// Aggiorna bidirezionalmente gli autori
-				 authorsToRemove.forEach(author -> author.getBooks().remove(existingBook));
 			}
 
 			// Aggiunta autori
-			if (selectedAuthorIds != null) {
+			if (selectedAuthorIds != null && !selectedAuthorIds.isEmpty()) {
 				Set<Author> authorsToAdd = this.authorService.getAuthorsByIds(selectedAuthorIds);
 				updateAuthor.addAll(authorsToAdd);
-				
-				// Aggiorna bidirezionalmente gli autori
-				authorsToAdd.forEach(author -> author.getBooks().add(existingBook));
-
 			}
-			
+
 			existingBook.setAuthors(updateAuthor);
 
 			// Salva il libro aggiornato
@@ -227,7 +223,10 @@ public class BookController {
 			return "redirect:/book/" + existingBook.getId();
 
 		} catch (Exception e) {
-			// Gestione errori
+			System.out.println("=========================================================================================================================================================================================");
+			System.out.println("Error: " + e.getMessage());
+			System.out.println("=========================================================================================================================================================================================");
+
 			redirectAttributes.addFlashAttribute("errorMessage", "Errore durante l'aggiornamento del libro: " + e.getMessage());
 			return "redirect:/admin/edit/book/" + id;
 		}
@@ -236,7 +235,7 @@ public class BookController {
 
 
 	/* 
-	  		ADD BOOK
+	  			ADD BOOK
 	 */
 
 	@GetMapping("/admin/formAddBook")
