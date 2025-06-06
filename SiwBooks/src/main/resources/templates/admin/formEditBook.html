@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Book</title>
+	<link rel="icon" th:href="@{/library.ico?v=1}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/main-style.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/formAddBook.css}">
+
+</head>
+
+<body>
+	<!-- HEADER importato -->
+	<div th:insert="~{fragments/header :: header}"></div>
+
+	<!-- SECTION -->
+	<section>
+		<div th:if="${book}" class="book-container">
+			<form th:action="@{'/admin/editBook/' + ${book.id}}" method="POST" enctype="multipart/form-data" th:object="${book}">
+				
+				<!-- Debug: mostra tutti gli errori di validazione -->
+				<div th:if="${#fields.hasAnyErrors()}" class="alert alert-error">
+				    <h4>Errori di validazione:</h4>
+				    <ul>
+				        <li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+				    </ul>
+				</div>
+				
+				<!-- Titolo -->
+				<div class="form-group">
+					<label class="form-label">Titolo:</label>
+					<input type="text" th:field="*{title}" class="form-input" placeholder="Inserisci il titolo" />
+					<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-message"></span>
+				</div>
+
+				<!-- Anno -->
+				<div class="form-group">
+					<label class="form-label">Anno di pubblicazione:</label>
+					<input type="number" th:field="*{yearOfPublication}" class="form-input" placeholder="YYYY" />
+					<span th:if="${#fields.hasErrors('yearOfPublication')}" th:errors="*{yearOfPublication}"
+						class="error-message"></span>
+				</div>
+
+				<!-- Autori del libro -->
+				<div class="form-group authors-group">
+					<label class="form-label">Seleziona Autori da Eliminare:</label>
+					<div class="authors-container">
+						<div class="author-item" th:each="author : ${bookAuthors}">
+							<input type="checkbox" name="unSelectedAuthors" th:value="${author.id}"
+								th:id="'author_' + ${author.id}" class="author-checkbox"
+								th:checked="${unSelectedAuthorIds != null and #lists.contains(unSelectedAuthorIds, author.id)}" />
+							<label th:for="'author_' + ${author.id}" class="author-label">
+								<span class="checkmark"></span>
+								<span th:text="${author.name + ' ' + author.surname}" class="author-name"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<!-- Autori da aggiungere -->
+				<div class="form-group authors-group">
+					<label class="form-label">Seleziona Autori da Aggiungere:</label>
+					<div class="authors-container">
+						<div class="author-item" th:each="author : ${otherAuthors}">
+							<input type="checkbox" name="selectedAuthors" th:value="${author.id}"
+								th:id="'author_' + ${author.id}" class="author-checkbox"
+								th:checked="${selectedAuthorIds != null and #lists.contains(selectedAuthorIds, author.id)}" />
+							<label th:for="'author_' + ${author.id}" class="author-label">
+								<span class="checkmark"></span>
+								<span th:text="${author.name + ' ' + author.surname}" class="author-name"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<!-- Copertina -->
+				<div class="form-group file-upload-group">
+					<label class="form-label">Copertina:</label>
+					<img th:if="${book.cover}" th:src="@{'/images/' + ${book.cover.id}}" alt="Copertina libro" class="book-cover" />
+					<div class="custom-file-upload">
+						<input type="file" name="coverFile" id="coverFile" accept="image/*" class="file-input" />
+						<label for="coverFile" class="file-label">
+							<i class="fa-solid fa-image"></i>
+							<span class="file-text">Scegli un file se vuoi cambiare la cover</span>
+						</label>
+						<span class="file-name" id="fileName">Nessun file selezionato</span>
+					</div>
+				</div>
+
+				<!-- Submit Button -->
+				<button type="submit" class="submit-btn">
+					<i class="fa-solid fa-floppy-disk"></i>
+					Salva Libro
+				</button>
+			</form>
+		</div>
+
+		<div th:unless="${book}" class="no-book">
+			<p>Libro non trovato</p>
+		</div>
+	</section>
+
+	<!-- FOOTER importato -->
+	<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>

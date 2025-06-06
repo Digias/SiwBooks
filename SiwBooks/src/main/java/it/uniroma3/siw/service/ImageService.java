@@ -25,6 +25,13 @@ public class ImageService {
 		image.setData(file.getBytes());
 		imageRepository.save(image);
 	}
+	
+	public Image save(MultipartFile file) throws IOException {
+		Image image = new Image();
+		image.setData(file.getBytes());
+		imageRepository.save(image);
+		return image;
+	}
 
 	public Image saveImage(Image image) {
 		return imageRepository.save(image);

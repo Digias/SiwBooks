@@ -49,9 +49,10 @@
 				</div>
 
 				<a th:href="${backUrl}" class="button">
-					<i class="fa-solid fa-arrow-left"></i> Torna ai libri
+					<i class="fa-solid fa-arrow-left"></i>
+					<span th:text="${backUrl == '/book' ? 'Torna ai libri' : 'Torna indietro'}"></span>
 				</a>
-				<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/admin/book/edit/' + ${book.id}}" class="button">
+				<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/admin/edit/book/' + ${book.id}}" class="button">
 					<i class="fa-solid fa-pen"></i> Modifica informazioni
 				</a>
 

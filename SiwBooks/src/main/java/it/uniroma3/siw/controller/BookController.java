@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
@@ -22,6 +23,7 @@ import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.ImageService;
 import it.uniroma3.siw.service.ReviewService;
 import it.uniroma3.siw.utils.SecurityUtils;
 import jakarta.transaction.Transactional;
@@ -35,11 +37,12 @@ public class BookController {
 	@Autowired private ReviewService reviewService;
 	@Autowired private CredentialsService credentialsService;
 	@Autowired private SecurityUtils securityUtils;
+	@Autowired private ImageService imageService;
 
 	/*
 				ALL BOOKS
 	 */
-	
+
 	@GetMapping("/book")
 	public String showBooks(Model model) {
 		model.addAttribute("books", this.bookService.getAllBooks());
@@ -66,7 +69,7 @@ public class BookController {
 	/*
 				10 BEST BOOK BY RATING	
 	 */
-	
+
 	@Transactional
 	@GetMapping("/registered/bestRating")
 	public String showBestRating(Model model) {
@@ -81,7 +84,7 @@ public class BookController {
 
 		return "login.html";
 	}
-	
+
 	/*
 				SEARCH BOOK 
 	 */
@@ -134,6 +137,103 @@ public class BookController {
 
 		return "search.html";
 	}
+
+
+	/* 
+    			EDIT BOOK
+	 */
+
+	@GetMapping("/admin/edit/book/{id}")
+	public String formEditBook(@PathVariable("id") Long id, Model model) {
+		Book book = this.bookService.getBookbyId(id);
+		model.addAttribute("book", book);
+
+		Iterable<Author> bookAuthors = this.bookService.findAuthorsByBookId(id);
+		model.addAttribute("bookAuthors", bookAuthors);
+		model.addAttribute("otherAuthors", this.authorService.findAllExcludingAuthors((List<Author>) bookAuthors));
+
+		return "admin/formEditBook.html";
+	}
+
+	@PostMapping("/admin/editBook/{id}")
+	public String editBook(@PathVariable("id") Long id, 
+			@Valid @ModelAttribute Book book,
+			BindingResult bindingResult,
+			@RequestParam(value = "selectedAuthors", required = false) Set<Long> selectedAuthorIds,
+			@RequestParam(value = "unSelectedAuthors", required = false) Set<Long> unSelectedAuthorIds,
+			@RequestParam(value = "coverFile", required = false) MultipartFile coverFile,
+			Model model,
+			RedirectAttributes redirectAttributes) {
+
+		// Se ci sono errori di validazione, ritorna al form
+		if (bindingResult.hasErrors()) {
+			// Ricarica i dati necessari per il form
+			Iterable<Author> bookAuthors = this.bookService.findAuthorsByBookId(id);
+			model.addAttribute("bookAuthors", bookAuthors);
+			model.addAttribute("otherAuthors", this.authorService.findAllExcludingAuthors((List<Author>) bookAuthors));
+			model.addAttribute("selectedAuthorIds", selectedAuthorIds);
+			model.addAttribute("unSelectedAuthorIds", unSelectedAuthorIds);
+			return "admin/formEditBook.html";
+		}
+
+		try {
+			// Recupera il libro esistente dal database
+			Book existingBook = this.bookService.getBookbyId(id);
+
+			// Aggiorna i campi del libro
+			existingBook.setTitle(book.getTitle());
+			existingBook.setYearOfPublication(book.getYearOfPublication());
+
+			// Gestione della copertina
+			if (coverFile != null && !coverFile.isEmpty()) {
+				// Se c'è una nuova copertina, gestiscila
+				// Elimina la vecchia copertina se esiste
+				if (existingBook.getCover() != null) {
+					this.imageService.deleteImage(existingBook.getCover().getId());
+				}
+
+				// Salva la nuova copertina
+				Image newCover = this.imageService.save(coverFile);
+				existingBook.setCover(newCover);
+			}
+
+			Set<Author> updateAuthor = existingBook.getAuthors();
+
+			// Gestione autori da rimuovere
+			if (unSelectedAuthorIds != null) {
+				Set<Author> authorsToRemove = this.authorService.getAuthorsByIds(unSelectedAuthorIds);
+				updateAuthor.removeAll(authorsToRemove);
+
+				// Aggiorna bidirezionalmente gli autori
+				 authorsToRemove.forEach(author -> author.getBooks().remove(existingBook));
+			}
+
+			// Aggiunta autori
+			if (selectedAuthorIds != null) {
+				Set<Author> authorsToAdd = this.authorService.getAuthorsByIds(selectedAuthorIds);
+				updateAuthor.addAll(authorsToAdd);
+				
+				// Aggiorna bidirezionalmente gli autori
+				authorsToAdd.forEach(author -> author.getBooks().add(existingBook));
+
+			}
+			
+			existingBook.setAuthors(updateAuthor);
+
+			// Salva il libro aggiornato
+			this.bookService.save(existingBook);
+
+			redirectAttributes.addFlashAttribute("successMessage", "Libro aggiornato con successo!");
+			return "redirect:/book/" + existingBook.getId();
+
+		} catch (Exception e) {
+			// Gestione errori
+			redirectAttributes.addFlashAttribute("errorMessage", "Errore durante l'aggiornamento del libro: " + e.getMessage());
+			return "redirect:/admin/edit/book/" + id;
+		}
+	}
+
+
 
 	/* 
 	  		ADD BOOK
