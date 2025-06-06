@@ -21,4 +21,8 @@ public interface AuthorRepository extends CrudRepository<Author, Long> {
 
     @Query("SELECT b FROM Author a JOIN a.books b WHERE a.id = :authorId")
     Iterable<Book> findBooksByAuthorId(@Param("authorId") Long authorId);
+    
+    @Query("SELECT a FROM Author a WHERE a NOT IN :authors")
+    Iterable<Author> findAllExcludingAuthors(@Param("authors") List<Author> authors);
+
 }
