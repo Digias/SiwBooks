@@ -34,12 +34,14 @@
 						<i th:class="${i <= review.rating} ? 'fas fa-star star filled' : 'fas fa-star star'"></i>
 					</span>
 				</div>
-				<form th:action="@{/admin/delete/book/{id}/review(id=${book.id})}" method="POST"
-					sec:authorize="hasAuthority('ADMIN')">
-					<button type="submit" class="button"><i class="fa-solid fa-trash-can"></i>
-						Elimina Recensione
+				
+				<form th:action="@{/admin/delete/book/{bookId}/review/{reviewId}(bookId=${book.id}, reviewId=${review.id}, from='backUrl')}"
+					method="POST" sec:authorize="hasAuthority('ADMIN')">
+					<button type="submit" class="button">
+						<i class="fa-solid fa-trash-can"></i> Elimina Recensione
 					</button>
 				</form>
+
 			</li>
 		</ul>
 		<a th:href="${backUrl}" class="button">
