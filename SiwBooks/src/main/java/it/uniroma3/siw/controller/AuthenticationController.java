@@ -20,86 +20,99 @@ import jakarta.validation.Valid;
 @Controller
 public class AuthenticationController {
 
-    @Autowired
-    private CredentialsService credentialsService;
+	@Autowired private CredentialsService credentialsService;
+	@Autowired private UserService userService;
+	@Autowired private SecurityUtils securityUtils;
 
-    @Autowired
-    private UserService userService;
+	/*
+			REGISTER FORM
+	 */
+	@GetMapping(value = "/register")
+	public String showRegisterForm(Model model) {
+		model.addAttribute("user", new User());
+		model.addAttribute("credentials", new Credentials());
+		return "formRegisterUser.html";
+	}
 
-    @Autowired
-    private SecurityUtils securityUtils;
+	/*
+			LOGIN FORM
+	 */
+	@GetMapping(value = "/login")
+	public String showLoginForm(Model model) {
+		return "formLogin";
+	}
 
-    @GetMapping(value = "/register")
-    public String showRegisterForm(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("credentials", new Credentials());
-        return "formRegisterUser.html";
-    }
+	/*
+			INDEX
+	 */
+	@GetMapping(value = "/")
+	public String index(Model model) {
+//		if (!securityUtils.isAuthenticated()) {
+//			return "index.html";
+//		}
+//
+//		Credentials credentials = securityUtils.getCurrentCredentials(credentialsService);
+//		if (credentials.getRole().equals(Role.ADMIN)) {
+//			return "index.html";
+//		}
 
-    @GetMapping(value = "/login")
-    public String showLoginForm(Model model) {
-        return "formLogin";
-    }
+		return "index.html";
+	}
 
-    @GetMapping(value = "/")
-    public String index(Model model) {
-        if (!securityUtils.isAuthenticated()) {
-            return "index.html";
-        }
+	/*
+			LOGIN/REGISTER SUCCESS
+	 */
+	@GetMapping(value = "/success")
+	public String defaultAfterLogin(Model model) {
+		Credentials credentials = securityUtils.getCurrentCredentials(credentialsService);
+		if (credentials != null && credentials.getRole().equals(Role.ADMIN)) {
+			return "index.html";
+		}
+		return "index.html";
+	}
 
-        Credentials credentials = securityUtils.getCurrentCredentials(credentialsService);
-        if (credentials.getRole().equals(Role.ADMIN)) {
-            return "index.html";
-        }
+	/*
+			PERSONAL AREA
+	 */
+	@GetMapping("/personalArea")
+	public String personalArea(Model model) {
+		if (!securityUtils.isAuthenticated()) {
+			return "login";
+		}
 
-        return "index.html";
-    }
+		Credentials credentials = securityUtils.getCurrentCredentials(credentialsService);
+		model.addAttribute("credentials", credentials);
+		model.addAttribute("user", credentials.getUser());
 
-    @GetMapping(value = "/success")
-    public String defaultAfterLogin(Model model) {
-        Credentials credentials = securityUtils.getCurrentCredentials(credentialsService);
-        if (credentials != null && credentials.getRole().equals(Role.ADMIN)) {
-            return "index.html";
-        }
-        return "index.html";
-    }
+		return "personalArea.html";
+	}
 
-    @GetMapping("/personalArea")
-    public String personalArea(Model model) {
-        if (!securityUtils.isAuthenticated()) {
-            return "login";
-        }
+	/*
+			ADD USER 
+	 */
+	@PostMapping(value = { "/register" })
+	public String registerUser(@Valid @ModelAttribute("user") User user,
+			BindingResult userBindingResult,
+			@Valid @ModelAttribute("credentials") Credentials credentials,
+			@RequestParam("confirmPassword") String confirmPassword,
+			BindingResult credentialsBindingResult,
+			Model model) {
 
-        Credentials credentials = securityUtils.getCurrentCredentials(credentialsService);
-        model.addAttribute("credentials", credentials);
-        model.addAttribute("user", credentials.getUser());
+		if (!credentials.checkPassword(confirmPassword)) {
+			credentialsBindingResult.rejectValue("password", "error.credentials", "Le password non coincidono");
+		}
 
-        return "personalArea.html";
-    }
+		if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
+			userService.saveUser(user);
+			credentials.setUser(user);
+			credentialsService.saveCredentials(credentials);
+			model.addAttribute("user", user);
+			return "formLogin";
+		}
 
-    @PostMapping(value = { "/register" })
-    public String registerUser(@Valid @ModelAttribute("user") User user,
-                               BindingResult userBindingResult,
-                               @Valid @ModelAttribute("credentials") Credentials credentials,
-                               @RequestParam("confirmPassword") String confirmPassword,
-                               BindingResult credentialsBindingResult,
-                               Model model) {
-
-        if (!credentials.getPassword().equals(confirmPassword)) {
-            credentialsBindingResult.rejectValue("password", "error.credentials", "Le password non coincidono");
-        }
-
-        if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
-            userService.saveUser(user);
-            credentials.setUser(user);
-            credentialsService.saveCredentials(credentials);
-            model.addAttribute("user", user);
-            return "formLogin";
-        }
-
-        model.addAttribute("user", user);
-        model.addAttribute("credentials", credentials);
-        return "formRegisterUser.html";
-    }
+		model.addAttribute("user", user);
+		model.addAttribute("credentials", credentials);
+		return "formRegisterUser.html";
+	}
 
 }

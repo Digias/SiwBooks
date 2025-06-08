@@ -70,5 +70,9 @@ public class Credentials {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+	
+	public boolean checkPassword(String password) {
+		return this.password.equals(password);
+	}
 
 }

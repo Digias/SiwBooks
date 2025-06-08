@@ -29,12 +29,18 @@ public class AuthorController {
 	@Autowired private AuthorService authorService;
 	@Autowired private BookService bookService;
 
+	/*
+			ALL AUTHORS
+	 */
 	@GetMapping("/author")
 	public String showAuthors(Model model) {
 		model.addAttribute("authors", this.authorService.getAllAuthors());
 		return "authors.html";
 	}
 
+	/*
+			SPECIFIC AUTHOR
+	 */
 	@GetMapping("/author/{id}")
 	public String showAuthors(@PathVariable("id") Long id, @RequestParam(name = "from", defaultValue = "/author") String from, Model model, HttpServletRequest request) {
 		Author author = this.authorService.getAuthorById(id);
@@ -46,6 +52,9 @@ public class AuthorController {
 		return "author.html";
 	}
 
+	/*
+			ADD AUTHOR
+	 */
 	@GetMapping("/admin/formAddAuthor")
 	public String formAddAuthor(Model model) {
 		model.addAttribute("books", this.bookService.getAllBooks());

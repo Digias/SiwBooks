@@ -17,12 +17,15 @@ public class ImageController {
     @Autowired
     private ImageService imageService;
 
+    /*
+			UPLOAD IMAGE FORM DB TO WEB
+     */
     @GetMapping("/{id}")
     @Transactional(readOnly = true)
     public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
         Optional<Image> image = imageService.getImage(id);
         return image.map(img -> ResponseEntity.ok()
-                        .contentType(MediaType.IMAGE_JPEG) // Usa IMAGE_PNG se necessario
+                        .contentType(MediaType.IMAGE_JPEG)
                         .body(img.getData()))
                     .orElseGet(() -> ResponseEntity.notFound().build());
     }
