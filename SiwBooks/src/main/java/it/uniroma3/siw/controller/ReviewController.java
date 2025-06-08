@@ -26,7 +26,10 @@ public class ReviewController {
 	@Autowired private BookService bookService;
 	@Autowired private SecurityUtils securityUtils;
 	@Autowired private CredentialsService credentialsService;
-	
+
+	/*
+			ADD REVIEW
+	 */
 	@PostMapping("/registered/addReview")
 	public String addReview(
 			@Valid @ModelAttribute("newReview") Review review,
@@ -37,11 +40,11 @@ public class ReviewController {
 		if(!this.securityUtils.isAuthenticated()) {
 			bindingResult.addError(null);
 		}
-		
+
 		if(!this.securityUtils.hasRegisteredOrAdminAccess(this.credentialsService)) {
 			bindingResult.addError(null);
 		}
-		
+
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("book", bookService.getBookbyId(bookId)); // Ricarica il libro
 			return "book-details";
@@ -58,18 +61,47 @@ public class ReviewController {
 
 		return "redirect:/book/" + bookId;
 	}
-	
+
+	/*
+			ALL REVIEWS
+	 */
 	@GetMapping("/registered/book/{bookId}/review")
-	public String showReview(@PathVariable("bookId") Long bookId,
+	public String showReviews(@PathVariable("bookId") Long bookId,
 			@RequestParam(name = "from", defaultValue = "/book") String from, 
 			Model model) {
+
+		if(!this.securityUtils.isAuthenticated())
+			return "/book/" + bookId;
+
 		Book book = this.bookService.getBookbyId(bookId);
 		model.addAttribute("book", book);
 		model.addAttribute("reviews", this.reviewService.getReviewOfBook(book.getId()));
 		model.addAttribute("backUrl", from);
+
 		return "registered/reviews.html";
 	}
-	
-	
+
+	/*
+			DELETE REVIEW
+	 */
+	@PostMapping("/admin/delete/book/{bookId}/review/{reviewId}")
+	public String deleteReview(@PathVariable("bookId") Long bookId,
+			@PathVariable("reviewId") Long reviewId,
+			@RequestParam(name = "from", defaultValue = "/book") String from,
+			Model model) {
+
+		if(!this.securityUtils.isAdmin(credentialsService))
+			return "/book/" + bookId;
+
+		Book book = this.bookService.getBookbyId(bookId);
+		Review review = this.reviewService.getReviewById(reviewId);
+
+		book.getReviews().remove(review);
+
+		this.bookService.save(book);
+		this.reviewService.deleteReview(review);
+
+		return "redirect:/registered/book/" + bookId + "/review";
+	}
 
 }
