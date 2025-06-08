@@ -24,4 +24,8 @@ public class ReviewService {
 	public List<Review> getLast5Review(Book book) {
 	    return reviewRepository.findLast5ReviewsForBook(book);
 	}
+
+	public Iterable<Review> getReviewOfBook(Long id) {
+		return this.reviewRepository.findReviewsForBook(id);
+	}
 }

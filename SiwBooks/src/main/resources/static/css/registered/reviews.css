@@ -1,0 +1,281 @@
+/* Stili principali per la sezione recensioni */
+.review-section {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #FFF9F5;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(91, 62, 43, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.review-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, #E3AD7E, #5B3E2B);
+    border-radius: 15px 15px 0 0;
+}
+
+.section-title {
+    color: #5B3E2B;
+    font-size: 2.2rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #E3AD7E;
+    display: inline-block;
+    position: relative;
+}
+
+.section-title i {
+    margin-right: 12px;
+    color: #E3AD7E;
+}
+
+h3 {
+    color: #6B4226;
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 1.8rem;
+    font-weight: 600;
+}
+
+h3 span {
+    color: #5B3E2B;
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* Messaggio quando non ci sono recensioni */
+.no-review {
+    background-color: #F5C9AD;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #6B4226;
+    box-shadow: 0 4px 15px rgba(107, 66, 38, 0.1);
+    border-left: 4px solid #E3AD7E;
+    margin: 2rem 0;
+}
+
+/* Stile per la lista delle recensioni */
+.review-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 3rem;
+}
+
+.review-list li {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(107, 66, 38, 0.12);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid #E3AD7E;
+}
+
+.review-list li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(107, 66, 38, 0.18);
+}
+
+.review-list li::after {
+    content: '\f10d';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    color: rgba(227, 173, 126, 0.15);
+    font-size: 3.5rem;
+    z-index: 0;
+    opacity: 0.8;
+}
+
+.review-list h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #5B3E2B;
+    font-size: 1.4rem;
+    position: relative;
+    z-index: 1;
+    border-bottom: 2px dashed #F5C9AD;
+    padding-bottom: 10px;
+}
+
+.review-text {
+    display: block;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    color: #6B4226;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(245, 201, 173, 0.1);
+    border-radius: 8px;
+    border-left: 3px solid #E3AD7E;
+}
+
+/* Stile per le stelle di valutazione */
+.review-rating {
+    display: flex;
+    margin-top: 15px;
+    gap: 5px;
+    margin-bottom: 25px;
+}
+
+.review-rating .star {
+    color: #ddd;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.review-rating .star.filled {
+    color: #E3AD7E;
+    text-shadow: 0 1px 3px rgba(107, 66, 38, 0.3);
+}
+
+/* Animazione per le stelle */
+@keyframes starPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.review-list li:hover .review-rating .star.filled {
+    animation: starPulse 0.5s ease-in-out;
+    color: #FF9E44;
+}
+
+/* Pulsante Elimina Recensione */
+.review-list form {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 1;
+}
+
+.review-list .button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 3px 8px rgba(231, 76, 60, 0.3);
+}
+
+.review-list .button:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(192, 57, 43, 0.4);
+}
+
+.review-list .button i {
+    font-size: 1.1rem;
+}
+
+/* Pulsante Torna Indietro */
+a.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 25px;
+    background-color: #5B3E2B;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(91, 62, 43, 0.3);
+    margin-top: 1rem;
+}
+
+a.button:hover {
+    background-color: #6B4226;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(107, 66, 38, 0.4);
+}
+
+a.button i {
+    transition: transform 0.3s ease;
+}
+
+a.button:hover i {
+    transform: translateX(-5px);
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+    .review-section {
+        padding: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .review-section {
+        margin: 1rem;
+        padding: 1.2rem;
+    }
+    
+    .section-title {
+        font-size: 1.7rem;
+    }
+    
+    .review-list li {
+        padding: 20px;
+    }
+    
+    .review-text {
+        padding: 10px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+    }
+    
+    .review-list li {
+        padding: 15px;
+    }
+    
+    .review-list .button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    
+    a.button {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+}

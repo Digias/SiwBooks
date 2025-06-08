@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+	<meta charset="UTF-8" />
+	<title>Ultime Recensioni</title>
+	<link rel="stylesheet" href="styles.css" />
+	<!-- Inclusione di Font Awesome per le icone -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
 <body>
 	<div th:fragment="lastReview" class="lastReviewNavbar">
-	    <h2>Le ultime recensioni</h2>
-	    <div th:if="${lastReview.isEmpty()}" class="no-review">Non ci sono recensioni nel sistema</div>
-	    <ul class="review-list">
-	        <li th:each="review : ${lastReview}">
-	            <h3 th:text="${review.title}"></h3>
-	            <span class="review-text" th:text="${review.text}"></span>
-	            <div class="review-rating">
-	                <!-- Genera tante stelle piene quanto il rating -->
-	                <span th:each="i: ${#numbers.sequence(1,5)}">
-	                    <i th:class="${i <= review.rating} ? 'fas fa-star star filled' : 'fas fa-star star'"></i>
-	                </span>
-	            </div>
-	        </li>
-	    </ul>
+		<h2>Le ultime recensioni</h2>
+		<a th:href="@{'/registered/book/' + ${book.id} + '/review'  + '?from=/book/' + ${book.id}}" class="reviews-button">
+			<i class="fa-solid fa-pen"></i> Tutte le recensioni
+		</a>
+		<div th:if="${lastReview.isEmpty()}" class="no-review">
+			Non ci sono recensioni nel sistema
+		</div>
+		<ul class="review-list">
+			<li th:each="review : ${lastReview}">
+				<h3 th:text="${review.title}"></h3>
+				<span class="review-text" th:text="${review.text}"></span>
+				<div class="review-rating">
+					<!-- Genera tante stelle piene quanto il rating -->
+					<span th:each="i: ${#numbers.sequence(1,5)}">
+						<i th:class="${i <= review.rating} ? 'fas fa-star star filled' : 'fas fa-star star'"></i>
+					</span>
+				</div>
+			</li>
+		</ul>
 	</div>
 </body>
 
