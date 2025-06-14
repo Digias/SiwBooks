@@ -27,5 +27,5 @@ Benvenuto in **SiwBooks**, un'applicazione per la gestione di libri e autori, co
 
 ---
 
-## 📌 To-do
-- [ ] ✏️ Modificare autori
+## 📌 To-fix
+- [ ] ✏️ Data in Modificare autori
