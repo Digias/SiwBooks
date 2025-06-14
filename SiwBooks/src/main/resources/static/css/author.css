@@ -90,7 +90,7 @@ h2 {
     color: #8C6649;
 }
 
-.back-button {
+.button {
     align-self: flex-end;
     background-color: #E3AD7E;
     color: #5B3E2B;
@@ -107,11 +107,11 @@ h2 {
     gap: 8px;
 }
 
-.back-button i {
+.button i {
     font-size: 1.2em;
 }
 
-.back-button:hover {
+.button:hover {
     background-color: #D2966E;
 }
 

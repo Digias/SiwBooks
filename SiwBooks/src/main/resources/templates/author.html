@@ -39,9 +39,12 @@
 				</ul>
 
 				<!-- Bottone in basso a destra -->
-				<a th:href="${backUrl}" class="back-button">
-				    <i class="fa-solid fa-arrow-left"></i>
-				    <span th:text="${backUrl == '/author' ? 'Torna agli autori' : 'Torna indietro'}"></span>
+				<a th:href="${backUrl}" class="button">
+					<i class="fa-solid fa-arrow-left"></i>
+					<span th:text="${backUrl == '/author' ? 'Torna agli autori' : 'Torna indietro'}"></span>
+				</a>
+				<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/admin/edit/author/' + ${author.id}}" class="button">
+					<i class="fa-solid fa-pen"></i> Modifica informazioni
 				</a>
 			</div>
 		</div>

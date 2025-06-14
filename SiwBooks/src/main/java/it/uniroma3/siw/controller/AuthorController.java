@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,23 @@ public class AuthorController {
 		model.addAttribute("backUrl", from);
 
 		return "author.html";
+	}
+
+	/* 
+			EDIT AUTHOR
+	 */
+
+	@GetMapping("/admin/edit/author/{id}")
+	public String formEditBook(@PathVariable("id") Long id, Model model) {
+		Author author = this.authorService.getAuthorById(id);
+		model.addAttribute("author", author);
+		model.addAttribute("photo", author.getPhoto());
+		
+		Iterable<Book> authorBooks = this.authorService.findBooksByAuthorId(id);
+		model.addAttribute("authorBooks", authorBooks);
+		model.addAttribute("otherBooks", this.bookService.findAllExcludingBooks((List<Book>) authorBooks));
+		
+		return "admin/formEditAuthor.html";
 	}
 
 	/*

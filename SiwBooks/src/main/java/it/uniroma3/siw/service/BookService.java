@@ -61,6 +61,10 @@ public class BookService {
 		booksIterable.forEach(booksSet::add);
 		return booksSet;
 	}
+
+	public  Iterable<Book> findAllExcludingBooks(List<Book> books) {
+		return this.bookRepository.findAllExcludingBooks(books);
+	}
 	
 /*
 	public List<Book> findByTitleContainingIgnoreCaseAndMinRating(String query, int minRating) {

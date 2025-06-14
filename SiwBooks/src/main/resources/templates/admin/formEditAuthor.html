@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Book</title>
+	<link rel="icon" th:href="@{/library.ico?v=1}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/main-style.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/formAddBook.css}">
+
+</head>
+
+<body>
+	<!-- HEADER importato -->
+	<div th:insert="~{fragments/header :: header}"></div>
+
+	<!-- SECTION -->
+	<section>
+		<div th:if="${author}" class="book-container">
+			<form th:action="@{'/admin/editAuthor/' + ${author.id}}" method="POST" enctype="multipart/form-data"
+				th:object="${author}">
+
+				<!-- Debug: mostra tutti gli errori di validazione -->
+				<div th:if="${#fields.hasAnyErrors()}" class="alert alert-error">
+					<h4>Errori di validazione:</h4>
+					<ul>
+						<li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+					</ul>
+				</div>
+
+				<!-- Nome -->
+				<div class="form-group">
+					<label class="form-label">Nome:</label>
+					<input type="text" th:field="*{name}" class="form-input" placeholder="Inserisci il nome" />
+					<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></span>
+				</div>
+
+				<!-- Cognome -->
+				<div class="form-group">
+					<label class="form-label">Cognome:</label>
+					<input type="text" th:field="*{surname}" class="form-input" placeholder="Inserisci il cognome" />
+					<span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="error-message"></span>
+				</div>
+
+				<!-- Nazionalità -->
+				<div class="form-group">
+					<label class="form-label">Nazionalità:</label>
+					<input type="text" th:field="*{nationality}" class="form-input" placeholder="Inserisci la nazionalità" />
+					<span th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}" class="error-message"></span>
+				</div>
+
+				<!-- Anno Di Nascita-->
+				<div class="form-group">
+					<label class="form-label">Anno di nascita:</label>
+					<input type="date" th:field="*{dateOfBirth}" class="form-input"
+						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+					<span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"
+						class="error-message"></span>
+				</div>
+
+				<!-- Anno Di Morte-->
+				<div class="form-group">
+					<label class="form-label">Anno di nascita:</label>
+					<input type="date" th:field="*{dateOfDeath}" class="form-input"
+						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+					<span th:if="${#fields.hasErrors('dateOfDeath')}" th:errors="*{dateOfDeath}"
+						class="error-message"></span>
+				</div>
+
+				<!-- Libri dell'autore -->
+				<div class="form-group authors-group">
+					<label class="form-label">Seleziona Libri da Eliminare:</label>
+					<div class="authors-container">
+						<div class="author-item" th:each="book : ${authorBooks}">
+							<input type="checkbox" name="unSelectedBooks" th:value="${book.id}"
+								th:id="'book_' + ${book.id}" class="author-checkbox"
+								th:checked="${unSelectedBooksIds != null and #lists.contains(unSelectedBooksIds, book.id)}" />
+							<label th:for="'book_' + ${book.id}" class="author-label">
+								<span class="checkmark"></span>
+								<span th:text="${book.title}" class="author-name"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<!-- Libri da aggiungere -->
+				<div class="form-group authors-group">
+					<label class="form-label">Seleziona Libri da Aggiungere:</label>
+					<div class="authors-container">
+						<div class="author-item" th:each="book : ${otherBooks}">
+							<input type="checkbox" name="selectedBooks" th:value="${book.id}"
+								th:id="'book_' + ${book.id}" class="author-checkbox"
+								th:checked="${selectedBookIds != null and #lists.contains(selectedBookIds, book.id)}" />
+							<label th:for="'book_' + ${book.id}" class="author-label">
+								<span class="checkmark"></span>
+								<span th:text="${book.title}" class="author-name"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<!-- Foto -->
+				<div class="form-group file-upload-group">
+					<label class="form-label">Foto:</label>
+					<img th:if="${photo}" th:src="@{'/images/' + ${photo.id}}" alt="Foto autore" class="book-cover" />
+					<div class="custom-file-upload">
+						<input type="file" name="photoFile" id="photoFile" accept="image/*" class="file-input" />
+						<label for="photoFile" class="file-label">
+							<i class="fa-solid fa-image"></i>
+							<span class="file-text">Scegli un file se vuoi cambiare la foto</span>
+						</label>
+						<span class="file-name" id="fileName">Nessun file selezionato</span>
+					</div>
+				</div>
+
+				<!-- Submit Button -->
+				<button type="submit" class="submit-btn">
+					<i class="fa-solid fa-floppy-disk"></i>
+					Salva Autore
+				</button>
+			</form>
+		</div>
+
+		<div th:unless="${author}" class="no-book">
+			<p>Autore non trovato</p>
+		</div>
+	</section>
+
+	<!-- FOOTER importato -->
+	<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>
