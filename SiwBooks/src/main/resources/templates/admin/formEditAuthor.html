@@ -52,8 +52,7 @@
 				<!-- Anno Di Nascita-->
 				<div class="form-group">
 					<label class="form-label">Anno di nascita:</label>
-					<input type="date" th:field="*{dateOfBirth}" class="form-input"
-						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+					<input type="date" th:field="*{dateOfBirth}" class="form-input"/>
 					<span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"
 						class="error-message"></span>
 				</div>
@@ -61,8 +60,7 @@
 				<!-- Anno Di Morte-->
 				<div class="form-group">
 					<label class="form-label">Anno di nascita:</label>
-					<input type="date" th:field="*{dateOfDeath}" class="form-input"
-						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+					<input type="date" th:field="*{dateOfDeath}" class="form-input"/>
 					<span th:if="${#fields.hasErrors('dateOfDeath')}" th:errors="*{dateOfDeath}"
 						class="error-message"></span>
 				</div>

@@ -56,4 +56,11 @@ public class AuthorService {
 		this.authorRepository.saveAll(authors);		
 	}
 
+	public Set<Book> getBooksByAuthorId(Long id) {
+		Iterable<Book> booksIterable = this.authorRepository.findBooksByAuthorId(id);
+		Set<Book> booksSet = new HashSet<>();
+		booksIterable.forEach(booksSet::add);
+		return booksSet;
+	}
+
 }
