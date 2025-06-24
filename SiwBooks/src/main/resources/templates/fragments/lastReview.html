@@ -12,7 +12,7 @@
 <body>
 	<div th:fragment="lastReview" class="lastReviewNavbar">
 		<h2>Le ultime recensioni</h2>
-		<a th:href="@{'/registered/book/' + ${book.id} + '/review'  + '?from=/book/' + ${book.id}}" class="reviews-button">
+		<a sec:authorize="hasAnyAuthority('ADMIN','REGISTERED')" th:href="@{'/registered/book/' + ${book.id} + '/review'  + '?from=/book/' + ${book.id}}" class="reviews-button">
 			<i class="fa-solid fa-pen"></i> Tutte le recensioni
 		</a>
 		<div th:if="${lastReview.isEmpty()}" class="no-review">

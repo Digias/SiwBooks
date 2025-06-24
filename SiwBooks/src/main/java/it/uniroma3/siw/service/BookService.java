@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
+import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.repository.BookRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -65,6 +66,14 @@ public class BookService {
 	public  Iterable<Book> findAllExcludingBooks(List<Book> books) {
 		return this.bookRepository.findAllExcludingBooks(books);
 	}
+
+    public void delete(Book book) {
+		this.bookRepository.delete(book);
+	}
+
+    public Iterable<Review> findReviewsByBookId(Long id) {
+       return this.bookRepository.findReviewsByBookId(id);
+    }
 	
 /*
 	public List<Book> findByTitleContainingIgnoreCaseAndMinRating(String query, int minRating) {

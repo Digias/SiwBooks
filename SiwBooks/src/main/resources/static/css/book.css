@@ -120,6 +120,10 @@
 	gap: 10px;
 }
 
+form{
+	align-self: flex-end;
+}
+
 .button:hover {
 	background-color: #D2966E;
 	transform: translateX(-3px);

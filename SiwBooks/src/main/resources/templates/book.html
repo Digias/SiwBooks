@@ -55,6 +55,12 @@
 				<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/admin/edit/book/' + ${book.id}}" class="button">
 					<i class="fa-solid fa-pen"></i> Modifica informazioni
 				</a>
+				<form th:action="@{/admin/delete/book/{bookId}(bookId=${book.id}, from='backUrl')}"
+					method="POST" sec:authorize="hasAuthority('ADMIN')">
+					<button type="submit" class="button">
+						<i class="fa-solid fa-trash-can"></i> Elimina Libro
+					</button>
+				</form>
 
 			</div>
 		</div>
@@ -63,9 +69,9 @@
 			<p>Libro non trovato</p>
 		</div>
 
-		<div sec:authorize="hasAnyAuthority('ADMIN','REGISTERED')" class="reviews-section">
+		<div class="reviews-section">
 			<div th:insert="~{fragments/lastReview :: lastReview}" class="last-review"></div>
-			<div th:insert="~{fragments/newReview :: newReview}"></div>
+			<div sec:authorize="hasAnyAuthority('ADMIN','REGISTERED')" th:insert="~{fragments/newReview :: newReview}"></div>
 		</div>
 	</section>
 

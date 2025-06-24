@@ -32,15 +32,21 @@ import jakarta.validation.Valid;
 @Controller
 public class BookController {
 
-	@Autowired private BookService bookService;
-	@Autowired private AuthorService authorService;
-	@Autowired private ReviewService reviewService;
-	@Autowired private CredentialsService credentialsService;
-	@Autowired private SecurityUtils securityUtils;
-	@Autowired private ImageService imageService;
+	@Autowired
+	private BookService bookService;
+	@Autowired
+	private AuthorService authorService;
+	@Autowired
+	private ReviewService reviewService;
+	@Autowired
+	private CredentialsService credentialsService;
+	@Autowired
+	private SecurityUtils securityUtils;
+	@Autowired
+	private ImageService imageService;
 
 	/*
-				ALL BOOKS
+	 * ALL BOOKS
 	 */
 
 	@GetMapping("/book")
@@ -50,12 +56,12 @@ public class BookController {
 	}
 
 	/*
-				SPECIFIC BOOK
+	 * SPECIFIC BOOK
 	 */
 
 	@GetMapping("/book/{bookId}")
-	public String getBook(@PathVariable("bookId") Long bookId, 
-			@RequestParam(name = "from", defaultValue = "/book") String from, 
+	public String getBook(@PathVariable("bookId") Long bookId,
+			@RequestParam(name = "from", defaultValue = "/book") String from,
 			Model model) {
 		Book book = this.bookService.getBookbyId(bookId);
 		model.addAttribute("book", book);
@@ -69,7 +75,7 @@ public class BookController {
 	}
 
 	/*
-				10 BEST BOOK BY RATING	
+	 * 10 BEST BOOK BY RATING
 	 */
 
 	@Transactional
@@ -88,7 +94,7 @@ public class BookController {
 	}
 
 	/*
-				SEARCH BOOK 
+	 * SEARCH BOOK
 	 */
 
 	@GetMapping("/registered/search")
@@ -127,7 +133,7 @@ public class BookController {
 
 		if (inBooks) {
 			List<Book> books = this.bookService.findBooksByTitle(query);
-			if(byRating) {
+			if (byRating) {
 				List<Book> ratingBook = this.bookService.findBooksByRating(rating.intValue());
 				books.retainAll(ratingBook);
 			}
@@ -140,9 +146,8 @@ public class BookController {
 		return "search.html";
 	}
 
-
-	/* 
-    			EDIT BOOK
+	/*
+	 * EDIT BOOK
 	 */
 
 	@GetMapping("/admin/edit/book/{id}")
@@ -159,7 +164,7 @@ public class BookController {
 	}
 
 	@PostMapping("/admin/editBook/{id}")
-	public String editBook(@PathVariable("id") Long id, 
+	public String editBook(@PathVariable("id") Long id,
 			@Valid @ModelAttribute Book book,
 			BindingResult bindingResult,
 			@RequestParam(value = "selectedAuthors", required = false) Set<Long> selectedAuthorIds,
@@ -224,19 +229,20 @@ public class BookController {
 			return "redirect:/book/" + existingBook.getId();
 
 		} catch (Exception e) {
-			System.out.println("=========================================================================================================================================================================================");
+			System.out.println(
+					"=========================================================================================================================================================================================");
 			System.out.println("Error: " + e.getMessage());
-			System.out.println("=========================================================================================================================================================================================");
+			System.out.println(
+					"=========================================================================================================================================================================================");
 
-			redirectAttributes.addFlashAttribute("errorMessage", "Errore durante l'aggiornamento del libro: " + e.getMessage());
+			redirectAttributes.addFlashAttribute("errorMessage",
+					"Errore durante l'aggiornamento del libro: " + e.getMessage());
 			return "redirect:/admin/edit/book/" + id;
 		}
 	}
 
-
-
-	/* 
-	  			ADD BOOK
+	/*
+	 * ADD BOOK
 	 */
 
 	@GetMapping("/admin/formAddBook")
@@ -287,5 +293,29 @@ public class BookController {
 
 		bookService.save(newBook);
 		return "redirect:/book/" + newBook.getId();
+	}
+
+	/*
+	 * DELETE BOOK
+	 */
+	@PostMapping("/admin/delete/book/{id}")
+	public String deleteBook(@PathVariable("id") Long id,
+			@RequestParam(name = "from", defaultValue = "/book") String from,
+			Model model) {
+
+		if (!this.securityUtils.isAdmin(credentialsService)) {
+			return "/book/" + id;
+		}
+
+		Book book = this.bookService.getBookbyId(id);
+
+		this.bookService.getAuthorsByBookId(id).forEach(
+				author -> author.getBooks().remove(book));
+
+		this.bookService.findReviewsByBookId(id).forEach(
+				review -> this.reviewService.deleteReview(review));
+
+		this.bookService.delete(book);
+		return "redirect:/book";
 	}
 }
